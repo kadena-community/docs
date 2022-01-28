@@ -70,21 +70,40 @@ module.exports = {
           position: "right",
           label: "Blog",
         },
-        {
-          href: "https://github.com/kadena-io/docs/issues/new",
-          position: "right",
-          label: "Feedback",
-        },
         // {
-        //     type: 'localeDropdown',
-        //     position: 'right',
-        //     dropdownItemsAfter: [
-        //       {
-        //           to: 'https://kadena.crowdin.com/',
-        //           label: 'Help us translate',
-        //       },
-        //     ]
+        //   href: "https://github.com/kadena-community/docs/issues/new",
+        //   position: "right",
+        //   label: "Feedback",
         // },
+        // {
+        //   href: "https://github.com/kadena-community/docs/discussions",
+        //   position: "right",
+        //   label: "Support",
+        // },
+        // {
+        //   href: "https://discord.com/invite/bsUcWmX",
+        //   position: "right",
+        //   label: "Discord",
+        // },
+        {
+          type: "dropdown",
+          label: "Support",
+          position: "right",
+          items: [
+            {
+              to: "https://github.com/kadena-community/docs/discussions",
+              label: "Discussions",
+            },
+            {
+              to: "https://github.com/kadena-community/docs/issues/new",
+              label: "Feedback",
+            },
+            {
+              to: "https://discord.com/channels/502858632178958377/502858632178958380",
+              label: "Discord",
+            },
+          ],
+        },
         {
           href: "https://github.com/kadena-io",
           position: "right",
