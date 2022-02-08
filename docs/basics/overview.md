@@ -1,5 +1,5 @@
 ---
-title: Overview of Kadena
+title: Introduction to Kadena
 description: Kadena makes blockchain work for everyone.
 ---
 
@@ -8,7 +8,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import YouTube from '@components/YouTube';
 
-# Overview of Kadena
+# Introduction to Kadena
 
 Kadena makes blockchain work for everyone.
 
