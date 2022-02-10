@@ -74,6 +74,7 @@ const sidebars = {
       ],
     },
     { type: "doc", label: "FAQ", id: "basics/faq" },
+    { type: "doc", label: "Contribute to Docs", id: "contribute/docs" },
     // {
     //   type: "category",
     //   label: "Resources",
