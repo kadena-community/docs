@@ -208,14 +208,14 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/kadena/kadena-docs/edit/main/",
+          editUrl: "https://github.com/kadena-community/docs/edit/master/",
           editUrl: ({ locale, versionDocsDirPath, docPath }) => {
             // Link to Crowdin for French docs
             if (locale !== DefaultLocale) {
               return `https://kadena.crowdin.com/kadena-docs/${locale}`;
             }
             // Link to Github for English docs
-            return `https://github.com/kadenna/kadena-docs/edit/main/docs/${docPath}`;
+            return `https://github.com/kadena-community/docs/edit/master/docs/${docPath}`;
           },
           routeBasePath: "/",
           remarkPlugins: [
