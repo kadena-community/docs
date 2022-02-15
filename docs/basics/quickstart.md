@@ -101,7 +101,7 @@ Create and fund a Testnet account using the “Coin Faucet” smart contract
 ### Step-by-step instructions
 
 1. In the Keys section of Chainweaver, copy your public key
-2. Go to faucet.testnet.chainweb.com
+2. Go to [faucet.testnet.chainweb.com](https://faucet.testnet.chainweb.com/)
 3. Select “Create and fund new account”
 4. In the “Public Key” field, enter your public key
 5. In the “Account Name” field, enter some unique name.
