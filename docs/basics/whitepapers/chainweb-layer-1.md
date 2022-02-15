@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 
 Kadena's public blockchain, Chainweb, is the only sharded and scalable layer-1
 PoW network in production today. It utilizes a PoW (Proof of Work) consensus
-mechanism that improves throughput and scala
+mechanism that improves throughput and scalalability without sacraficing security. 
 
 ---
 
