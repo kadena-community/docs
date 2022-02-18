@@ -1,6 +1,6 @@
 ---
 title: Kuro Layer 2
-description: Kuro has been proven to support up to 8,000 transactions per second across 500 nodes, and is available for evaluation on AWS and Azure. Lightning+BTC powers El Salvador, but Chainweb's layer 1 scalabl
+description: Kuro has been proven to support up to 8,000 transactions per second across 500 nodes, and is available for evaluation on AWS and Azure. Lightning+BTC powers El Salvador, but Chainweb's layer 1 scalability and Kuro's near instant finality can power the whole world. 
 ---
 
 import PageRef from '@components/PageRef'
@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 # Kuro Layer 2
 
-Kuro has been proven to support up to 8,000 transactions per second across 500 nodes, and is available for evaluation on AWS and Azure. Lightning+BTC powers El Salvador, but Chainweb's layer 1 scalabl
+Kuro has been proven to support up to 8,000 transactions per second across 500 nodes, and is available for evaluation on AWS and Azure. Lightning+BTC powers El Salvador, but Chainweb's layer 1 scalability and Kuro's near instant finality can power the whole world. 
 
 ---
 

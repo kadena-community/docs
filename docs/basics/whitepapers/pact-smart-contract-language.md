@@ -1,6 +1,6 @@
 ---
 title: Pact Smart Contract Language
-description: Pact makes designing safer smart contracts effortless, whether you’re writing your first contract or launching your fiftieth dApp. By automatically detecting bugs, Pact frees you from the exploits you
+description: Pact makes designing safer smart contracts effortless, whether you’re writing your first contract or launching your fiftieth dApp. It’s fundamentally different from other contract languages. It’s readable by non-developers. It automatically detects bugs, freeing you from the exploits you’ll face on Ethereum and other unsafe platforms. And it has been battle-tested in production applications for over two years.
 ---
 
 import PageRef from '@components/PageRef'
@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 # Pact smart contract language
 
-Pact makes designing safer smart contracts effortless, whether you’re writing your first contract or launching your fiftieth dApp. By automatically detecting bugs, Pact frees you from the exploits you
+Pact makes designing safer smart contracts effortless, whether you’re writing your first contract or launching your fiftieth dApp. It’s fundamentally different from other contract languages. It’s readable by non-developers. It automatically detects bugs, freeing you from the exploits you’ll face on Ethereum and other unsafe platforms. And it has been battle-tested in production applications for over two years.
 
 ---
 
