@@ -61,8 +61,8 @@ module.exports = {
           position: "left",
         },
         {
-          to: "/blog",
-          label: "Learn",
+          to: "learn-pact/intro",
+          label: "Learn Pact",
           position: "left",
         },
         {
