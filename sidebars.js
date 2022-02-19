@@ -184,7 +184,33 @@ const sidebars = {
   // Learn
   // ######################################
 
-  learn: [{ type: "doc", label: "Introduction", id: "learn/introduction" }],
+  learn: [
+    { type: "doc", label: "Introduction", id: "learn-pact/intro" },
+    { type: "doc", label: "Beginner", id: "learn-pact/beginner/welcome-to-pact" },
+    { type: "doc", label: "Intermediate", id: "learn-pact/intermediate/deploy-to-a-local-server" }
+     
+  ],
+  beginner: [
+    { type: "doc", label: "Welcome to Pact", id: "learn-pact/beginner/welcome-to-pact" },
+    { type: "doc", label: "Web Editor", id: "learn-pact/beginner/web-editor" },
+    { type: "doc", label: "Hello World", id: "learn-pact/beginner/hello-world" },
+    { type: "doc", label: "Language Basics", id: "learn-pact/beginner/language-basics" },
+    { type: "doc", label: "Modules", id: "learn-pact/beginner/modules" },
+    { type: "doc", label: "Keysets", id: "learn-pact/beginner/keysets" },
+    { type: "doc", label: "Schemas and Tables", id: "learn-pact/beginner/schemas-and-tables" },
+    { type: "doc", label: "Atom SDK", id: "learn-pact/beginner/atom-sdk" },
+    { type: "doc", label: "Accounts and Transfers", id: "learn-pact/beginner/accounts-and-transfers" },
+    { type: "doc", label: "Contract Interaction", id: "learn-pact/beginner/contract-interaction" },
+    { type: "doc", label: "Project: Rotatable Wallet", id: "learn-pact/beginner/rotatable-wallet" },
+    { type: "doc", label: "Project: Loans", id: "learn-pact/beginner/loans" },
+    { type: "doc", label: "Test in the SDK", id: "learn-pact/beginner/test-in-the-sdk" }
+  ],
+  intermediate: [
+    { type: "doc", label: "Deploy a Local Server", id: "learn-pact/intermediate/deploy-to-a-local-server" },
+    { type: "doc", label: "Pact and Javascript", id: "learn-pact/intermediate/pact-and-javascript" },
+    { type: "doc", label: "Safety Using Control Flow", id: "learn-pact/intermediate/safety-using-control-flow" },
+    { type: "doc", label: "Interfaces with Pact", id: "learn-pact/intermediate/interfaces-with-pact" }
+  ],
 
   // ######################################
   // Contribute

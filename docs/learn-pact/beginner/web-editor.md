@@ -1,5 +1,5 @@
 ---
-title: Online Editor
+title: Web Editor
 description: Kadena makes blockchain work for everyone.
 tags: [pact, beginner]
 hide_table_of_contents: false
@@ -9,11 +9,11 @@ import PageRef from '@components/PageRef'
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Pact Online Editor
+# Chainweaver Web Pact Editor
 
-Welcome to this tutorial on the Pact Online Editor!
+Welcome to this tutorial on the Chainweaver Web Pact Editor!
 
-In this tutorial, you’ll learn about the Pact Online editor, a powerful tool for developing smart contracts with Pact.
+In this tutorial, you’ll learn about the Chainweaver Web Pact Editor, a powerful tool for developing smart contracts with Pact.
 
 **Topics covered in this tutorial**
 
@@ -26,13 +26,13 @@ The goal of this tutorial is to get you familiar with each of the editor’s pow
 
 :::note Key Takeaway
 
-The Pact Online Editor is a robust development environment for Pact. It gives you access to many useful features for smart contract development. These features allow you to easily build and test contracts before deploying them to either your private chain or <a href="https://medium.com/kadena-io/all-about-chainweb-101-and-faqs-6bd88c325b45" target="_blank">Chainweb</a>.
+The Chainweaver Web Pact Editor is a robust development environment for Pact. It gives you access to many useful features for smart contract development. These features allow you to easily build and test contracts before deploying them to either your private chain or <a href="https://medium.com/kadena-io/all-about-chainweb-101-and-faqs-6bd88c325b45" target="_blank">Chainweb</a>.
 
 :::
 
 <!--truncate-->
 
-## Pact Online Editor Tutorial
+## Chainweaver Web Pact Editor Tutorial
 
 <iframe width="720" height="405" src="https://www.youtube.com/embed/lA6lGmlAhmw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -40,9 +40,9 @@ Subscribe to our <a href="https://www.youtube.com/channel/UCB6-MaxD2hlcGLL70ukHo
 
 ## Introduction to the Editor
 
-The Pact Online Editor is a web-based REPL that allows you to write Pact code, manage keysets, deploy smart contracts, and explore other smart contracts. These and many other features make the online editor an ideal place to build, test, and deploy your smart contracts.
+The Chainweaver Web Pact Editor is a web-based REPL that allows you to write Pact code, manage keysets, deploy smart contracts, and explore other smart contracts. These and many other features make the online editor an ideal place to build, test, and deploy your smart contracts.
 
-To get started with the Pact Online Editor, navigate to <a href="https://pact.kadena.io/" target="_blank">pact.kadena.io/</a>.
+To get started with the Chainweaver Web Pact Editor, navigate to <a href="https://chainweaver.chainweb.network/" target="_blank">chainweaver.chainweb.network</a>.
 
 ![1-pact-kadena](./assets/beginner-tutorials/pact-online-editor/1-pact-kadena.jpeg)
 
@@ -74,7 +74,7 @@ Selecting “Load into REPL” loads text from the editor into the REPL and exec
 
 ### Deploy
 
-The deploy button is used to deploy smart contracts onto the blockchain. Select Deploy to view the features available to you. Here you’ll have the option to choose a server, set a few settings, sign the transaction and more. This tutorial doesn't go over the details of each of these options. If you'd like, view Hello World with Pact for a full description of smart contract deployment with the Online Editor.
+The deploy button is used to deploy smart contracts onto the blockchain. Select Deploy to view the features available to you. Here you’ll have the option to choose a server, set a few settings, sign the transaction and more. This tutorial doesn't go over the details of each of these options. If you'd like, view Hello World with Pact for a full description of smart contract deployment with the Web Editor.
 
 ![16-deploy](./assets/beginner-tutorials/pact-online-editor/16-deploy.png)
 
@@ -236,7 +236,7 @@ To run commands using the editor, enter a command and then select Load into REPL
 
 ### Messages
 
-Code editors often provide messages to developers that help them identify errors and log outputs. These are useful ways to debug programs and fix potential issues with your contract. In the Pact Online Editor, these messages can be seen in the messages tab in the Toolbar.
+Code editors often provide messages to developers that help them identify errors and log outputs. These are useful ways to debug programs and fix potential issues with your contract. In the Chainweaver Web Pact Editor, these messages can be seen in the messages tab in the Toolbar.
 
 ![19-messages](./assets/beginner-tutorials/pact-online-editor/19-messages.png)
 
@@ -280,9 +280,9 @@ You can also call functions on modules from within the editor. For more informat
 
 ## Review
 
-Congratulations! You have completed your introduction to the **Pact Online Editor**.
+Congratulations! You have completed your introduction to the **Chainweaver Web Pact Editor**.
 
-The Pact Online Editor is an excellent tool built to make developing smart contracts with Pact both fun and simple.
+The Chainweaver Web Pact Editor is an excellent tool built to make developing smart contracts with Pact both fun and simple.
 
 **Topic Summary**
 
