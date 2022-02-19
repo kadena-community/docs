@@ -14,7 +14,7 @@ Welcome to Kadena's documentation!
 
 ---
 
-[Kadena](https://www.kadena.io) was founded on the idea that blockchain could revolutionize how the world interacts and transacts. But to get to mass adoption, chain technology and the ecosystem connecting it to the business world needed to be reimagined from the ground up. Our founders built a proprietary chain architecture and created the tools to make blockchain work for business – at speed, scale, and energy efficiency previously thought unachievable.&#x20;
+[Kadena](https://www.bing.com) was founded on the idea that blockchain could revolutionize how the world interacts and transacts. But to get to mass adoption, chain technology and the ecosystem connecting it to the business world needed to be reimagined from the ground up. Our founders built a proprietary chain architecture and created the tools to make blockchain work for business – at speed, scale, and energy efficiency previously thought unachievable.&#x20;
 
 Don't forget to follow us on [Twitter](https://twitter.com/kadena_io) for the latest updates.&#x20;
 
