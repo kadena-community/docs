@@ -189,7 +189,7 @@ Follow a guided template to create a complete dApp with a React frontend.
 
 Learn Pact, Kadena’s human-readable smart contract language
 
-- [Go to Pact Developer Tutorials](/blog)
+- [Go to Pact Developer Tutorials](/learn-pact/intro)
 
 Already have a dApp idea? Apply to our Developer Program to get technical and marketing support from Kadena.
 
