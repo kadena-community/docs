@@ -1,5 +1,5 @@
 ---
-title: Introduction to Kadena
+title: Introduction to attack
 description: Welcome to Kadena's documentation!
 slug: /
 ---
