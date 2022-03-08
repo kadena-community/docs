@@ -118,6 +118,7 @@ const sidebars = {
     //     { type: "doc", label: "Learn more", id: "build/basics/learn-more" },
     //   ],
     // },
+    { type: "doc", label: "E2E dApp Tutorial", id: "build/voting-dapp-tutorial" },
     { type: "doc", label: "Tools", id: "build/resources/useful-tools" },
     {
       type: "category",
