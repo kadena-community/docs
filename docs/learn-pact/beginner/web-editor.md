@@ -42,7 +42,7 @@ Subscribe to our <a href="https://www.youtube.com/channel/UCB6-MaxD2hlcGLL70ukHo
 
 The Chainweaver Web Pact Editor is a web-based REPL that allows you to write Pact code, manage keysets, deploy smart contracts, and explore other smart contracts. These and many other features make the online editor an ideal place to build, test, and deploy your smart contracts.
 
-To get started with the Chainweaver Web Pact Editor, navigate to <a href="https://chainweaver.chainweb.network/" target="_blank">chainweaver.chainweb.network</a>.
+To get started with the Chainweaver Web Pact Editor, navigate to <a href="https://chainweaver.kadena.network/" target="_blank">chainweaver.kadena.network</a>.
 
 ![1-pact-kadena](./assets/beginner-tutorials/pact-online-editor/1-pact-kadena.jpeg)
 
