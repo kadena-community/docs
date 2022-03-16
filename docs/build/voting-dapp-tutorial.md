@@ -301,10 +301,121 @@ pact> (load "vote.repl")
 ```
 
 
-
-
-
 ### Gas Station
+
+A unique feature of Kadena is the ability to allow gas to be paid by a different entity than the one who initiated the transaction. This entity is what we call a "gas station".
+
+Let's create our own gas station that will allow users to submit votes without paying for gas, instead gas will be subsidized by the gas station.
+
+Each gas station needs to implement the `gas-payer-v1` interface which is shown below:
+
+```clojure
+(interface gas-payer-v1
+
+  (defcap GAS_PAYER:bool
+    ( user:string
+      limit:integer
+      price:decimal
+    )
+    @doc
+    " Provide a capability indicating that declaring module supports \
+    \ gas payment for USER for gas LIMIT and PRICE. Functionality \
+    \ should require capability (coin.FUND_TX), and should validate \
+    \ the spend of (limit * price), possibly updating some database \
+    \ entry. \
+    \ Should compose capability required for 'create-gas-payer-guard'."
+    @model
+    [ (property (user != ""))
+      (property (limit > 0))
+      (property (price > 0.0))
+    ]
+  )
+
+  (defun create-gas-payer-guard:guard ()
+    @doc
+    " Provide a guard suitable for controlling a coin account that can \
+    \ pay gas via GAS_PAYER mechanics. Generally this is accomplished \
+    \ by having GAS_PAYER compose an unparameterized, unmanaged capability \
+    \ that is required in this guard. Thus, if coin contract is able to \
+    \ successfully acquire GAS_PAYER, the composed 'anonymous' cap required \
+    \ here will be in scope, and gas buy will succeed."
+  )
+)
+```
+
+This interface tells us we need to define the `GAS_PAYER` capability as well as implement the `create-gas-payer-guard` function.
+
+:::info
+
+Pact interfaces are similar to Java's interfaces, Scala's traits, Haskell's typeclasses or Solidity's interfaces.
+If you're not familiar with this concept you can read more about it <a href="https://pact-language.readthedocs.io/en/latest/pact-reference.html#interfaces">**here**</a>.
+
+:::
+
+In one sentence, a gas station allows someone to debit from a coin account that they do not own to pay the gas fee for a transaction under certain conditions. How exactly that happens, let's see below. We're going to implement the `gas-payer-v1` interface and explain each step.
+
+Create a new file `gas-station.pact` and paste the following snippet:
+
+```clojure
+(module simple-vote-gas-station GOVERNANCE
+  (defcap GOVERNANCE ()
+    "Only admin account can update the smart contract"
+    (enforce-keyset 'vote-admin-keyset))
+  )
+
+  ; Implement the gas-payer-v1 interface
+  (implements gas-payer-v1)
+  ; Import the coin module
+  (use coin)
+)
+  ```
+
+  We declared that we're implementing `gas-payer-v1` interface so let's do that:
+
+```clojure
+(defcap GAS_PAYER:bool
+    ( user:string
+      limit:integer
+      price:decimal
+    )
+    (enforce (= "exec" (at "tx-type" (read-msg))) "Inside an exec")
+    (enforce (= 1 (length (at "exec-code" (read-msg)))) "Tx of only one pact function")
+    (enforce (= "(free.simple-vote." (take 18 (at 0 (at "exec-code" (read-msg))))) "only simple-vote contract is allowed")
+    (compose-capability (ALLOW_GAS))
+  )
+```
+The `GAS_PAYER` capability implementation performs a few checks and composes the `ALLOW_GAS` capability which is a key component. We'll see below why. Let's continue the interface implementation.
+
+```clojure
+
+(defcap ALLOW_GAS () true)
+
+(defun create-gas-payer-guard:guard ()
+  (create-user-guard (gas-payer-guard))
+)
+
+(defun gas-payer-guard ()
+  (require-capability (GAS))
+  (require-capability (ALLOW_GAS))
+)
+
+(defun init ()
+  (coin.create-account GAS_STATION
+    (guard-any
+      [
+        (create-gas-payer-guard)
+        (keyset-ref-guard 'vote-admin-keyset)
+      ]))
+)
+```
+First we define the `ALLOW_GAS` capability which is brought in scope by the `GAS_PAYER` capability.
+
+Then we implement the `gas-payer-guard` function which tests if `GAS` (defined in coin contract) and `ALLOW_GAS` capabilities have been granted. This function is then used in `create-gas-payer-guard` to create a guard for the coin contract account from where the gas fees are paid.
+
+Last thing we need is to create an account where the funds will be stored which is what happens in the `init` function. As you can see, the guard of that account is using the `guard-any` predicate and 2 guards are listed, the `vote-admin-keyset` and the guard returned by `create-gas-payer-guard`. This allows transactions where either of this guards is valid to perform operations on this account.
+
+To recap, the key part is where we define a guard, `gas-payer-guard` that's valid if those capabilities are granted and `ALLOW_GAS` capability is brought into scope by `GAS_PAYER` capability which limits access to this gas station. If you're wondering how `GAS_PAYER` is installed, the answer is [signature capabilities](https://pact-language.readthedocs.io/en/latest/pact-reference.html#signature-capabilities). We will see how this works when we create a transaction.
+
 
 ### Testing
 
