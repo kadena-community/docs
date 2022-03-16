@@ -30,7 +30,7 @@ Don't forget to follow us on [Twitter](https://twitter.com/kadena_io) for the la
 <PageRef url="build/resources/pact-resources" pageName="Pact language resources" />
 <PageRef url="build/resources/useful-tools" pageName="Useful tools" />
 <PageRef url="basics/quickstart" pageName="Quickstart" />
-<PageRef url="/blog" pageName="Pact developer tutorials" />
+<PageRef url="/learn-pact/intro" pageName="Pact developer tutorials" />
 
 ## Programs
 
