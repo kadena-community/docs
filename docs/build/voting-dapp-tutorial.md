@@ -54,36 +54,6 @@ mkdir pact
 mkdir app
 ```
 
-### Pact Http Server
-
-Create a `config.yaml` file for pact http server. We will later use it simulate blockchains transactions locally.
-
-For more details about pact http server check <a href="/blog/deploy-to-a-local-server">this</a> tutorial.
-
-```clojure
-touch config.yaml
-```
-Copy the code below and save the file:
-
-```clojure
-# Config file for pact http server. Launch with `pact -s config.yaml`
-
-# HTTP server port
-port: 8080
-
-# directory for HTTP logs
-logDir: log
-
-# persistence directory
-persistDir: log
-
-# SQLite pragmas for pact back-end
-pragmas: []
-
-# verbose: provide log output
-verbose: True
-```
-
 ### Atom IDE (Optional)
 
 You can use any text editor to write Pact but if you prefer the benefits of an IDE, "language-pact" is a package for [Atom](https://atom.io) that provides syntax highlighting and linting.
@@ -416,10 +386,145 @@ Last thing we need is to create an account where the funds will be stored which 
 
 To recap, the key part is where we define a guard, `gas-payer-guard` that's valid if those capabilities are granted and `ALLOW_GAS` capability is brought into scope by `GAS_PAYER` capability which limits access to this gas station. If you're wondering how `GAS_PAYER` is installed, the answer is [signature capabilities](https://pact-language.readthedocs.io/en/latest/pact-reference.html#signature-capabilities). We will see how this works when we create a transaction.
 
+:::info
 
-### Testing
+Guards and capabilities are an entire topic that we cannot cover in this tutorial. To learn more check the [Guards, Capabilities and Events](https://pact-language.readthedocs.io/en/latest/pact-reference.html#guards-capabilities-and-events) section of the Pact documentation.
 
-### Deployment
+:::
+
+
+## Testing
+
+There are several ways you can test your smart contracts before going to mainnet. We recommend the following flow as best practice:
+
+1. REPL scripts
+2. Pact Server
+3. Testnet
+
+### REPL Scripts
+
+REPL stands for read - eval - print - loop. This acronym refers to the idea that given a Pact file, a REPL file is responsible for reading, evaluating, printing, and looping through the code as needed to both run and provide the output of the Pact file. It allows us to quickly test the smart contracts that we're building.
+
+We've already used the REPL earlier when we wrote tests in the `vote.repl` file. I encourage you to have a look at the list of [REPL-only functions](https://pact-language.readthedocs.io/en/stable/pact-functions.html?highlight=repl-functions#repl-only-functions) and try them in your scripts, they offer a great way to quickly setup a feedback loop when you work on your contracts.
+
+### Pact Server
+
+Pact interpreter comes with a built-in local http server and SQLite DB which effectively simulates a single-node blockchain environment, with the same API supported by *Chainweb*, Kadena's scalable PoW blockchain.
+
+Let's create a `config.yaml` file and the `log` directory for the pact http server:
+
+```bash
+touch config.yaml
+mkdir log
+```
+Now copy the code below and save the file:
+
+```yaml
+# Config file for pact http server. Launch with `pact -s config.yaml`
+
+# HTTP server port
+port: 8080
+
+# directory for HTTP logs
+logDir: log
+
+# persistence directory
+persistDir: log
+
+# SQLite pragmas for pact back-end
+pragmas: []
+
+# verbose: provide log output
+verbose: True
+```
+
+And start the server by running the following command in your terminal:
+
+```
+$ pact -s config.yaml
+
+2022/03/18-09:29:59 [PactService] INIT Initializing pact SQLLite
+2022/03/18-09:29:59 [history] Persistence Enabled: log/commands.sqlite
+2022/03/18-09:29:59 [api] starting on port 8080
+2022/03/18-09:29:59 [PactService] INIT Creating Pact Schema
+2022/03/18-09:29:59 [PactPersist] DDL createTable: TableId "SYS_usertables"
+2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: DataTable (TableId "SYS_usertables")
+2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: TxTable (TableId "SYS_usertables")
+2022/03/18-09:29:59 [PactPersist] DDL createTable: TableId "SYS_keysets"
+2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: DataTable (TableId "SYS_keysets")
+2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: TxTable (TableId "SYS_keysets")
+2022/03/18-09:29:59 [PactPersist] DDL createTable: TableId "SYS_modules"
+2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: DataTable (TableId "SYS_modules")
+2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: TxTable (TableId "SYS_modules")
+2022/03/18-09:29:59 [PactPersist] DDL createTable: TableId "SYS_namespaces"
+2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: DataTable (TableId "SYS_namespaces")
+2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: TxTable (TableId "SYS_namespaces")
+2022/03/18-09:29:59 [PactPersist] DDL createTable: TableId "SYS_pacts"
+2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: DataTable (TableId "SYS_pacts")
+2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: TxTable (TableId "SYS_pacts")
+2022/03/18-09:29:59 [disk replay]: No replay found
+```
+
+There are several endpoints available that we can use to interact with the Pact server:
+
+| Endpoint | Description |
+| -------- | ----------- |
+| /send   | Takes in cmd object and returns tx hash. |
+| /listen | Takes in a hash and returns tx result. |
+| /poll   | Similar to /listen but works with multiple hashes and returns multiple tx results.|
+| /local  | Takes in cmd object with code that queries from blockchain. It performs a read-only operation without persisting changes and returns tx result. |
+
+:::info
+You can find detailed specifications of the above mentioned endpoints [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=YAML#endpoints)
+:::
+
+There are 2 ways to interact with these endpoints:
+
+#### 1. Pact Request Formatter and `curl`
+Create a new file `request.yaml` with the following content:
+
+```
+code: "(+ 1 2)"
+data:
+  name: Stuart
+  language: Pact
+keyPairs:
+  - public: ba54b224d1924dd98403f5c751abdd10de6cd81b0121800bf7bdbdcfaec7388d
+    secret: 8693e641ae2bbe9ea802c736f42027b03f86afe63cae315e7169c9c496c17332
+```
+
+Run the following command in your terminal to send the request to the `/local` endpoint:
+
+```
+pact -a request.yaml -l | curl -H "Content-Type: application/json" -d @- http://localhost:8080/api/v1/local
+```
+
+You should see an output similar to the one below:
+
+```json
+{ "gas":0,
+  "result":{
+    "status":"success","data":3
+  },
+  "reqKey":"Ice7sTvYu4fDekYFsfErhYPmjM1Q8C-MC4lOBWM4x-0","logs":"wsATyGqckuIvlm89hhd2j4t6RMkCrcwJe_oeCYr7Th8",
+  "metaData":null,
+  "continuation":null,
+  "txId":null
+}
+```
+
+:::info
+By default `-a` formats the YAML file into API requests for the `/send` endpoint. Adding the `-l` flag after the command formats the api request for the `/local` endpoint.
+:::
+
+I encourage you to try the other endpoints as well. The complete specs of the request file format are [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=YAML#request-yaml-file-format).
+
+#### 2. `pact-lang-api` Javascript library
+
+
+### Testnet
+
+## Deploy to Mainnet
 
 ## Frontend
 
