@@ -521,6 +521,137 @@ I encourage you to try the other endpoints as well. The complete specs of the re
 
 #### 2. `pact-lang-api` Javascript library
 
+We will be using this approach for our voting app so let's start by installing the lib:
+
+```bash
+npm install pact-lang-api
+```
+
+##### Deploy Contract
+
+> Deploy a Pact smart contract to Pact Server
+
+```javascript
+const Pact = require('pact-lang-api');
+const fs = require('fs');
+
+const API_HOST = 'http://localhost:8080';
+const CONTRACT_PATH = './pact/vote.pact';
+const KEY_PAIR = Pact.crypto.genKeyPair();
+
+const pactCode = fs.readFileSync(CONTRACT_PATH, 'utf8');
+
+deployContract(pactCode);
+
+async function deployContract(pactCode) {
+  const cmd = {
+    keyPairs: KEY_PAIR,
+    pactCode: pactCode,
+    envData: {
+      'vote-admin-keyset': [KEY_PAIR['publicKey']]
+    }
+  };
+  const response = await Pact.fetch.send(cmd, API_HOST);
+  const txResult = await Pact.fetch.listen({ listen: response.requestKeys[0] }, API_HOST);
+  console.log(txResult);
+};
+
+```
+Notice that we defined the `vote-admin-keyset` which is required by our module guard.
+Run the snippet and you should see a success message like the one below:
+
+```json
+{
+  gas: 0,
+  result: {
+    status: 'success',
+    data: 'Loaded module simple-vote, hash niQoaBy1p4j4ifyozj26VvA2o8m5nyGCcLiSngXgcwA'
+  },
+  reqKey: 't7g2mAwbfvZdjPSoaLch2HQlS5H5Z4lvvloVGf2eG1Q',
+  logs: 'yr3G_Fjatl8SavWruAusVcAt7OpYV8Gd0P4ge4euHaA',
+  metaData: null,
+  continuation: null,
+  txId: 33
+}
+```
+
+##### Read State
+> Read data stored in the database using the `/local` endpoint
+
+```javascript
+const Pact = require('pact-lang-api');
+const fs = require('fs');
+
+const API_HOST = 'http://localhost:8080';
+const KEY_PAIR = Pact.crypto.genKeyPair();
+
+readState();
+
+async function readState() {
+  const cmd = {
+    keyPairs: KEY_PAIR,
+    pactCode: '(simple-vote.getVotes "A")'
+  };
+  const state = await Pact.fetch.local(cmd, API_HOST);
+  console.log(state);
+};
+```
+To call a contract function we add the corresponding Pact code under the `pactCode` key. In comparison, when we deployed the contract we sent the entire contract source code.
+
+The returned result is `0` because we didn't submit any vote yet.
+
+```json
+{
+  gas: 0,
+  result: { status: 'success', data: 0 },
+  reqKey: 'ebStUzTU6Nd08gLWofbyeFmGFebHw4x9P8gG0Zf1Sgk',
+  logs: 'wsATyGqckuIvlm89hhd2j4t6RMkCrcwJe_oeCYr7Th8',
+  metaData: null,
+  continuation: null,
+  txId: null
+}
+```
+
+##### Submit a vote
+> Since submitting a vote requires a database update, we are using the `/send` endpoint
+
+```javascript
+const Pact = require('pact-lang-api');
+const fs = require('fs');
+
+const API_HOST = 'http://localhost:8080';
+const KEY_PAIR = Pact.crypto.genKeyPair();
+
+submitVote();
+
+async function submitVote() {
+  const cmd = {
+    keyPairs: KEY_PAIR,
+    pactCode: '(simple-vote.vote "A")'
+  };
+  const response = await Pact.fetch.send(cmd, API_HOST);
+  const txResult = await Pact.fetch.listen({ listen: response.requestKeys[0] }, API_HOST);
+  console.log(txResult);
+};
+```
+
+This time we are calling the `vote` function of our contract and we should see a message which confirms the vote was recorded:
+
+```json
+{
+  gas: 0,
+  result: { status: 'success', data: 'Voted A!' },
+  reqKey: 'Zx4N95rKThx2WcVJP-INuoFeYvNwSzs5K-CatPYI0N8',
+  logs: 'YK5ar4xVOe0q8SEeFdMF5FMpiq5QublFxpXx_IAmzU4',
+  metaData: null,
+  continuation: null,
+  txId: 34
+}
+```
+
+>TODO: Submit a few votes and check the state using the snippets provided above.
+
+
 
 ### Testnet
 
