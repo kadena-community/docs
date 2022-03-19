@@ -480,7 +480,7 @@ You can find detailed specifications of the above mentioned endpoints [here](htt
 
 There are 2 ways to interact with these endpoints:
 
-#### 1. Pact Request Formatter and `curl`
+**1. Pact Request Formatter and `curl`**
 Create a new file `request.yaml` with the following content:
 
 ```
@@ -527,7 +527,7 @@ We will be using this approach for our voting app so let's start by installing t
 npm install pact-lang-api
 ```
 
-##### Deploy Contract
+**Deploy Contract**
 
 > Deploy a Pact smart contract to Pact Server
 
@@ -575,7 +575,7 @@ Run the snippet and you should see a success message like the one below:
 }
 ```
 
-##### Read State
+**Read State**
 > Read data stored in the database using the `/local` endpoint
 
 ```javascript
@@ -612,7 +612,7 @@ The returned result is `0` because we didn't submit any vote yet.
 }
 ```
 
-##### Submit a vote
+**Submit a vote**
 > Since submitting a vote requires a database update, we are using the `/send` endpoint
 
 ```javascript
@@ -649,7 +649,11 @@ This time we are calling the `vote` function of our contract and we should see a
 }
 ```
 
->TODO: Submit a few votes and check the state using the snippets provided above.
+> Now you can submit a few more votes and check the result using the snippets provided above.
+
+**Conclusion**
+
+We demonstrated how you can make use of *Pact Server* and `pact-lang-api` library to simulate blockchain interaction on your local development machine. It's recommended that you test your contracts using *Pact Server* first since it provides a much faster feedback loop that you can use to quickly iterate and fix any bugs before you move to `testnet` and finally `mainnet`.
 
 
 
