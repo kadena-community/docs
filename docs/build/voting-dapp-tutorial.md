@@ -709,6 +709,8 @@ async function listModules() {
 ```
 :::
 
+You can use the snippets below to deploy your contract to chain 1 testnet and mainnet:
+
 <Tabs>
   <TabItem value="testnet" label="Testnet">
 
@@ -726,7 +728,7 @@ async function listModules() {
   }
 
   const pactCode = fs.readFileSync(CONTRACT_PATH, 'utf8');
-  const creationTime = () => Math.round((new Date).getTime() / 1000) - 15;
+  const creationTime = () => Math.round((new Date).getTime() / 1000);
 
   deployContract(pactCode);
 
@@ -744,7 +746,52 @@ async function listModules() {
         gasLimit: 80000,
         chainId: CHAIN_ID,
         gasPrice: 0.00000001,
-        sender: KEY_PAIR.publicKey
+        sender: KEY_PAIR.publicKey // the account paying for gas
+      }
+    };
+    const response = await Pact.fetch.send(cmd, API_HOST);
+    console.log(response);
+    const txResult = await Pact.fetch.listen({ listen: response.requestKeys[0] }, API_HOST);
+    console.log(txResult);
+  };
+  ```
+  </TabItem>
+
+  <TabItem value="mainnet" label="Mainnet">
+
+  ```js
+  const Pact = require('pact-lang-api');
+  const fs = require('fs');
+
+  const NETWORK_ID = 'mainnet01';
+  const CHAIN_ID = '1';
+  const API_HOST = `https://api.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
+  const CONTRACT_PATH = './pact/vote.pact';
+  const KEY_PAIR = {
+    'publicKey': 'some-public-key',
+    'secretKey': 'some-private-key'
+  }
+
+  const pactCode = fs.readFileSync(CONTRACT_PATH, 'utf8');
+  const creationTime = () => Math.round((new Date).getTime() / 1000);
+
+  deployContract(pactCode);
+
+  async function deployContract(pactCode) {
+    const cmd = {
+      networkId: NETWORK_ID,
+      keyPairs: KEY_PAIR,
+      pactCode: pactCode,
+      envData: {
+        'vote-admin-keyset': [KEY_PAIR['publicKey']]
+      },
+      meta: {
+        creationTime: creationTime(),
+        ttl: 28000,
+        gasLimit: 80000,
+        chainId: CHAIN_ID,
+        gasPrice: 0.00000001,
+        sender: KEY_PAIR.publicKey // the account paying for gas
       }
     };
     const response = await Pact.fetch.send(cmd, API_HOST);
@@ -755,10 +802,11 @@ async function listModules() {
   ```
 
   </TabItem>
-  <TabItem value="mainnet" label="Mainnet">
-    Deploy to mainnet
-  </TabItem>
 </Tabs>
+
+:::info
+In order to pay transaction fees on `mainnet` you will have to fund your account with real KDA.
+:::
 
 ## Frontend
 
