@@ -481,6 +481,7 @@ You can find detailed specifications of the above mentioned endpoints [here](htt
 There are 2 ways to interact with these endpoints:
 
 **1. Pact Request Formatter and `curl`**
+
 Create a new file `request.yaml` with the following content:
 
 ```
@@ -655,11 +656,68 @@ This time we are calling the `vote` function of our contract and we should see a
 
 We demonstrated how you can make use of *Pact Server* and `pact-lang-api` library to simulate blockchain interaction on your local development machine. It's recommended that you test your contracts using *Pact Server* first since it provides a much faster feedback loop that you can use to quickly iterate and fix any bugs before you move to `testnet` and finally `mainnet`.
 
+## Deploy Contract
 
+In order to deploy our contract to the real blockchain network, wether it's testnet or mainnet we need to pay for the transaction using gas fees.
 
-### Testnet
+We need a key/pair to create an account so let's generate one by running `pact -g` in your terminal or by using the `Pact.crypto.genKeyPair()` method available in the `pact-lang-api` lib.
 
-## Deploy to Mainnet
+Next step is to fund your `testnet` account using this [faucet](http://faucet.testnet.chainweb.com). You will receive 20 testnet KDA.
+
+There are a few more things that we need to keep in mind when we deploy to a real network:
+1. **Namespaces**
+
+Each module or interface needs to be part of a namespace. The `free` namespace is available to use on both `mainnet` and `testnet`.
+
+Now let's make our contract part of the `free` namespace. Insert the following line at the beginning of `vote.pact` file:
+```clojure
+(namespace 'free)
+```
+2. **Unique module and keyset names**
+
+Within the same namespace, each module name needs to be unique, similar requirement for defined keysets.
+
+:::info
+You have to use the fully qualified name {namespace}.{module-name} when accessing a module.
+Also you can read more about namespaces [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=namespace#namespace-declaration).
+:::
+
+:::tip
+Here's a snippet that you can use to list all deployed modules by using the top-level `list-modules` built-in function:
+
+```javascript
+const Pact = require('pact-lang-api');
+const fs = require('fs');
+
+const NETWORK_ID = 'testnet04';
+const CHAIN_ID = '0';
+const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
+const KEY_PAIR = Pact.crypto.genKeyPair();
+
+const creationTime = () => Math.round((new Date).getTime() / 1000) - 15;
+
+listModules();
+
+async function listModules() {
+  const cmd = {
+    keyPairs: KEY_PAIR,
+    pactCode: Pact.lang.mkExp('list-modules'),
+    meta: Pact.lang.mkMeta("", "", 0.0001, 6000, creationTime(), 600)
+  };
+  const response = await Pact.fetch.local(cmd, API_HOST);
+  console.log(response.result.data);
+};
+```
+:::
+
+<Tabs>
+  <TabItem value="testnet" label="Testnet">
+    Deploy to testnet
+  </TabItem>
+  <TabItem value="mainnet" label="Mainnet">
+    Deploy to mainnet
+  </TabItem>
+</Tabs>
 
 ## Frontend
 
