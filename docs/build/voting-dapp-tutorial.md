@@ -687,7 +687,6 @@ Here's a snippet that you can use to list all deployed modules by using the top-
 
 ```javascript
 const Pact = require('pact-lang-api');
-const fs = require('fs');
 
 const NETWORK_ID = 'testnet04';
 const CHAIN_ID = '0';
@@ -712,7 +711,49 @@ async function listModules() {
 
 <Tabs>
   <TabItem value="testnet" label="Testnet">
-    Deploy to testnet
+
+  ```js
+  const Pact = require('pact-lang-api');
+  const fs = require('fs');
+
+  const NETWORK_ID = 'testnet04';
+  const CHAIN_ID = '1';
+  const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
+  const CONTRACT_PATH = './pact/vote.pact';
+  const KEY_PAIR = {
+    'publicKey': 'some-public-key',
+    'secretKey': 'some-private-key'
+  }
+
+  const pactCode = fs.readFileSync(CONTRACT_PATH, 'utf8');
+  const creationTime = () => Math.round((new Date).getTime() / 1000) - 15;
+
+  deployContract(pactCode);
+
+  async function deployContract(pactCode) {
+    const cmd = {
+      networkId: NETWORK_ID,
+      keyPairs: KEY_PAIR,
+      pactCode: pactCode,
+      envData: {
+        'vote-admin-keyset': [KEY_PAIR['publicKey']]
+      },
+      meta: {
+        creationTime: creationTime(),
+        ttl: 28000,
+        gasLimit: 80000,
+        chainId: CHAIN_ID,
+        gasPrice: 0.00000001,
+        sender: KEY_PAIR.publicKey
+      }
+    };
+    const response = await Pact.fetch.send(cmd, API_HOST);
+    console.log(response);
+    const txResult = await Pact.fetch.listen({ listen: response.requestKeys[0] }, API_HOST);
+    console.log(txResult);
+  };
+  ```
+
   </TabItem>
   <TabItem value="mainnet" label="Mainnet">
     Deploy to mainnet
