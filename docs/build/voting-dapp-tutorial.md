@@ -17,6 +17,8 @@ Build a complete on-chain voting dApp
 
 In this tutorial you will build a complete dApp, smart contracts and frontend that allows users to submit a vote. You will also deploy your own gas station that will be used to pay for the gas needed to interact with your dApp.
 
+By leveraging the blockchain and smart contracts to implement this application, its users benefit of complete transparency of the voting process, anyone being able to check every vote that was recorded, as well as peace of mind that their vote will never be deleted. This set of features is simply not possible in a classic Web2 application.
+
 ## Environment Setup
 
 ### Install Pact
@@ -51,7 +53,7 @@ true
 
 Copy paste the instructions below to create a basic project structure:
 
-```clojure
+```bash
 mkdir my-pact-project && cd my-pact-project
 mkdir pact
 mkdir app
