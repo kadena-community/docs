@@ -709,7 +709,7 @@ async function listModules() {
 ```
 :::
 
-You can use the snippets below to deploy your contract to chain 1 testnet and mainnet:
+You can use the snippets below to deploy your contract to **chain 1** on `testnet` and `mainnet`:
 
 <Tabs>
   <TabItem value="testnet" label="Testnet">
@@ -810,6 +810,157 @@ In order to pay transaction fees on `mainnet` you will have to fund your account
 
 ## Frontend
 
+If you made it until here, congrats. We wrote, tested and deployed our smart contract but we're still missing a key component, a way for users to interact with our dApp, so let's get this done.
+
+We've already introduced `pact-lang-api` in the [Pact Server](#2-pact-lang-api-javascript-library) section and it's the building block of any frontend application on Kadena.
+
+Start by adding it as a dependency to your project either via CDN or add it to your asset pipeline similar to any other Javascript library.
+
+```js
+<script src="https://cdn.jsdelivr.net/npm/pact-lang-api@4.1.2/pact-lang-api-global.min.js"></script>
+```
+
+```bash
+npm install pact-lang-api
+```
+
+:::note
+In this tutorial we're using [ReactJS](https://reactjs.org) but you are free to use any framework that you are comfortable with. The main focus will be on blockchain and wallet interaction.
+:::
+
+The main aspects concerning a frontend implementation of a blockchain application are:
+* reading data from smart contracts
+* allowing users to sign and submit transactions
+* notify users when various actions take place like a transaction being mined or a smart contract event was emitted
+
 ### Read Data
 
+For this demo application we would like to display the number of votes that each candidate received. To do that we have to call the `getVotes` function from our `election` module.
+Here's how that looks like:
+
+```js
+import Pact from 'pact-lang-api';
+
+const GAS_PRICE = 0.0000001;
+const GAS_LIMIT = 400;
+const TTL = 28000;
+const NETWORK_ID = 'testnet04';
+const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
+const GAS_STATION='election-gas-station';
+export const CHAIN_ID = '1';
+
+const creationTime = () => Math.round((new Date).getTime() / 1000) - 15;
+
+export const getVotes = async (candidate) => {
+  const cmd = {
+    pactCode: `(free.election.getVotes "${candidate}")`,
+    meta: {
+      creationTime: creationTime(),
+      ttl: TTL,
+      gasLimit: GAS_LIMIT,
+      chainId: CHAIN_ID,
+      gasPrice: GAS_PRICE,
+      // IMPORTANT: the API requires this attribute even if it's an empty value like in this case
+      sender: ''
+    }
+  };
+  return Pact.fetch.local(cmd, API_HOST);
+}
+```
+We're sending a command to the `/local` endpoint where the `pactCode` attribute is a call to our module function which returns the number of votes for the given candidate.
+ >Remember to always use the fully qualified name, *namespace.module.function*.
+
+Here's a screenshot from our demo app where we display the candidates and the number of votes received by each candidate:
+
+![Election dApp](/img/docs/voting-dapp/election-dapp-1.png)
+
+The source code is available here: //TODO -> Insert link to repo file
+
+### Sign & Send Transaction
+
+The next step is to allow users to vote for a candidate. When it comes to updating on-chain data, each dApp has to implement the following flow:
+1. Create transaction
+2. Sign transaction
+3. Send transaction
+4. Notify when transaction is mined
+
+:::info
+In this tutorial we are using Chainweaver wallet to sign transactions, other wallets might have a different API but the steps mentioned above are similar. There might be the case where a wallet takes care of more than signing a transaction (eg. it also sends it to the network) and you will have to adapt your implementation accordingly.
+:::
+
+Here's a diagram of the above:
+
+![kadena-frontend-dapp-arch](/img/docs/voting-dapp/kadena-frontend-dapp-arch.001.jpeg)
+
+**pact-lang-api** provides a couple of useful methods here: `Pact.wallet.sign` to interact with the Chainweaver signing API and `Pact.wallet.sendSigned` to submit the signed transaction to the network.
+
+In the snippet below we are constructing a transaction that calls the `free.election.vote` contract function to vote for a candidate.
+
+```js
+export const signTx = async (account, candidateId) => {
+  const cmd = {
+    networkId: NETWORK_ID,
+    pactCode: `(free.election.vote "${account}" "${candidateId}")`,
+    caps: [
+      Pact.lang.mkCap("Gas payer", "Capability to allow gas payment by gas station", "free.election-gas-station.GAS_PAYER", ["", { int: 1 }, 1.0]),
+      Pact.lang.mkCap("Account Owner", "Capability to validate KDA account ownership", "free.election.ACCOUNT-OWNER", [account])
+    ],
+    creationTime: creationTime(),
+    ttl: TTL,
+    gasLimit: GAS_LIMIT,
+    chainId: CHAIN_ID,
+    gasPrice: GAS_PRICE,
+    sender: GAS_STATION,
+  };
+  return Pact.wallet.sign(cmd);
+}
+
+export const sendTx = async (signedCmd) => {
+    return Pact.wallet.sendSigned(signedCmd, API_HOST);    
+}
+
+export const listenTx = async (requestKey) => {
+    return Pact.fetch.listen({ listen: requestKey }, API_HOST);
+}
+```
+
+Notice the `caps` attribute where we define the capabilities that the user's keyset will have to sign using the `Pact.lang.mkCap` helper method. In this case we have two:
+* `free.election.ACCOUNT-OWNER` -> checks if the user is the owner of the KDA account
+* `free.election-gas-station.GAS_PAYER` -> enables the payment of gas fees by the gas station that we deployed
+
+:::note
+When reading values from a JSON, Pact converts numbers to `decimal` type but the second parameter of the `GAS_PAYER` capability requires an integer so we have to force the correct type using this approach: `{ int: 1 }`.
+:::
+
+Since this is a transaction that requires gas fees, we now set `sender` (account paying for gas) to the name of the KDA account owned by our gas station.
+
+Lastly, to get the result of a transaction we are using the `Pact.fetch.listen` method.
+
+Going back to the UI, we implemented this signing flow using a modal window where users have to enter their KDA account and click on the **Sign Transaction** button which automatically opens the Chainweaver signing wizard.
+
+![Election dApp Modal](/img/docs/voting-dapp/election-dapp-2.png)
+
+Below is the first step of the Chainweaver request signing wizard:
+
+![Chainweaver Sign Wizard](/img/docs/voting-dapp/election-dapp-3.png)
+
+Once the transaction is signed, clicking on **Send Transaction** button in our dApp modal window will submit it to the network.
+
+The request key together with the transaction result are displayed as notifications in the right side of the screen as the promises complete.
+
+*Note: Since mining is an external process, while waiting for our transaction to be included in the blockchain, the user should be able to keep using the application freely.*
+
+![Notifications](/img/docs/voting-dapp/election-dapp-4.png)
+
+:::info
+The complete source-code of this application is available here: TODO add repo link
+:::
+
 ### Events
+TBA
+
+## Conclusion
+
+It took a while but we are now at the end of this tutorial. Congratulations! You've managed to implement a complete dApp on Kadena blockchain and we hope you found this guide useful.
+
+Stay tuned for more tutorials and we cannot wait to see what dApps **YOU** will build next!
