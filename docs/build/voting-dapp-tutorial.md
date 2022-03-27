@@ -92,22 +92,22 @@ A typical developer workflow looks like this:
 
 Here we will be focusing on steps 1-3.
 
-Assuming you are still in your project directory, create the `vote.pact` and `vote.repl` files:
+Assuming you are still in your project directory, create the `election.pact` and `election.repl` files:
 
 ```clojure
-touch pact/vote.pact pact/vote.repl
+touch pact/election.pact pact/election.repl
 ```
 
-`vote.pact` is the contract source code while in `vote.repl` we'll write tests.
+`election.pact` is the contract source code while in `election.repl` we'll write tests.
 
 
-Copy the following code in the `vote.pact` file:
+Copy the following code in the `election.pact` file:
 
 ```clojure
-(define-keyset 'vote-admin-keyset)
+(define-keyset 'election-admin-keyset)
 
-(module simple-vote 'vote-admin-keyset
-  "Simple voting module"
+(module election GOVERNANCE
+  "Election demo module"
 
   (defun vote (key)
     "Submit a new vote"
@@ -117,19 +117,23 @@ Copy the following code in the `vote.pact` file:
 (vote "A")
 ```
 
-This snippet defines a module "simple-vote" that holds a function "vote" that takes a parameter and displays a formatted string that includes the parameter.
+This snippet defines a module "election" that holds a function "vote" that takes a parameter and displays a formatted string that includes the parameter.
 
-Before we move forward, let's quickly test our code. Copy the code below in the `vote.repl` file:
+:::note
+Module names and keyset definitions are required to be unique. We will mention this again when we get to deploy our contract to testnet.
+:::
+
+Before we move forward, let's quickly test our code. Copy the code below in the `election.repl` file:
 
 ```clojure
 ;; begin a transaction
 (begin-tx)
 ;; set transaction signature key to my-key
 (env-keys ["my-key"])
-;; set environment data to the admin-keyset with keys my-key and predicate function of keys-all
-(env-data { 'vote-admin-keyset: { "keys": ["my-key"], "pred": "keys-all" } })
-;; load vote.pact into the REPL
-(load "vote.pact")
+;; Add the election-admin-keyset to environment data
+(env-data { 'election-admin-keyset: { "keys": ["my-key"], "pred": "keys-all" } })
+;; load election.pact into the REPL
+(load "election.pact")
 ;; commit the transaction
 (commit-tx)
 ```
@@ -137,17 +141,17 @@ Before we move forward, let's quickly test our code. Copy the code below in the 
 To run the test type the following command in your terminal:
 ```clojure
 $ pact
-pact> (load "vote.repl")
+pact> (load "election.repl")
 ```
 And you should see an output similar to the one below (the hash will be different):
 ```clojure
-"Loading vote.repl..."
+"Loading election.repl..."
 "Begin Tx 0"
 "Setting transaction keys"
 "Setting transaction data"
-"Loading vote.pact..."
+"Loading election.pact..."
 "Keyset defined"
-"Loaded module simple-vote, hash jOBJiSEH5HVsAmLNSdHq_D3Kl6TkFpCJcEWPtJD86Gc"
+"Loaded module election, hash jOBJiSEH5HVsAmLNSdHq_D3Kl6TkFpCJcEWPtJD86Gc"
 "Voted A!"
 "Commit Tx 0"
 ```
