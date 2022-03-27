@@ -163,16 +163,29 @@ And you should see an output similar to the one below (the hash will be differen
 Let's continue by adding a bit more logic. Copy this snippet just below the module declaration:
 
 ```clojure
+  (defschema candidates-schema
+    "Candidates table schema"
+    name:string
+    votes:integer)
+
   (defschema votes-schema
     "Votes table schema"
-    option:string
-    count:integer)
+    cid:string
+  )
 
   (deftable votes:{votes-schema})
+
+  (deftable candidates:{candidates-schema})
   ```
-In the snippet we've got 2 new declaration:
-* `defschema votes-schema` -> defines the schema for our table where we will keep track of the number of votes
+In the snippet we've got several definitions:
+* `defschema candidates-schema` -> defines the schema for our **candidates** table where we will keep track of the candidates that users can vote for
+* `defschema votes-schema` -> defines the schema for our **votes** table where we will store each vote
 * `deftable votes:{votes-schema}` -> defines the `votes` table that will use the schema defined above
+* `deftable candidates:{candidates-schema}` -> defines the `candidates` table that will use the schema defined above
+
+:::note
+Pact implements a key-row model which means a row is accessed by a single key. It is our responsibility as developers to design the schema in a way that we can retrieve the information that we need using a single row query. Multiple row queries are expensive which we will see in an example a bit later.
+:::
 
 Now we need to update our `vote` function:
 
