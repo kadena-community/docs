@@ -138,6 +138,10 @@ Before we move forward, let's quickly test our code. Copy the code below in the 
 (commit-tx)
 ```
 
+:::info
+`begin-tx`, `env-keys`, `env-data` are "repl-only" functions, they are automatically loaded in the REPL to help simulate blockchain environment but they are not available for blockchain-based execution. You can find the complete "REPL-only" functions list [here](https://pact-language.readthedocs.io/en/latest/pact-functions.html?highlight=repl%20only#repl-only-functions).
+:::
+
 To run the test type the following command in your terminal:
 ```clojure
 $ pact
