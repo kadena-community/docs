@@ -21,14 +21,17 @@ In this tutorial you will build a complete dApp, smart contracts and frontend th
 
 ### Install Pact
 
-**Using Brew**
+<Tabs>
+  <TabItem value="mac" label="Mac">
 
-```clojure
-brew update
-brew install kadena-io/pact/pact
-```
-**Build from source**
-- follow the instructions [here](https://github.com/kadena-io/pact#building-from-source)
+    brew update
+    brew install kadena-io/pact/pact
+  </TabItem>
+
+  <TabItem value="linux" label="Linux">
+    For installing Pact on Linux distributions in the Arch family, refer to <a href="https://aur.archlinux.org/packages/pact/">this package on the AUR</a>. Otherwise, please refer to <a href="https://github.com/kadena-io/pact#building-from-source">building from source</a>.
+  </TabItem>
+</Tabs>
 
 **Verifying Installation**
 
