@@ -72,6 +72,12 @@ To install it, go to Preferences -> Packages -> Type "language-pact" and click t
 Our voting app should allow you to submit a vote while not allowing an address to vote more than once.
 Additionally we will use a *gas station* to fund the gas fees for interacting with our contract, meaning our users don't have to worry about paying gas.
 
+:::info
+**Gas** is the cost necessary to perform a transaction on the network. Gas is paid to miners and its price varies based on supply and demand. It's a critical piece of the puzzle, but at the same time it brings up a UX problem. Every user needs to be aware of what gas is as well as how much gas they need to pay for their transaction. This causes significant friction and a less than ideal experience.
+
+To help mitigate this problem Kadena brings an innovation to the game. Hello **gas stations**! Gas stations are a way for dApps to subsidize gas costs for their users. This means that your user doesn't need to know what gas is or how much the gas price is, which translates into a smooth experience when interacting with your dApp.
+:::
+
 ### Voting
 
 Let's start to implement our voting contract.
