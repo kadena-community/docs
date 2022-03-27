@@ -82,6 +82,16 @@ To help mitigate this problem Kadena brings an innovation to the game. Hello **g
 
 Let's start to implement our voting contract.
 
+A typical developer workflow looks like this:
+
+1. Write logic in `.pact` files
+2. Write tests in `.repl` files
+3. Execute your tests in the repl
+4. Deploy to local pact server
+5. Deploy to testnet
+
+Here we will be focusing on steps 1-3.
+
 Assuming you are still in your project directory, create the `vote.pact` and `vote.repl` files:
 
 ```clojure
@@ -89,6 +99,7 @@ touch pact/vote.pact pact/vote.repl
 ```
 
 `vote.pact` is the contract source code while in `vote.repl` we'll write tests.
+
 
 Copy the following code in the `vote.pact` file:
 
