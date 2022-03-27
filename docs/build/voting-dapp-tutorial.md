@@ -187,82 +187,233 @@ In the snippet we've got several definitions:
 Pact implements a key-row model which means a row is accessed by a single key. It is our responsibility as developers to design the schema in a way that we can retrieve the information that we need using a single row query. Multiple row queries are expensive which we will see in an example a bit later.
 :::
 
-Now we need to update our `vote` function:
+Let's continue by implementing our `vote` function:
 
 ```clojure
-(defun vote (key:string)
+  (defun vote (account:string cid:string)
     "Submit a new vote"
-    (enforce (contains key ["A" "B"]) "You can only vote for A or B")
-    (with-read votes key { "count" := count }
-      (update votes key { "count": (+ count 1) })
-    )
-    (format "Voted {}!" [key])
+
+    (let ((doubleVote (user-voted account)))
+      (enforce (= doubleVote false) "Multiple voting not allowed"))
+
+    (let ((exists (candidate-exists cid)))
+      (enforce (= exists true) "Candidate doesn't exist"))
+
+    (with-capability (ACCOUNT-OWNER account)
+      (vote-protected account cid))
+
+    (format "Voted for candidate {}!" [cid])
   )
 ```
 
-Again, quick recap of what's happening above:
-* we use `enforce` to ensure that only the given list of vote keys are allowed
-* we use `with-read` to first read the row data for the given key followed by an `update` call to increment the `count` column by 1
+Quite a lot happening here, so let's go line by line:
+* to prevent double voting, we have to check if the user already voted. Below is the implementation of the `user-voted` function which does that.
+```clojure
+(defun user-voted:bool (account:string)
+  (with-default-read votes account
+    { "cid": "" }
+    { "cid":= cid }
+    (> (length cid) 0))
+)
+```
+* to prevent voting for a candidate that doesn't exist we implemented `candidate-exists` function and we `enforce` it returns `true` for our parameters
+
+```clojure
+(defun candidate-exists:bool (cid:string)
+  (with-default-read candidates cid
+    { "name": "" }
+    { "name" := name }
+    (> (length name) 0))
+)
+```
+
+:::note
+Notice how we used a similar approach in both `user-voted` and `candidate-exists` functions to execute a single row read using `with-default-read`. Below is an alternative, naive a way to implement the same thing:
+
+```clojure
+(contains account (keys votes))
+```
+The problem with this approach is that `keys` function queries all rows in the table and it's a very expensive operation. Do not use it.
+:::
+
+* we are trying to acquire the `ACCOUNT-OWNER` capability which confirms that who submitted the transaction is the owner of the KDA account. Below is the implementation of the capability:
+```clojure
+; import coin.details function
+(use coin [ details ])
+
+(defcap ACCOUNT-OWNER (account:string)
+  "Make sure the requester owns the KDA account"
+  (enforce-guard (at 'guard (coin.details account)))
+)
+```
+* while the `ACCOUNT-OWNER` capability is in scope we are calling `vote-protected` which is the function that updates the database
+```clojure
+(defun vote-protected (account:string candidateId:string)
+  (require-capability (ACCOUNT-OWNER account))
+
+  (with-read candidates candidateId { "votes" := votesCount }
+    (update candidates candidateId { "votes": (+ votesCount 1) })
+    (insert votes account { "cid": candidateId })
+    (emit-event (VOTED candidateId))
+  )
+)
+```
+First it checks that we have the capability, then proceed to update the votes of a candidate and record the vote in the votes table. At the end we emit the `VOTED` event which is useful for our frontend to update itself in real-time by listening to this event.
+
+:::tip
+Spend a bit of time understanding the logic in the `vote` function before moving forward.
+:::
 
 We're missing a way to read the current number of votes so here it is:
 
 ```clojure
-(defun getVotes:integer (key:string)
-    "Get the votes count by key"
-    (at 'count (read votes key ['count]))
+(defun getVotes:integer (cid:string)
+  "Get the votes count by cid"
+  (at 'votes (read candidates cid ['votes]))
 )
 ```
 
-And we also need a way to initialize our table:
+And we also need to initialize our table with candidates:
 
 ```clojure
 (defun init ()
-    "Initialize the rows in votes table"
-    (insert votes "A" { "option": "A", "count" : 0 })
-    (insert votes "B" { "option": "B", "count" : 0 })
+  "Initialize the rows in candidates table"
+  (insert candidates "1" { "name": "Candidate A", "votes": 0 })
+  (insert candidates "2" { "name": "Candidate B", "votes": 0 })
+  (insert candidates "3" { "name": "Candidate C", "votes": 0 })
 )
 ```
+
+After the `election` module closing parenthesis, add the following snippet:
+
+```clojure
+(if (read-msg "upgrade")
+  ["upgrade"]
+  [
+    (create-table candidates)
+    (create-table votes)
+    (init)
+  ]
+)
+```
+:::info
+ Code outside the module will be called when the module is loaded the first time, when its deployed or upgraded.
+:::
 
 If you followed the steps correctly, your code should look similar to this:
 ```clojure
-(define-keyset 'vote-admin-keyset)
+(define-keyset 'election-admin-keyset)
 
-(module simple-vote 'vote-admin-keyset
-  "Simple voting module"
+(module election GOVERNANCE
+  "Election demo module"
+
+  (use coin [ details ])
+
+  ; ----------------------------------------------------------------------
+  ; Schema
+
+  (defschema candidates-schema
+    "Candidates table schema"
+    name:string
+    votes:integer)
 
   (defschema votes-schema
     "Votes table schema"
-    option:string
-    count:integer)
+    cid:string
+  )
+
+  ; ----------------------------------------------------------------------
+  ; Tables
 
   (deftable votes:{votes-schema})
 
-  (defun vote (key:string)
-    "Submit a new vote"
-    (enforce (contains key ["A" "B"]) "You can only vote for A or B")
-    (with-read votes key { "count" := count }
-      (update votes key { "count": (+ count 1) })
-    )
-    (format "Voted {}!" [key])
+  (deftable candidates:{candidates-schema})
+
+  ; ----------------------------------------------------------------------
+  ; Capabilities
+
+  (defcap GOVERNANCE ()
+    "Only admin can update this module"
+    (enforce-keyset 'election-admin-keyset))
+
+  (defcap ACCOUNT-OWNER (account:string)
+    "Make sure the requester owns the KDA account"
+    (enforce-guard (at 'guard (coin.details account)))
   )
 
-  (defun getVotes:integer (key:string)
-    "Get the votes count by key"
-    (at 'count (read votes key ['count]))
+  (defcap VOTED (candidateId:string)
+    @managed
+    true)
+
+  ; ----------------------------------------------------------------------
+  ; Functionality
+
+  (defun vote-protected (account:string candidateId:string)
+    (require-capability (ACCOUNT-OWNER account))
+
+    (with-read candidates candidateId { "votes" := votesCount }
+      (update candidates candidateId { "votes": (+ votesCount 1) })
+      (insert votes account { "cid": candidateId })
+      (emit-event (VOTED candidateId))
+    )
+  )
+
+  (defun user-voted:bool (account:string)
+    (with-default-read votes account
+      { "cid": "" }
+      { "cid":= cid }
+      (> (length cid) 0))
+  )
+
+  (defun candidate-exists:bool (cid:string)
+    (with-default-read candidates cid
+      { "name": "" }
+      { "name" := name }
+      (> (length name) 0))
+  )
+
+  (defun vote (account:string cid:string)
+    "Submit a new vote"
+
+    (let ((doubleVote (user-voted account)))
+      (enforce (= doubleVote false) "Multiple voting not allowed"))
+
+    (let ((exists (candidate-exists cid)))
+      (enforce (= exists true) "Candidate doesn't exist"))
+
+    (with-capability (ACCOUNT-OWNER account)
+      (vote-protected account cid))
+
+    (format "Voted for candidate {}!" [cid])
+  )
+
+  (defun getVotes:integer (cid:string)
+    "Get the votes count by cid"
+    (at 'votes (read candidates cid ['votes]))
+  )
+
+  (defun getCandidate (id:string)
+    "Get candidate by id"
+    (read candidates id ['name 'votes])
   )
 
   (defun init ()
-    "Initialize the rows in votes table"
-    (insert votes "A" { "option": "A", "count" : 0 })
-    (insert votes "B" { "option": "B", "count" : 0 })
+    "Initialize the rows in candidates table"
+    (insert candidates "1" { "name": "Candidate A", "votes": 0 })
+    (insert candidates "2" { "name": "Candidate B", "votes": 0 })
+    (insert candidates "3" { "name": "Candidate C", "votes": 0 })
   )
 )
 
-(create-table votes)
-(init)
+(if (read-msg "upgrade")
+  ["upgrade"]
+  [
+    (create-table candidates)
+    (create-table votes)
+    (init)
+  ]
+)
 ```
-
-Notice how we're calling `create-table` and `init` outside of our module. That's an important step, so don't miss it.
 
 We've got our module logic so now let's add a few more tests to make sure everything is right. Open the `vote.repl` file and copy the following snippet:
 
