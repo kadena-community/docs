@@ -100,14 +100,19 @@ touch pact/election.pact pact/election.repl
 
 `election.pact` is the contract source code while in `election.repl` we'll write tests.
 
+We will also need the `coin` contract which requires the `fungible-v2` interface for our tests. You can get the latest `coin-v3` [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v3/coin-v3.pact) and `fungible-v2` [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v2/fungible-v2.pact). Make sure to add those files in your project.
 
-Copy the following code in the `election.pact` file:
+Now copy the following code in the `election.pact` file:
 
 ```clojure
 (define-keyset 'election-admin-keyset)
 
 (module election GOVERNANCE
   "Election demo module"
+
+  (defcap GOVERNANCE ()
+    "Only admin can update this module"
+    (enforce-keyset 'election-admin-keyset))
 
   (defun vote (key)
     "Submit a new vote"
@@ -131,7 +136,9 @@ Before we move forward, let's quickly test our code. Copy the code below in the 
 ;; set transaction signature key to my-key
 (env-keys ["my-key"])
 ;; Add the election-admin-keyset to environment data
-(env-data { 'election-admin-keyset: { "keys": ["my-key"], "pred": "keys-all" } })
+(env-data {
+  'election-admin-keyset: { "keys": ["admin-key"], "pred": "keys-all" }  
+})
 ;; load election.pact into the REPL
 (load "election.pact")
 ;; commit the transaction
@@ -273,7 +280,7 @@ We're missing a way to read the current number of votes so here it is:
 )
 ```
 
-And we also need to initialize our table with candidates:
+And we also need to add some candidates in our table:
 
 ```clojure
 (defun init ()
@@ -415,43 +422,96 @@ If you followed the steps correctly, your code should look similar to this:
 )
 ```
 
-We've got our module logic so now let's add a few more tests to make sure everything is right. Open the `election.repl` file and copy the following snippet:
+We've got our module logic so now let's add a few more tests to make sure everything is right. Clear the contents of the `election.repl` file and copy the following snippet:
+
+```clojure
+;; begin a transaction
+(begin-tx)
+(env-data {
+  ;; set environment data to the admin-keyset with keys admin-key and predicate function of keys-all
+  'election-admin-keyset: { "keys": ["admin-key"], "pred": "keys-all" },
+  'alice-keyset: { "keys": ["alice-key"], "pred": "keys-all" },
+  'bob-keyset: { "keys": ["bob-key"], "pred": "keys-all" },
+  'upgrade: false
+})
+
+;; load fungible-v2 interface required by coin module
+(load "coin/fungible-v2.pact")
+;; load coin module
+(load "coin/coin-v3.pact")
+;; load election module
+(load "election.pact")
+;; commit the transaction
+(commit-tx)
+
+(begin-tx)
+;; create "alice" KDA account
+(coin.create-account "alice" (read-keyset "alice-keyset"))
+;; create "bob" KDA account
+(coin.create-account "bob" (read-keyset "bob-keyset"))
+(commit-tx)
+
+(begin-tx)
+;; import election module
+(use election)
+(env-sigs [{ "key": "alice-key", "caps": []}])
+(expect-failure "Can't vote for a non-existing candidate" (vote "alice" "5"))
+(commit-tx)
+```
+
+The comments should give you a fairly clear picture of what is happening here. We are using `expect-failure` to test if `vote` correctly fails if we try to vote for a candidate that does not exist.
+
+`expect` is one the functions that's only available in the REPL but there are many more, check them out <a href="https://pact-language.readthedocs.io/en/latest/pact-functions.html#repl-only-functions">here</a>.
+
+And a few more tests:
 
 ```clojure
 (begin-tx)
 (use election)
-(expect-failure "Vote fails if C" (vote "C"))
+;; test if votes count for candidate "1" is initialized with 0
+(expect "votes for Candidate A initialized" (getVotes "1") 0)
+;; test if votes count for candidate "2" is initialized with 0
+(expect "votes for Candidate B initialized" (getVotes "2") 0)
 (commit-tx)
 
 (begin-tx)
+(use election)
+(env-sigs [{ "key": "alice-key", "caps": [(coin.GAS), (election.ACCOUNT-OWNER "alice")]}])
 
-;; import simple-vote module
-(use simple-vote)
-;; test if votes count for key "A" is initialized with 0
-(expect "votes for A initialized" (getVotes "A") 0)
+;; test if votes count for candidate "1" is correctly increased by 1
+(let ((count (getVotes "1")))
+  (vote "alice" "1")
+  (expect "votes count is increased by 1" (getVotes "1") (+ count 1)))
 
-;; test if votes count for key "B" is initialized with 0
-(expect "votes for B initialized" (getVotes "B") 0)
+(expect "voted event"
+  [ { "name": "election.VOTED", "params": ["1"], "module-hash": (at 'hash (describe-module "election"))}]
+  (env-events true))
 
-(commit-tx)
+(env-sigs [{ "key": "bob-key", "caps": [(coin.GAS), (election.ACCOUNT-OWNER "bob")]}]}])
+;; test if votes count for candidate "2" is correctly increased by 1
+(let ((count (getVotes "2")))
+  (vote "bob" "2")
+  (expect "votes count is increased by 1" (getVotes "2") (+ count 1)))
 
-(begin-tx)
-(use simple-vote)
+(expect "voted event"
+  [ { "name": "election.VOTED",
+      "params": ["2"],
+      "module-hash": (at 'hash (describe-module "election"))
+    }
+  ]
+  (env-events true))
 
-;; test if votes count for key "A" is correctly increased by 1
-(let ((count (getVotes "A")))
-  (vote "A")
-  (expect "votes count is increased by 1" (getVotes "A") (+ count 1)))
-
-;; test if votes count for key "B" is correctly increased by 1
-(let ((count (getVotes "B")))
-  (vote "B")
-  (expect "votes count is increased by 1" (getVotes "B") (+ count 1)))
+(expect-failure "Double voting not allowed" (vote "bob" "1"))
 
 (commit-tx)
 ```
-Notice how we are using `expect` to test if `getVotes` returns the correct result.
-`expect` is one the functions that's only available in the REPL but there are many more, check them out <a href="https://pact-language.readthedocs.io/en/latest/pact-functions.html#repl-only-functions">here</a>.
+Here we are testing that the `vote` function correctly increments the vote count and the `VOTED` event is emitted. We also check if we correctly handled the double voting case.
+
+:::tip
+Can you think of some cases that we didn't cover? Hint: ACCOUNT-OWNER
+
+Try to write a test that validates that only the correct owner of an account can vote.
+:::
 
 I also want to mention the `let` construct which is helpful when you need to bind some variables be in the same scope as some other logic that makes use of them. In our case we first loaded the number of votes and binded the result to `count` variable which we used later in the `expect` function.
 
@@ -461,9 +521,13 @@ Let's run those tests again to make sure everything works as expected:
 
 ```clojure
 $ pact
-pact> (load "vote.repl")
+pact> (load "election.repl")
 ```
 
+:::note
+The REPL preserves state between runs unless you load your tests like this `(load "election.repl" true)`
+ to start from a clean slate.
+:::
 
 ### Gas Station
 
@@ -600,11 +664,11 @@ Last thing we need is to create an account where the funds will be stored which 
 To recap, the key part is where we define a guard, `gas-payer-guard` that's valid if those capabilities are granted and `ALLOW_GAS` capability is brought into scope by `GAS_PAYER` capability which limits access to this gas station. If you're wondering how `GAS_PAYER` is installed, the answer is [signature capabilities](https://pact-language.readthedocs.io/en/latest/pact-reference.html#signature-capabilities). We will see how this works when we create a transaction from our frontend.
 
 :::info
-
 Guards and capabilities are an entire topic that we cannot cover in detail in this tutorial. To learn more check the [Guards, Capabilities and Events](https://pact-language.readthedocs.io/en/latest/pact-reference.html#guards-capabilities-and-events) section of the Pact documentation.
+:::
 
-Keep in mind, for security reasons a user's keyset should only sign specific capabilities and using a keyset in "unrestricted mode" (signing everything) is not recommended. Whenever you create a transaction, the `caps` property should not be an empty list (unrestricted mode).
-
+:::note
+Keep in mind, for security reasons a user's keyset should only sign specific capabilities and using a keyset in "unrestricted mode" (sign everything) is not recommended. Whenever you create a transaction, the `caps` property should not be an empty list (unrestricted mode).
 :::
 
 
