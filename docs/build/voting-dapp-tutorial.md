@@ -1238,9 +1238,6 @@ The request key together with the transaction result are displayed as notificati
 The complete source-code of this application is available here: TODO add repo link
 :::
 
-### Events
-TBA
-
 ## Conclusion
 
 It took a while but we are now at the end of this tutorial. Congratulations! You've managed to implement a complete dApp on Kadena blockchain and we hope you found this guide useful.
