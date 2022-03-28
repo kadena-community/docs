@@ -816,7 +816,7 @@ const Pact = require('pact-lang-api');
 const fs = require('fs');
 
 const API_HOST = 'http://localhost:8080';
-const CONTRACT_PATH = './pact/vote.pact';
+const CONTRACT_PATH = './pact/election.pact';
 const KEY_PAIR = Pact.crypto.genKeyPair();
 
 const pactCode = fs.readFileSync(CONTRACT_PATH, 'utf8');
@@ -828,7 +828,8 @@ async function deployContract(pactCode) {
     keyPairs: KEY_PAIR,
     pactCode: pactCode,
     envData: {
-      'vote-admin-keyset': [KEY_PAIR['publicKey']]
+      'election-admin-keyset': [KEY_PAIR['publicKey']],
+      'upgrade': false
     }
   };
   const response = await Pact.fetch.send(cmd, API_HOST);
@@ -837,7 +838,7 @@ async function deployContract(pactCode) {
 };
 
 ```
-Notice that we defined the `vote-admin-keyset` which is required by our module guard.
+Notice that we defined the `election-admin-keyset` which is required by our module guard and we set `upgrade` to "false" so our initialization functions are executed.
 Run the snippet and you should see a success message like the one below:
 
 ```json
@@ -845,7 +846,7 @@ Run the snippet and you should see a success message like the one below:
   gas: 0,
   result: {
     status: 'success',
-    data: 'Loaded module simple-vote, hash niQoaBy1p4j4ifyozj26VvA2o8m5nyGCcLiSngXgcwA'
+    data: 'Loaded module election, hash niQoaBy1p4j4ifyozj26VvA2o8m5nyGCcLiSngXgcwA'
   },
   reqKey: 't7g2mAwbfvZdjPSoaLch2HQlS5H5Z4lvvloVGf2eG1Q',
   logs: 'yr3G_Fjatl8SavWruAusVcAt7OpYV8Gd0P4ge4euHaA',
@@ -870,7 +871,7 @@ readState();
 async function readState() {
   const cmd = {
     keyPairs: KEY_PAIR,
-    pactCode: '(simple-vote.getVotes "A")'
+    pactCode: '(election.getVotes "1")'
   };
   const state = await Pact.fetch.local(cmd, API_HOST);
   console.log(state);
@@ -907,7 +908,7 @@ submitVote();
 async function submitVote() {
   const cmd = {
     keyPairs: KEY_PAIR,
-    pactCode: '(simple-vote.vote "A")'
+    pactCode: '(election.vote "alice" "1")'
   };
   const response = await Pact.fetch.send(cmd, API_HOST);
   const txResult = await Pact.fetch.listen({ listen: response.requestKeys[0] }, API_HOST);
@@ -920,7 +921,7 @@ This time we are calling the `vote` function of our contract and we should see a
 ```json
 {
   gas: 0,
-  result: { status: 'success', data: 'Voted A!' },
+  result: { status: 'success', data: 'Voted for candidate "1" !' },
   reqKey: 'Zx4N95rKThx2WcVJP-INuoFeYvNwSzs5K-CatPYI0N8',
   logs: 'YK5ar4xVOe0q8SEeFdMF5FMpiq5QublFxpXx_IAmzU4',
   metaData: null,
@@ -948,7 +949,7 @@ There are a few more things that we need to keep in mind when we deploy to a rea
 
 Each module or interface needs to be part of a namespace. The `free` namespace is available to use on both `mainnet` and `testnet`.
 
-Now let's make our contract part of the `free` namespace. Insert the following line at the beginning of `vote.pact` file:
+Now let's make our contract part of the `free` namespace. Insert the following line at the beginning of `election.pact` file:
 ```clojure
 (namespace 'free)
 ```
@@ -1000,7 +1001,7 @@ You can use the snippets below to deploy your contract to **chain 1** on `testne
   const NETWORK_ID = 'testnet04';
   const CHAIN_ID = '1';
   const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
-  const CONTRACT_PATH = './pact/vote.pact';
+  const CONTRACT_PATH = './pact/election.pact';
   const KEY_PAIR = {
     'publicKey': 'some-public-key',
     'secretKey': 'some-private-key'
@@ -1017,14 +1018,15 @@ You can use the snippets below to deploy your contract to **chain 1** on `testne
       keyPairs: KEY_PAIR,
       pactCode: pactCode,
       envData: {
-        'vote-admin-keyset': [KEY_PAIR['publicKey']]
+        'election-admin-keyset': [KEY_PAIR['publicKey']],
+        'upgrade': false
       },
       meta: {
         creationTime: creationTime(),
         ttl: 28000,
-        gasLimit: 80000,
+        gasLimit: 65000,
         chainId: CHAIN_ID,
-        gasPrice: 0.00000001,
+        gasPrice: 0.000001,
         sender: KEY_PAIR.publicKey // the account paying for gas
       }
     };
@@ -1045,7 +1047,7 @@ You can use the snippets below to deploy your contract to **chain 1** on `testne
   const NETWORK_ID = 'mainnet01';
   const CHAIN_ID = '1';
   const API_HOST = `https://api.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
-  const CONTRACT_PATH = './pact/vote.pact';
+  const CONTRACT_PATH = './pact/election.pact';
   const KEY_PAIR = {
     'publicKey': 'some-public-key',
     'secretKey': 'some-private-key'
@@ -1062,14 +1064,15 @@ You can use the snippets below to deploy your contract to **chain 1** on `testne
       keyPairs: KEY_PAIR,
       pactCode: pactCode,
       envData: {
-        'vote-admin-keyset': [KEY_PAIR['publicKey']]
+        'election-admin-keyset': [KEY_PAIR['publicKey']],
+        'upgrade': false
       },
       meta: {
         creationTime: creationTime(),
         ttl: 28000,
-        gasLimit: 80000,
+        gasLimit: 65000,
         chainId: CHAIN_ID,
-        gasPrice: 0.00000001,
+        gasPrice: 0.000001,
         sender: KEY_PAIR.publicKey // the account paying for gas
       }
     };
