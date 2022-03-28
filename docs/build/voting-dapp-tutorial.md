@@ -520,71 +520,90 @@ This interface tells us we need to define the `GAS_PAYER` capability as well as 
 
 In one sentence, a gas station allows someone to debit from a coin account that they do not own to pay the gas fee for a transaction under certain conditions. How exactly that happens, let's see below. We're going to implement the `gas-payer-v1` interface and explain each step.
 
-Create a new file `gas-station.pact` and paste the following snippet:
+Create a new file `election-gas-station.pact` and paste the following snippet:
 
 ```clojure
-(module simple-vote-gas-station GOVERNANCE
+(module election-gas-station GOVERNANCE
   (defcap GOVERNANCE ()
     "Only admin account can update the smart contract"
-    (enforce-keyset 'vote-admin-keyset))
-  )
+    (enforce-keyset 'election-admin-keyset))
 
   ; Implement the gas-payer-v1 interface
   (implements gas-payer-v1)
+
   ; Import the coin module
   (use coin)
 )
-  ```
-
-  We declared that we're implementing `gas-payer-v1` interface so let's do that:
-
-```clojure
-(defcap GAS_PAYER:bool
-    ( user:string
-      limit:integer
-      price:decimal
-    )
-    (enforce (= "exec" (at "tx-type" (read-msg))) "Inside an exec")
-    (enforce (= 1 (length (at "exec-code" (read-msg)))) "Tx of only one pact function")
-    (enforce (= "(free.simple-vote." (take 18 (at 0 (at "exec-code" (read-msg))))) "only simple-vote contract is allowed")
-    (compose-capability (ALLOW_GAS))
-  )
 ```
-The `GAS_PAYER` capability implementation performs a few checks and composes the `ALLOW_GAS` capability which is a key component. We'll see below why. Let's continue the interface implementation.
+
+Now let's implement the functions declared in the `gas-payer-v1` interface:
+
+```clojure
+(defun chain-gas-price ()
+  "Return gas price from chain-data"
+  (at 'gas-price (chain-data)))
+
+(defun enforce-below-or-at-gas-price:bool (gasPrice:decimal)
+  (enforce (<= (chain-gas-price) gasPrice)
+    (format "Gas Price must be smaller than or equal to {}" [gasPrice])))
+
+(defcap GAS_PAYER:bool
+  ( user:string
+    limit:integer
+    price:decimal
+  )
+  (enforce (= "exec" (at "tx-type" (read-msg))) "Inside an exec")
+  (enforce (= 1 (length (at "exec-code" (read-msg)))) "Tx of only one pact function")
+  (enforce (= "(free.election." (take 15 (at 0 (at "exec-code" (read-msg))))) "Only election module calls allowed")
+  (enforce-below-or-at-gas-price 0.000001)
+  (compose-capability (ALLOW_GAS))
+)
+```
+
+The `GAS_PAYER` capability implementation performs a few checks and composes the `ALLOW_GAS` capability which is a key component. We'll see below why. `chain-gas-price` and `enforce-below-or-at-gas-price` are helper functions to limit the gas price that our gas station is willing to pay.
+
+Let's continue:
 
 ```clojure
 
-(defcap ALLOW_GAS () true)
+  (defcap ALLOW_GAS () true)
 
-(defun create-gas-payer-guard:guard ()
-  (create-user-guard (gas-payer-guard))
+  (defun create-gas-payer-guard:guard ()
+    (create-user-guard (gas-payer-guard))
+  )
+
+  (defun gas-payer-guard ()
+    (require-capability (GAS))
+    (require-capability (ALLOW_GAS))
+  )
+
+  (defconst GAS_STATION "election-gas-station")
+
+  (defun init ()
+    (coin.create-account GAS_STATION (create-gas-payer-guard))
+  )
 )
 
-(defun gas-payer-guard ()
-  (require-capability (GAS))
-  (require-capability (ALLOW_GAS))
-)
-
-(defun init ()
-  (coin.create-account GAS_STATION
-    (guard-any
-      [
-        (create-gas-payer-guard)
-        (keyset-ref-guard 'vote-admin-keyset)
-      ]))
+(if (read-msg 'upgrade)
+  ["upgrade"]
+  [
+    (init)
+  ]
 )
 ```
 First we define the `ALLOW_GAS` capability which is brought in scope by the `GAS_PAYER` capability.
 
-Then we implement the `gas-payer-guard` function which tests if `GAS` (defined in coin contract) and `ALLOW_GAS` capabilities have been granted. This function is then used in `create-gas-payer-guard` to create a guard for the coin contract account from where the gas fees are paid.
+Then we implement the `gas-payer-guard` function which tests if `GAS` (defined in coin contract) and `ALLOW_GAS` capabilities have been granted which are needed to be able to pay for gas fees. This function is then used in `create-gas-payer-guard` to create a guard for the coin contract account from where the gas fees are paid.
 
-Last thing we need is to create an account where the funds will be stored which is what happens in the `init` function. As you can see, the guard of that account is using the `guard-any` predicate and 2 guards are listed, the `vote-admin-keyset` and the guard returned by `create-gas-payer-guard`. This allows transactions where either of this guards is valid to perform operations on this account.
+Last thing we need is to create an account where the funds will be stored which is what happens in the `init` function. As you can see, the guard of that account is the guard returned by `create-gas-payer-guard`, essentially allowing access to the account as long as `GAS` and `ALLOW_GAS` capabilities have been already granted.
 
-To recap, the key part is where we define a guard, `gas-payer-guard` that's valid if those capabilities are granted and `ALLOW_GAS` capability is brought into scope by `GAS_PAYER` capability which limits access to this gas station. If you're wondering how `GAS_PAYER` is installed, the answer is [signature capabilities](https://pact-language.readthedocs.io/en/latest/pact-reference.html#signature-capabilities). We will see how this works when we create a transaction.
+To recap, the key part is where we define a guard, `gas-payer-guard` that's valid if those capabilities are granted and `ALLOW_GAS` capability is brought into scope by `GAS_PAYER` capability which limits access to this gas station. If you're wondering how `GAS_PAYER` is installed, the answer is [signature capabilities](https://pact-language.readthedocs.io/en/latest/pact-reference.html#signature-capabilities). We will see how this works when we create a transaction from our frontend.
 
 :::info
 
-Guards and capabilities are an entire topic that we cannot cover in this tutorial. To learn more check the [Guards, Capabilities and Events](https://pact-language.readthedocs.io/en/latest/pact-reference.html#guards-capabilities-and-events) section of the Pact documentation.
+Guards and capabilities are an entire topic that we cannot cover in detail in this tutorial. To learn more check the [Guards, Capabilities and Events](https://pact-language.readthedocs.io/en/latest/pact-reference.html#guards-capabilities-and-events) section of the Pact documentation.
+
+Keep in mind, for security reasons a user's keyset should only sign specific capabilities and using a keyset in "unrestricted mode" (signing everything) is not recommended. Whenever you create a transaction, the `caps` property should not be an empty list (unrestricted mode).
 
 :::
 
