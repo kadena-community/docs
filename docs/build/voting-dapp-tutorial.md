@@ -415,11 +415,11 @@ If you followed the steps correctly, your code should look similar to this:
 )
 ```
 
-We've got our module logic so now let's add a few more tests to make sure everything is right. Open the `vote.repl` file and copy the following snippet:
+We've got our module logic so now let's add a few more tests to make sure everything is right. Open the `election.repl` file and copy the following snippet:
 
 ```clojure
 (begin-tx)
-(use simple-vote)
+(use election)
 (expect-failure "Vote fails if C" (vote "C"))
 (commit-tx)
 
@@ -473,6 +473,15 @@ Let's create our own gas station that will allow users to submit votes without p
 
 Each gas station needs to implement the `gas-payer-v1` interface which is shown below:
 
+:::info
+
+Pact interfaces are similar to Java's interfaces, Scala's traits, Haskell's typeclasses or Solidity's interfaces.
+If you're not familiar with this concept you can read more about it <a href="https://pact-language.readthedocs.io/en/latest/pact-reference.html#interfaces">**here**</a>.
+
+The `gas-payer-v1` interface is deployed to all chains on `testnet` and `mainnet` so you can directly use it in your contract.
+
+:::
+
 ```clojure
 (interface gas-payer-v1
 
@@ -508,13 +517,6 @@ Each gas station needs to implement the `gas-payer-v1` interface which is shown 
 ```
 
 This interface tells us we need to define the `GAS_PAYER` capability as well as implement the `create-gas-payer-guard` function.
-
-:::info
-
-Pact interfaces are similar to Java's interfaces, Scala's traits, Haskell's typeclasses or Solidity's interfaces.
-If you're not familiar with this concept you can read more about it <a href="https://pact-language.readthedocs.io/en/latest/pact-reference.html#interfaces">**here**</a>.
-
-:::
 
 In one sentence, a gas station allows someone to debit from a coin account that they do not own to pay the gas fee for a transaction under certain conditions. How exactly that happens, let's see below. We're going to implement the `gas-payer-v1` interface and explain each step.
 
