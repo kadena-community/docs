@@ -7,15 +7,19 @@ import PageRef from '@components/PageRef'
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Complete dApp Tutorial
-
-Build a complete on-chain voting dApp
+# Building a voting dApp
 
 ---
 
 ## Overview
 
-In this tutorial you will build a complete dApp, smart contracts and frontend that allows users to record a vote between parties defined by the contract administrator in a completely tamper-proof / censorship-resistant fashion. You will also deploy your own gas station that will be used to pay for the gas needed to interact with your dApp.
+In this tutorial we will be building a voting application on the Kadena blockchain. The application will consist of three distinct layers:
+
+1. Smart contract (back-end)
+2. Web app (front-end)
+3. Gas Station
+
+The app allows users to record a vote between parties defined by the contract administrator in a completely tamper-proof / censorship-resistant fashion. You will also deploy your own gas station that will be used to pay for the gas fees needed to interact with your dApp.
 
 By leveraging the blockchain and smart contracts to implement this application, its users benefit of complete transparency of the voting process, anyone being able to check every vote that was recorded, as well as peace of mind that their vote will never be deleted. This set of features is simply not possible in a classic Web2 application.
 
