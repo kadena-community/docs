@@ -23,17 +23,22 @@ By leveraging the blockchain and smart contracts to implement this application, 
 
 ### Install Pact
 
-<Tabs>
-  <TabItem value="mac" label="Mac">
+#### Mac
 
-    brew update
-    brew install kadena-io/pact/pact
-  </TabItem>
+  ```bash
+  brew update
+  brew install kadena-io/pact/pact
+  ```
 
-  <TabItem value="linux" label="Linux">
-    For installing Pact on Linux distributions in the Arch family, refer to <a href="https://aur.archlinux.org/packages/pact/">this package on the AUR</a>. Otherwise, please refer to <a href="https://github.com/kadena-io/pact#building-from-source">building from source</a>.
-  </TabItem>
-</Tabs>
+#### Linux
+  * Using **nix**
+
+  To build with **Nix** follow the setup instructions [here](https://github.com/kadena-io/pact/wiki/Building-Kadena-Projects).
+  Once the build is finished, you can run Pact with the following command:
+
+  `./result/ghc/pact/bin/pact`
+
+  For other options to build from source please refer to [this section](https://github.com/kadena-io/pact#building-from-source).
 
 **Verifying Installation**
 
