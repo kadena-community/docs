@@ -15,7 +15,7 @@ Build a complete on-chain voting dApp
 
 ## Overview
 
-In this tutorial you will build a complete dApp, smart contracts and frontend that allows users to submit a vote. You will also deploy your own gas station that will be used to pay for the gas needed to interact with your dApp.
+In this tutorial you will build a complete dApp, smart contracts and frontend that allows users to record a vote between parties defined by the contract administrator in a completely tamper-proof / censorship-resistant fashion. You will also deploy your own gas station that will be used to pay for the gas needed to interact with your dApp.
 
 By leveraging the blockchain and smart contracts to implement this application, its users benefit of complete transparency of the voting process, anyone being able to check every vote that was recorded, as well as peace of mind that their vote will never be deleted. This set of features is simply not possible in a classic Web2 application.
 
@@ -137,7 +137,7 @@ Before we move forward, let's quickly test our code. Copy the code below in the 
 (env-keys ["my-key"])
 ;; Add the election-admin-keyset to environment data
 (env-data {
-  'election-admin-keyset: { "keys": ["admin-key"], "pred": "keys-all" }  
+  'election-admin-keyset: { "keys": ["admin-key"], "pred": "keys-all" }
 })
 ;; load election.pact into the REPL
 (load "election.pact")
@@ -1198,7 +1198,7 @@ export const signTx = async (account, candidateId) => {
 }
 
 export const sendTx = async (signedCmd) => {
-    return Pact.wallet.sendSigned(signedCmd, API_HOST);    
+    return Pact.wallet.sendSigned(signedCmd, API_HOST);
 }
 
 export const listenTx = async (requestKey) => {
