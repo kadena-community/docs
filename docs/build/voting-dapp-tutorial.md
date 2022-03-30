@@ -9,6 +9,10 @@ import TabItem from '@theme/TabItem';
 
 # Building a voting dApp
 
+In its most basic form, Kadena blockchain is a digital ledger. This ledger is never stored, but rather exists on the “chain” supported by thousands of nodes simultaneously. Thanks to encryption and decentralization, Kadena blockchain’s database of transactions is incorruptible, and each record is easily verifiable. The network cannot be taken down or influenced by a single party because it doesn’t exist in one place.
+
+Blockchain can solve the many problems discovered in these early attempts at online voting. A blockchain-based voting application does not concern itself with the security of its Internet connection, because any hacker with access to the terminal will not be able to affect other nodes. Voters can effectively submit their vote without revealing their identity or political preferences to the public. Officials can count votes with absolute certainty, knowing that each ID can be attributed to one vote, no fakes can be created, and that tampering is impossible.
+
 ---
 
 ## Overview
@@ -18,10 +22,6 @@ In this tutorial we will be building a voting application on the Kadena blockcha
 1. Smart contract (back-end)
 2. Web app (front-end)
 3. Gas Station
-
-The app allows users to record a vote between parties defined by the contract administrator in a completely tamper-proof / censorship-resistant fashion. You will also deploy your own gas station that will be used to pay for the gas fees needed to interact with your dApp.
-
-By leveraging the blockchain and smart contracts to implement this application, its users benefit of complete transparency of the voting process, anyone being able to check every vote that was recorded, as well as peace of mind that their vote will never be deleted. This set of features is simply not possible in a classic Web2 application.
 
 ## Environment Setup
 
@@ -60,40 +60,38 @@ true
 
 ### Create Project Structure
 
-Copy paste the instructions below to create a basic project structure:
-
 ```bash
-mkdir my-pact-project && cd my-pact-project
+mkdir election-dapp && cd election-dapp
 mkdir pact
-mkdir app
+mkdir src
 ```
 
 ### Atom IDE (Optional)
 
 You can use any text editor to write Pact but if you prefer the benefits of an IDE, "language-pact" is a package for [Atom](https://atom.io) that provides syntax highlighting and linting.
 
-To install it, go to Preferences -> Packages -> Type "language-pact" and click the Install button.
+To install it, go to `Preferences -> Packages -> Type "language-pact"` and click the `Install` button.
 
 ![atom-language-pact](/img/docs/voting-dapp/atom-language-pact.png)
 
 ## Smart Contracts
 
-Our voting app should allow you to submit a vote while not allowing an address to vote more than once.
+Our voting app will allow you to submit a vote while not allowing an address to vote more than once.
 Additionally we will use a *gas station* to fund the gas fees for interacting with our contract, meaning our users don't have to worry about paying gas.
 
 :::info
 **Gas** is the cost necessary to perform a transaction on the network. Gas is paid to miners and its price varies based on supply and demand. It's a critical piece of the puzzle, but at the same time it brings up a UX problem. Every user needs to be aware of what gas is as well as how much gas they need to pay for their transaction. This causes significant friction and a less than ideal experience.
 
-To help mitigate this problem Kadena brings an innovation to the game. Hello **gas stations**! Gas stations are a way for dApps to subsidize gas costs for their users. This means that your user doesn't need to know what gas is or how much the gas price is, which translates into a smooth experience when interacting with your dApp.
+To help mitigate this problem Kadena brings an innovation to the game. Hello [gas stations](https://medium.com/kadena-io/the-first-crypto-gas-station-is-now-on-kadenas-blockchain-6dc43b4b3836)!
+
+Gas stations are a way for dApps to subsidize gas costs for their users. This means that your user doesn't need to know what gas is or how much the gas price is, which translates into a smooth experience when interacting with your dApp.
 :::
 
 ### Voting
 
-Let's start to implement our voting contract.
-
 A typical developer workflow looks like this:
 
-1. Write logic in `.pact` files
+1. Write contract code in `.pact` files
 2. Write tests in `.repl` files
 3. Execute your tests in the repl
 4. Deploy to local pact server
@@ -109,7 +107,7 @@ touch pact/election.pact pact/election.repl
 
 `election.pact` is the contract source code while in `election.repl` we'll write tests.
 
-We will also need the `coin` contract which requires the `fungible-v2` interface for our tests. You can get the latest `coin-v3` [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v3/coin-v3.pact) and `fungible-v2` [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v2/fungible-v2.pact). Make sure to add those files in your project.
+We will also need the `coin` contract which requires the `fungible-v2` interface for our tests. You can get the latest `coin-v3` [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v3/coin-v3.pact) and `fungible-v2` [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v2/fungible-v2.pact). Add these to your project in the following directory: `pact/root/`.
 
 Now copy the following code in the `election.pact` file:
 
@@ -144,6 +142,7 @@ Before we move forward, let's quickly test our code. Copy the code below in the 
 (begin-tx)
 ;; set transaction signature key to my-key
 (env-keys ["my-key"])
+
 ;; Add the election-admin-keyset to environment data
 (env-data {
   'election-admin-keyset: { "keys": ["admin-key"], "pred": "keys-all" }
@@ -153,6 +152,10 @@ Before we move forward, let's quickly test our code. Copy the code below in the 
 ;; commit the transaction
 (commit-tx)
 ```
+
+:::info
+Each Pact transaction is submitted with raw JSON data that can be read by functions like `read-msg`. Keysets are also stored as part of this JSON and they are read with `read-keyset`.
+:::
 
 :::info
 `begin-tx`, `env-keys`, `env-data` are "repl-only" functions, they are automatically loaded in the REPL to help simulate blockchain environment but they are not available for blockchain-based execution. You can find the complete "REPL-only" functions list [here](https://pact-language.readthedocs.io/en/latest/pact-functions.html?highlight=repl%20only#repl-only-functions).
@@ -200,7 +203,11 @@ In the snippet we've got several definitions:
 * `deftable candidates:{candidates-schema}` -> defines the `candidates` table that will use the schema defined above
 
 :::note
-Pact implements a key-row model which means a row is accessed by a single key. It is our responsibility as developers to design the schema in a way that we can retrieve the information that we need using a single row query. Multiple row queries are expensive which we will see in an example a bit later.
+Pact implements a key-row model which means a row is accessed by a single key. It is our responsibility as developers to design the schema in a way that we can retrieve the information that we need using a single row query. Multiple row queries are very expensive and shoud not be used.
+:::
+
+:::note
+The row key is always a simple string, to not be confused with the cryptographic keys used for signing transaction.
 :::
 
 Let's continue by implementing our `vote` function:
@@ -209,8 +216,8 @@ Let's continue by implementing our `vote` function:
   (defun vote (account:string cid:string)
     "Submit a new vote"
 
-    (let ((doubleVote (user-voted account)))
-      (enforce (= doubleVote false) "Multiple voting not allowed"))
+    (let ((double-vote (user-voted account)))
+      (enforce (= double-vote false) "Multiple voting not allowed"))
 
     (let ((exists (candidate-exists cid)))
       (enforce (= exists true) "Candidate doesn't exist"))
@@ -243,15 +250,6 @@ Quite a lot happening here, so let's go line by line:
 )
 ```
 
-:::note
-Notice how we used a similar approach in both `user-voted` and `candidate-exists` functions to execute a single row read using `with-default-read`. Below is an alternative, naive a way to implement the same thing:
-
-```clojure
-(contains account (keys votes))
-```
-The problem with this approach is that `keys` function queries all rows in the table and it's a very expensive operation. Do not use it.
-:::
-
 * we are trying to acquire the `ACCOUNT-OWNER` capability which confirms that who submitted the transaction is the owner of the KDA account. Below is the implementation of the capability:
 ```clojure
 ; import coin.details function
@@ -283,7 +281,7 @@ Spend a bit of time understanding the logic in the `vote` function before moving
 We're missing a way to read the current number of votes so here it is:
 
 ```clojure
-(defun getVotes:integer (cid:string)
+(defun get-votes:integer (cid:string)
   "Get the votes count by cid"
   (at 'votes (read candidates cid ['votes]))
 )
@@ -391,8 +389,8 @@ If you followed the steps correctly, your code should look similar to this:
   (defun vote (account:string cid:string)
     "Submit a new vote"
 
-    (let ((doubleVote (user-voted account)))
-      (enforce (= doubleVote false) "Multiple voting not allowed"))
+    (let ((double-vote (user-voted account)))
+      (enforce (= double-vote false) "Multiple voting not allowed"))
 
     (let ((exists (candidate-exists cid)))
       (enforce (= exists true) "Candidate doesn't exist"))
@@ -403,12 +401,12 @@ If you followed the steps correctly, your code should look similar to this:
     (format "Voted for candidate {}!" [cid])
   )
 
-  (defun getVotes:integer (cid:string)
+  (defun get-votes:integer (cid:string)
     "Get the votes count by cid"
     (at 'votes (read candidates cid ['votes]))
   )
 
-  (defun getCandidate (id:string)
+  (defun get-candidate (id:string)
     "Get candidate by id"
     (read candidates id ['name 'votes])
   )
@@ -445,9 +443,9 @@ We've got our module logic so now let's add a few more tests to make sure everyt
 })
 
 ;; load fungible-v2 interface required by coin module
-(load "coin/fungible-v2.pact")
+(load "root/fungible-v2.pact")
 ;; load coin module
-(load "coin/coin-v3.pact")
+(load "root/coin-v3.pact")
 ;; load election module
 (load "election.pact")
 ;; commit the transaction
@@ -478,9 +476,9 @@ And a few more tests:
 (begin-tx)
 (use election)
 ;; test if votes count for candidate "1" is initialized with 0
-(expect "votes for Candidate A initialized" (getVotes "1") 0)
+(expect "votes for Candidate A initialized" (get-votes "1") 0)
 ;; test if votes count for candidate "2" is initialized with 0
-(expect "votes for Candidate B initialized" (getVotes "2") 0)
+(expect "votes for Candidate B initialized" (get-votes "2") 0)
 (commit-tx)
 
 (begin-tx)
@@ -488,9 +486,9 @@ And a few more tests:
 (env-sigs [{ "key": "alice-key", "caps": [(coin.GAS), (election.ACCOUNT-OWNER "alice")]}])
 
 ;; test if votes count for candidate "1" is correctly increased by 1
-(let ((count (getVotes "1")))
+(let ((count (get-votes "1")))
   (vote "alice" "1")
-  (expect "votes count is increased by 1" (getVotes "1") (+ count 1)))
+  (expect "votes count is increased by 1" (get-votes "1") (+ count 1)))
 
 (expect "voted event"
   [ { "name": "election.VOTED", "params": ["1"], "module-hash": (at 'hash (describe-module "election"))}]
@@ -498,9 +496,9 @@ And a few more tests:
 
 (env-sigs [{ "key": "bob-key", "caps": [(coin.GAS), (election.ACCOUNT-OWNER "bob")]}]}])
 ;; test if votes count for candidate "2" is correctly increased by 1
-(let ((count (getVotes "2")))
+(let ((count (get-votes "2")))
   (vote "bob" "2")
-  (expect "votes count is increased by 1" (getVotes "2") (+ count 1)))
+  (expect "votes count is increased by 1" (get-votes "2") (+ count 1)))
 
 (expect "voted event"
   [ { "name": "election.VOTED",
@@ -693,7 +691,7 @@ There are several ways you can test your smart contracts before going to mainnet
 
 REPL stands for read - eval - print - loop. This acronym refers to the idea that given a Pact file, a REPL file is responsible for reading, evaluating, printing, and looping through the code as needed to both run and provide the output of the Pact file. It allows us to quickly test the smart contracts that we're building.
 
-We've already used the REPL earlier when we wrote tests in the `vote.repl` file. I encourage you to have a look at the list of [REPL-only functions](https://pact-language.readthedocs.io/en/stable/pact-functions.html?highlight=repl-functions#repl-only-functions) and try them in your scripts, they offer a great way to quickly setup a feedback loop when you work on your contracts.
+We've already used the REPL earlier when we wrote tests in the `election.repl` file. I encourage you to have a look at the list of [REPL-only functions](https://pact-language.readthedocs.io/en/stable/pact-functions.html?highlight=repl-functions#repl-only-functions) and try them in your scripts, they offer a great way to quickly setup a feedback loop when you work on your contracts.
 
 ### Pact Server
 
@@ -880,7 +878,7 @@ readState();
 async function readState() {
   const cmd = {
     keyPairs: KEY_PAIR,
-    pactCode: '(election.getVotes "1")'
+    pactCode: '(election.get-votes "1")'
   };
   const state = await Pact.fetch.local(cmd, API_HOST);
   console.log(state);
@@ -1126,7 +1124,7 @@ The main aspects concerning a frontend implementation of a blockchain applicatio
 
 ### Read Data
 
-For this demo application we would like to display the number of votes that each candidate received. To do that we have to call the `getVotes` function from our `election` module.
+For this demo application we would like to display the number of votes that each candidate received. To do that we have to call the `get-votes` function from our `election` module.
 Here's how that looks like:
 
 ```js
@@ -1142,9 +1140,9 @@ export const CHAIN_ID = '1';
 
 const creationTime = () => Math.round((new Date).getTime() / 1000) - 15;
 
-export const getVotes = async (candidate) => {
+export const get-votes = async (candidate) => {
   const cmd = {
-    pactCode: `(free.election.getVotes "${candidate}")`,
+    pactCode: `(free.election.get-votes "${candidate}")`,
     meta: {
       creationTime: creationTime(),
       ttl: TTL,
