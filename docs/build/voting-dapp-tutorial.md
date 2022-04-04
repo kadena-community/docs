@@ -76,8 +76,8 @@ To install it, go to `Preferences -> Packages -> Type "language-pact"` and click
 
 ## Smart Contracts
 
-Our voting app will allow you to submit a vote while not allowing an address to vote more than once.
-Additionally we will use a *gas station* to fund the gas fees for interacting with our contract, meaning our users don't have to worry about paying gas.
+Our voting app will allow you to submit a vote while preventing an address to vote more than once.
+Additionally we will use a *gas station* to fund the gas fees for interacting with our contract, meaning our users don't have to worry about paying for gas.
 
 :::info
 **Gas** is the cost necessary to perform a transaction on the network. Gas is paid to miners and its price varies based on supply and demand. It's a critical piece of the puzzle, but at the same time it brings up a UX problem. Every user needs to be aware of what gas is as well as how much gas they need to pay for their transaction. This causes significant friction and a less than ideal experience.
@@ -97,19 +97,19 @@ A typical developer workflow looks like this:
 4. Deploy to local pact server
 5. Deploy to testnet
 
-Here we will be focusing on steps 1-3.
+In this section we will be focusing on steps 1-3 and later deploy to local pact server and testnet.
 
-Assuming you are still in your project directory, create the `election.pact` and `election.repl` files:
+Assuming you are still in your project directory, let's create the `election.pact` and `election.repl` files:
 
 ```clojure
 touch pact/election.pact pact/election.repl
 ```
 
-`election.pact` is the contract source code while in `election.repl` we'll write tests.
+Remember, `election.pact` is the contract source code while in `election.repl` we'll write tests.
 
 We will also need the `coin` contract which requires the `fungible-v2` interface for our tests. You can get the latest `coin-v3` [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v3/coin-v3.pact) and `fungible-v2` [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v2/fungible-v2.pact). Add these to your project in the following directory: `pact/root/`.
 
-Now copy the following code in the `election.pact` file:
+We are now set to start implementing our contract, so let's copy the following code in the `election.pact` file:
 
 ```clojure
 (define-keyset 'election-admin-keyset)
@@ -121,7 +121,7 @@ Now copy the following code in the `election.pact` file:
     "Only admin can update this module"
     (enforce-keyset 'election-admin-keyset))
 
-  (defun vote (key)
+  (defun vote (key:string)
     "Submit a new vote"
     (format "Voted {}!" [key]))
 )
@@ -129,19 +129,21 @@ Now copy the following code in the `election.pact` file:
 (vote "A")
 ```
 
-This snippet defines a module "election" that holds a function "vote" that takes a parameter and displays a formatted string that includes the parameter.
+In this snippet we defined a module named `election` that includes a `vote` function which simply displays its parameter value as part of a formatter string.
+
+You can also notice the `GOVERNANCE` keyword next to the module name and the capability with the same name defined below. It is called *module governance capability* and it can be as simple as our example, enforcing a keyset or more complex like tallying a stakeholder vote on an upgrade hash.
 
 :::note
 Module names and keyset definitions are required to be unique. We will mention this again when we get to deploy our contract to testnet.
 :::
 
-Before we move forward, let's quickly test our code. Copy the code below in the `election.repl` file:
+We've got some code written, now let's test it. Copy the code below in the `election.repl` file:
 
 ```clojure
 ;; begin a transaction
 (begin-tx)
 ;; set transaction signature key to my-key
-(env-keys ["my-key"])
+(env-keys ["admin-key"])
 
 ;; Add the election-admin-keyset to environment data
 (env-data {
@@ -154,19 +156,19 @@ Before we move forward, let's quickly test our code. Copy the code below in the 
 ```
 
 :::info
-Each Pact transaction is submitted with raw JSON data that can be read by functions like `read-msg`. Keysets are also stored as part of this JSON and they are read with `read-keyset`.
-:::
-
-:::info
 `begin-tx`, `env-keys`, `env-data` are "repl-only" functions, they are automatically loaded in the REPL to help simulate blockchain environment but they are not available for blockchain-based execution. You can find the complete "REPL-only" functions list [here](https://pact-language.readthedocs.io/en/latest/pact-functions.html?highlight=repl%20only#repl-only-functions).
 :::
 
-To run the test type the following command in your terminal:
+:::info
+Each Pact transaction is submitted with raw JSON data that can be read by functions like `read-msg`. In REPL scripts we are using `env-data` to attach any data to this JSON, including keysets which are then read with `read-keyset`.
+:::
+
+Run the script in your terminal:
 ```clojure
 $ pact
 pact> (load "election.repl")
 ```
-And you should see an output similar to the one below (the hash will be different):
+The output should be similar to the one below:
 ```clojure
 "Loading election.repl..."
 "Begin Tx 0"
@@ -179,7 +181,7 @@ And you should see an output similar to the one below (the hash will be differen
 "Commit Tx 0"
 ```
 
-Let's continue by adding a bit more logic. Copy this snippet just below the module declaration:
+Pact smart contracts store data in tables so let's define the ones that we need for our voting contract. Copy the code below after the governance capability definition:
 
 ```clojure
   (defschema candidates-schema
@@ -196,7 +198,7 @@ Let's continue by adding a bit more logic. Copy this snippet just below the modu
 
   (deftable candidates:{candidates-schema})
   ```
-In the snippet we've got several definitions:
+What we did here:
 * `defschema candidates-schema` -> defines the schema for our **candidates** table where we will keep track of the candidates that users can vote for
 * `defschema votes-schema` -> defines the schema for our **votes** table where we will store each vote
 * `deftable votes:{votes-schema}` -> defines the `votes` table that will use the schema defined above
@@ -204,163 +206,37 @@ In the snippet we've got several definitions:
 
 :::note
 Pact implements a key-row model which means a row is accessed by a single key. It is our responsibility as developers to design the schema in a way that we can retrieve the information that we need using a single row query. Multiple row queries are very expensive and shoud not be used.
-:::
 
-:::note
 The row key is always a simple string, to not be confused with the cryptographic keys used for signing transaction.
 :::
 
-Let's continue by implementing our `vote` function:
+Since we have defined our data storage, we can now implement the `vote` function:
 
 ```clojure
-  (defun vote (account:string cid:string)
-    "Submit a new vote"
-
-    (let ((double-vote (user-voted account)))
-      (enforce (= double-vote false) "Multiple voting not allowed"))
-
-    (let ((exists (candidate-exists cid)))
-      (enforce (= exists true) "Candidate doesn't exist"))
-
-    (with-capability (ACCOUNT-OWNER account)
-      (vote-protected account cid))
-
-    (format "Voted for candidate {}!" [cid])
-  )
-```
-
-Quite a lot happening here, so let's go line by line:
-* to prevent double voting, we have to check if the user already voted. Below is the implementation of the `user-voted` function which does that.
-```clojure
-(defun user-voted:bool (account:string)
-  (with-default-read votes account
-    { "cid": "" }
-    { "cid":= cid }
-    (> (length cid) 0))
-)
-```
-* to prevent voting for a candidate that doesn't exist we implemented `candidate-exists` function and we `enforce` it returns `true` for our parameters
-
-```clojure
-(defun candidate-exists:bool (cid:string)
-  (with-default-read candidates cid
-    { "name": "" }
-    { "name" := name }
-    (> (length name) 0))
-)
-```
-
-* we are trying to acquire the `ACCOUNT-OWNER` capability which confirms that who submitted the transaction is the owner of the KDA account. Below is the implementation of the capability:
-```clojure
-; import coin.details function
-(use coin [ details ])
-
-(defcap ACCOUNT-OWNER (account:string)
-  "Make sure the requester owns the KDA account"
-  (enforce-guard (at 'guard (coin.details account)))
-)
-```
-* while the `ACCOUNT-OWNER` capability is in scope we are calling `vote-protected` which is the function that updates the database
-```clojure
-(defun vote-protected (account:string candidateId:string)
-  (require-capability (ACCOUNT-OWNER account))
-
-  (with-read candidates candidateId { "votes" := votesCount }
-    (update candidates candidateId { "votes": (+ votesCount 1) })
-    (insert votes account { "cid": candidateId })
-    (emit-event (VOTED candidateId))
-  )
-)
-```
-First it checks that we have the capability, then proceed to update the votes of a candidate and record the vote in the votes table. At the end we emit the `VOTED` event which is useful for our frontend to update itself in real-time by listening to this event.
-
-:::tip
-Spend a bit of time understanding the logic in the `vote` function before moving forward.
-:::
-
-We're missing a way to read the current number of votes so here it is:
-
-```clojure
-(defun get-votes:integer (cid:string)
-  "Get the votes count by cid"
-  (at 'votes (read candidates cid ['votes]))
-)
-```
-
-And we also need to add some candidates in our table:
-
-```clojure
-(defun init ()
-  "Initialize the rows in candidates table"
-  (insert candidates "1" { "name": "Candidate A", "votes": 0 })
-  (insert candidates "2" { "name": "Candidate B", "votes": 0 })
-  (insert candidates "3" { "name": "Candidate C", "votes": 0 })
-)
-```
-
-After the `election` module closing parenthesis, add the following snippet:
-
-```clojure
-(if (read-msg "upgrade")
-  ["upgrade"]
-  [
-    (create-table candidates)
-    (create-table votes)
-    (init)
-  ]
-)
-```
-:::info
- Code outside the module will be called when the module is loaded the first time, when its deployed or upgraded.
-:::
-
-If you followed the steps correctly, your code should look similar to this:
-```clojure
-(define-keyset 'election-admin-keyset)
-
-(module election GOVERNANCE
-  "Election demo module"
-
+  ; import coin.details function
   (use coin [ details ])
-
-  ; ----------------------------------------------------------------------
-  ; Schema
-
-  (defschema candidates-schema
-    "Candidates table schema"
-    name:string
-    votes:integer)
-
-  (defschema votes-schema
-    "Votes table schema"
-    cid:string
-  )
-
-  ; ----------------------------------------------------------------------
-  ; Tables
-
-  (deftable votes:{votes-schema})
-
-  (deftable candidates:{candidates-schema})
-
-  ; ----------------------------------------------------------------------
-  ; Capabilities
-
-  (defcap GOVERNANCE ()
-    "Only admin can update this module"
-    (enforce-keyset 'election-admin-keyset))
 
   (defcap ACCOUNT-OWNER (account:string)
     "Make sure the requester owns the KDA account"
     (enforce-guard (at 'guard (coin.details account)))
   )
 
-  (defcap VOTED (candidateId:string)
-    @managed
-    true)
+  (defun user-voted:bool (account:string)
+    "Check if a user already voted"
 
-  ; ----------------------------------------------------------------------
-  ; Functionality
+    (with-default-read votes account
+      { "cid": "" }
+      { "cid":= cid }
+      (> (length cid) 0))
+  )
+
+  (defun candidate-exists:bool (cid:string)
+    "Check if a candidate exists"
+
+    (with-default-read candidates cid
+      { "name": "" }
+      { "name" := name }
+      (> (length name) 0))
 
   (defun vote-protected (account:string candidateId:string)
     (require-capability (ACCOUNT-OWNER account))
@@ -372,20 +248,6 @@ If you followed the steps correctly, your code should look similar to this:
     )
   )
 
-  (defun user-voted:bool (account:string)
-    (with-default-read votes account
-      { "cid": "" }
-      { "cid":= cid }
-      (> (length cid) 0))
-  )
-
-  (defun candidate-exists:bool (cid:string)
-    (with-default-read candidates cid
-      { "name": "" }
-      { "name" := name }
-      (> (length name) 0))
-  )
-
   (defun vote (account:string cid:string)
     "Submit a new vote"
 
@@ -400,36 +262,67 @@ If you followed the steps correctly, your code should look similar to this:
 
     (format "Voted for candidate {}!" [cid])
   )
+```
 
-  (defun get-votes:integer (cid:string)
-    "Get the votes count by cid"
-    (at 'votes (read candidates cid ['votes]))
-  )
+Quite a lot happening here but don't worry we'll explain everything:
+* to prevent double voting, we have to check if the user already voted which we are doing through `user-voted` function and we `enforce` it returns `false`
+* to prevent voting for a candidate that doesn't exist we implemented `candidate-exists` function and we `enforce` it returns `true`
+* we are trying to acquire the `ACCOUNT-OWNER` capability which checks that the transaction owner is also the owner of the KDA account provided as parameter to our `vote` function.
+* while the `ACCOUNT-OWNER` capability is in scope we are calling `vote-protected` which is the function that updates the database. First it checks that we already have the capability (this means the function cannot be called directly) then proceed to update the votes of a candidate and record the vote in the votes table. At the end we emit the `VOTED` event which is useful for our frontend to update itself in real-time by listening to this event.
 
-  (defun get-candidate (id:string)
-    "Get candidate by id"
-    (read candidates id ['name 'votes])
-  )
+:::tip
+Spend a bit of time understanding the `vote` function implementation before moving forward.
+:::
 
-  (defun init ()
-    "Initialize the rows in candidates table"
-    (insert candidates "1" { "name": "Candidate A", "votes": 0 })
-    (insert candidates "2" { "name": "Candidate B", "votes": 0 })
-    (insert candidates "3" { "name": "Candidate C", "votes": 0 })
-  )
+Now that we can record votes, we also need to read them:
+
+```clojure
+(defun get-votes:integer (cid:string)
+  "Get the votes count by cid"
+  (at 'votes (read candidates cid ['votes]))
+)
+```
+
+Last thing on the list is adding candidates:
+
+```clojure
+(defun insert-candidate (candidate)
+  "Insert a new candidate, admin operation"
+  (with-capability (GOVERNANCE)
+    (let ((name (at 'name candidate)))
+    (insert candidates (at 'key candidate) { "name": (at 'name candidate), "votes": 0 })))
 )
 
+(defun insert-candidates (candidates:list)
+  (map (insert-candidate) candidates)
+)
+```
+
+Inserting a new candidate is an "admin-only" operation and we reused the already defined `GOVERNANCE` capability to enforce this.
+
+With this we have esentially completed our module. All the required functionality is implemented.
+
+When a module is deployed, the tables that it defines need to be created. This is done through `create-table` function. Insert the snippet below after the module's closing parenthesis:
+
+```clojure
 (if (read-msg "upgrade")
   ["upgrade"]
   [
     (create-table candidates)
     (create-table votes)
-    (init)
   ]
 )
 ```
 
-We've got our module logic so now let's add a few more tests to make sure everything is right. Clear the contents of the `election.repl` file and copy the following snippet:
+:::info
+ Code outside the module will be called when the module is loaded the first time, when its deployed or upgraded. In the snippet above we are checking if the `upgrade` key that comes from transaction data is `true` and only execute the `create-table` calls if it's not since we cannot recreate tables when upgrading a module.
+:::
+
+:::tip
+You can find the source code of the `election.pact` contract [here]. TODO: Insert repo link
+:::
+
+We have written our contract but our work is not done yet. We need tests to validate that the functionality is correct. Clear the contents of the `election.repl` file and copy the following snippet:
 
 ```clojure
 ;; begin a transaction
@@ -468,9 +361,11 @@ We've got our module logic so now let's add a few more tests to make sure everyt
 
 The comments should give you a fairly clear picture of what is happening here. We are using `expect-failure` to test if `vote` correctly fails if we try to vote for a candidate that does not exist.
 
+:::info
 `expect` is one the functions that's only available in the REPL but there are many more, check them out <a href="https://pact-language.readthedocs.io/en/latest/pact-functions.html#repl-only-functions">here</a>.
+:::
 
-And a few more tests:
+And more tests:
 
 ```clojure
 (begin-tx)
@@ -512,7 +407,7 @@ And a few more tests:
 
 (commit-tx)
 ```
-Here we are testing that the `vote` function correctly increments the vote count and the `VOTED` event is emitted. We also check if we correctly handled the double voting case.
+Here we are testing that the `vote` function correctly increments the vote count and the `VOTED` event is emitted. We are also checking if we correctly handled the double voting scenario.
 
 :::tip
 Can you think of some cases that we didn't cover? Hint: ACCOUNT-OWNER
@@ -520,18 +415,18 @@ Can you think of some cases that we didn't cover? Hint: ACCOUNT-OWNER
 Try to write a test that validates that only the correct owner of an account can vote.
 :::
 
-I also want to mention the `let` construct which is helpful when you need to bind some variables be in the same scope as some other logic that makes use of them. In our case we first loaded the number of votes and binded the result to `count` variable which we used later in the `expect` function.
+ Notice the `let` construct which is helpful when you need to bind some variables to be in the same scope as some other logic that uses them. In our case we first loaded the number of votes and binded the result to `count` variable which we compared with the new count after submitting a vote.
 
 You can read more about `let` and `let*` <a href="https://pact-language.readthedocs.io/en/latest/pact-reference.html#let"> here</a>.
 
-Let's run those tests again to make sure everything works as expected:
+Run those tests again to make sure everything works as expected:
 
 ```clojure
 $ pact
 pact> (load "election.repl")
 ```
 
-:::note
+:::info
 The REPL preserves state between runs unless you load your tests like this `(load "election.repl" true)`
  to start from a clean slate.
 :::
@@ -947,26 +842,28 @@ We demonstrated how you can make use of *Pact Server* and `pact-lang-api` librar
 
 In order to deploy our contract to the real blockchain network, wether it's testnet or mainnet we need to pay for the transaction using gas fees.
 
-We need a key/pair to create an account so let's generate one by running `pact -g` in your terminal or by using the `Pact.crypto.genKeyPair()` method available in the `pact-lang-api` lib.
+We also need a key/pair to create an account so let's generate one by running `pact -g` in your terminal or by using the `Pact.crypto.genKeyPair()` method available in the `pact-lang-api` lib.
 
 Next step is to fund your `testnet` account using this [faucet](http://faucet.testnet.chainweb.com). You will receive 20 testnet KDA.
 
-There are a few more things that we need to keep in mind when we deploy to a real network:
-1. **Namespaces**
+:::note
+There are two more things that we need to keep in mind when we deploy to a real network:
+
+**Namespaces**
 
 Each module or interface needs to be part of a namespace. The `free` namespace is available to use on both `mainnet` and `testnet`.
 
-Now let's make our contract part of the `free` namespace. Insert the following line at the beginning of `election.pact` file:
+To set the namespace of a module we have to use the `namespace` function. Insert the following line at the beginning of `election.pact` file:
+
 ```clojure
 (namespace 'free)
 ```
-2. **Unique module and keyset names**
+**Unique module and keyset names**
 
 Within the same namespace, each module name needs to be unique, similar requirement for defined keysets.
 
-:::info
-You have to use the fully qualified name {namespace}.{module-name} when accessing a module.
-Also you can read more about namespaces [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=namespace#namespace-declaration).
+Also when accessing a module's function we have to use the fully qualified name {namespace}.{module-name}.{function-name}, eg. `free.election.vote`.
+You can read more about namespaces [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=namespace#namespace-declaration).
 :::
 
 :::tip
