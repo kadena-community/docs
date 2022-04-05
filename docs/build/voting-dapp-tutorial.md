@@ -415,9 +415,7 @@ Can you think of some cases that we didn't cover? Hint: ACCOUNT-OWNER
 Try to write a test that validates that only the correct owner of an account can vote.
 :::
 
- Notice the `let` construct which is helpful when you need to bind some variables to be in the same scope as some other logic that uses them. In our case we first loaded the number of votes and binded the result to `count` variable which we compared with the new count after submitting a vote.
-
-You can read more about `let` and `let*` <a href="https://pact-language.readthedocs.io/en/latest/pact-reference.html#let"> here</a>.
+ Notice the `let` construct which is helpful when you need to bind some variables to be in the same scope as some other logic that uses them. In our case we first loaded the number of votes and binded the result to `count` variable which we compared with the new count after submitting a vote. You can read more about `let` and `let*` <a href="https://pact-language.readthedocs.io/en/latest/pact-reference.html#let"> here</a>.
 
 Run those tests again to make sure everything works as expected:
 
@@ -427,24 +425,21 @@ pact> (load "election.repl")
 ```
 
 :::info
-The REPL preserves state between runs unless you load your tests like this `(load "election.repl" true)`
- to start from a clean slate.
+The REPL preserves state between subsequent runs unless the optional parameter `reset` is set to true `(load "election.repl" true)`.
 :::
 
 ### Gas Station
 
-A unique feature of Kadena is the ability to allow gas to be paid by a different entity than the one who initiated the transaction. This entity is what we call a "gas station".
+A unique feature of Kadena is the ability to allow gas to be paid by a different entity than the one who initiated the transaction. This entity is what we call a *gas station*.
 
-Let's create our own gas station that will allow users to submit votes without paying for gas, instead gas will be subsidized by the gas station.
+ In our voting app this will allow users to submit votes without paying for gas, instead gas will be subsidized by the gas station.
 
-Each gas station needs to implement the `gas-payer-v1` interface which is shown below:
+The standard for gas station implementation is defined by the `gas-payer-v1` interface. The `gas-payer-v1` interface is deployed to all chains on `testnet` and `mainnet` so you can directly use it in your contract. We can specify that a module implements an interface using the `(implements INTERFACE)` construct.
 
 :::info
 
 Pact interfaces are similar to Java's interfaces, Scala's traits, Haskell's typeclasses or Solidity's interfaces.
 If you're not familiar with this concept you can read more about it <a href="https://pact-language.readthedocs.io/en/latest/pact-reference.html#interfaces">**here**</a>.
-
-The `gas-payer-v1` interface is deployed to all chains on `testnet` and `mainnet` so you can directly use it in your contract.
 
 :::
 
@@ -482,9 +477,11 @@ The `gas-payer-v1` interface is deployed to all chains on `testnet` and `mainnet
 )
 ```
 
-This interface tells us we need to define the `GAS_PAYER` capability as well as implement the `create-gas-payer-guard` function.
+Our module needs to implement all the functions and capabilities defined by the `gas-payer-v1` interface:
+* `GAS_PAYER` capability
+* `create-gas-payer-guard` function
 
-In one sentence, a gas station allows someone to debit from a coin account that they do not own to pay the gas fee for a transaction under certain conditions. How exactly that happens, let's see below. We're going to implement the `gas-payer-v1` interface and explain each step.
+A gas station allows someone to debit from a coin account that they do not own, gas station account, to pay the gas fee for a transaction under certain conditions. How exactly that happens, let's see below.
 
 Create a new file `election-gas-station.pact` and paste the following snippet:
 
@@ -502,7 +499,7 @@ Create a new file `election-gas-station.pact` and paste the following snippet:
 )
 ```
 
-Now let's implement the functions declared in the `gas-payer-v1` interface:
+Now let's implement the `gas-payer-v1` interface:
 
 ```clojure
 (defun chain-gas-price ()
@@ -518,17 +515,25 @@ Now let's implement the functions declared in the `gas-payer-v1` interface:
     limit:integer
     price:decimal
   )
+
+  ;; Transaction has to be of type `exec`
   (enforce (= "exec" (at "tx-type" (read-msg))) "Inside an exec")
+
   (enforce (= 1 (length (at "exec-code" (read-msg)))) "Tx of only one pact function")
-  (enforce (= "(free.election." (take 15 (at 0 (at "exec-code" (read-msg))))) "Only election module calls allowed")
+
+  ;; Gas station can only be used to pay for gas consumed by functions defined in `free-election` module
+  (enforce
+    (= "(free.election." (take 15 (at 0 (at "exec-code" (read-msg)))))
+    "Only election module calls allowed")
+
+  ;; Limit the gas price that the gas station can pay
   (enforce-below-or-at-gas-price 0.000001)
+
   (compose-capability (ALLOW_GAS))
 )
 ```
 
-The `GAS_PAYER` capability implementation performs a few checks and composes the `ALLOW_GAS` capability which is a key component. We'll see below why. `chain-gas-price` and `enforce-below-or-at-gas-price` are helper functions to limit the gas price that our gas station is willing to pay.
-
-Let's continue:
+The `GAS_PAYER` capability implementation performs a few checks and composes the `ALLOW_GAS` capability that we will define next. `chain-gas-price` and `enforce-below-or-at-gas-price` are helper functions to limit the gas price that our gas station is willing to pay.
 
 ```clojure
 
@@ -559,20 +564,15 @@ Let's continue:
 ```
 First we define the `ALLOW_GAS` capability which is brought in scope by the `GAS_PAYER` capability.
 
-Then we implement the `gas-payer-guard` function which tests if `GAS` (defined in coin contract) and `ALLOW_GAS` capabilities have been granted which are needed to be able to pay for gas fees. This function is then used in `create-gas-payer-guard` to create a guard for the coin contract account from where the gas fees are paid.
+Then we implement the `gas-payer-guard` function which tests if `GAS` (magic capability defined in coin contract) and `ALLOW_GAS` capabilities have been granted which are needed to be able to pay for gas fees. By composing `ALLOW_GAS` in `GAS_PAYER` we hide the implementation details of `GAS_PAYER` that `gas-payer-guard` function does not need to know about. This is then used in `create-gas-payer-guard` to create a special guard for the coin contract account from where the gas fees are paid.
 
-Last thing we need is to create an account where the funds will be stored which is what happens in the `init` function. As you can see, the guard of that account is the guard returned by `create-gas-payer-guard`, essentially allowing access to the account as long as `GAS` and `ALLOW_GAS` capabilities have been already granted.
+Last thing we need is to create an account where the funds will be stored which is what happens in the `init` function. As you can see, the guard of that account is the guard returned by `create-gas-payer-guard`, essentially allowing access to the account as long as `GAS` and `ALLOW_GAS` capabilities have already been granted.
 
-To recap, the key part is where we define a guard, `gas-payer-guard` that's valid if those capabilities are granted and `ALLOW_GAS` capability is brought into scope by `GAS_PAYER` capability which limits access to this gas station. If you're wondering how `GAS_PAYER` is installed, the answer is [signature capabilities](https://pact-language.readthedocs.io/en/latest/pact-reference.html#signature-capabilities). We will see how this works when we create a transaction from our frontend.
+To recap, a gas station is a coin account with a special guard that's valid if both `GAS` and `ALLOW_GAS` capabilities are granted. If you're wondering how `GAS_PAYER` is granted, the answer is [signature capabilities](https://pact-language.readthedocs.io/en/latest/pact-reference.html#signature-capabilities). We will see how this works in the [frontend](#frontend) section of this tutorial where we interact with the smart contracts.
 
 :::info
 Guards and capabilities are an entire topic that we cannot cover in detail in this tutorial. To learn more check the [Guards, Capabilities and Events](https://pact-language.readthedocs.io/en/latest/pact-reference.html#guards-capabilities-and-events) section of the Pact documentation.
 :::
-
-:::note
-Keep in mind, for security reasons a user's keyset should only sign specific capabilities and using a keyset in "unrestricted mode" (sign everything) is not recommended. Whenever you create a transaction, the `caps` property should not be an empty list (unrestricted mode).
-:::
-
 
 ## Testing
 
@@ -1113,6 +1113,12 @@ export const listenTx = async (requestKey) => {
 Notice the `caps` attribute where we define the capabilities that the user's keyset will have to sign using the `Pact.lang.mkCap` helper method. In this case we have two:
 * `free.election.ACCOUNT-OWNER` -> checks if the user is the owner of the KDA account
 * `free.election-gas-station.GAS_PAYER` -> enables the payment of gas fees by the gas station that we deployed
+
+:::note Scoping signatures
+Keep in mind, for security reasons a keyset should only sign specific capabilities and using a keyset in "unrestricted mode" is not recommended. Scoping the signature allows the signer to safely call untrusted code which is an important security feature of Pact and Kadena.
+
+"Unrestricted mode" means that we do not define any capabilities when creating a transaction.
+:::
 
 :::note
 When reading values from a JSON, Pact converts numbers to `decimal` type but the second parameter of the `GAS_PAYER` capability requires an integer so we have to force the correct type using this approach: `{ int: 1 }`.
