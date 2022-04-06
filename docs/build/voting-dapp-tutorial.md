@@ -586,19 +586,20 @@ There are several ways you can test your smart contracts before going to mainnet
 
 REPL stands for read - eval - print - loop. This acronym refers to the idea that given a Pact file, a REPL file is responsible for reading, evaluating, printing, and looping through the code as needed to both run and provide the output of the Pact file. It allows us to quickly test the smart contracts that we're building.
 
-We've already used the REPL earlier when we wrote tests in the `election.repl` file. I encourage you to have a look at the list of [REPL-only functions](https://pact-language.readthedocs.io/en/stable/pact-functions.html?highlight=repl-functions#repl-only-functions) and try them in your scripts, they offer a great way to quickly setup a feedback loop when you work on your contracts.
+We've already used the REPL earlier when we wrote tests in the `election.repl` file. I encourage you to have a look at the list of [REPL-only functions](https://pact-language.readthedocs.io/en/stable/pact-functions.html?highlight=repl-functions#repl-only-functions) and try them in your scripts, they offer a great way to quickly setup a feedback loop when you're iterating on your contracts.
 
 ### Pact Server
 
 Pact interpreter comes with a built-in local http server and SQLite DB which effectively simulates a single-node blockchain environment, with the same API supported by *Chainweb*, Kadena's scalable PoW blockchain.
 
-Let's create a `config.yaml` file and the `log` directory for the pact http server:
+To start the server we need a `config.yaml` file and a `log` directory:
 
 ```bash
 touch config.yaml
 mkdir log
 ```
-Now copy the code below and save the file:
+
+`config.yaml` contents:
 
 ```yaml
 # Config file for pact http server. Launch with `pact -s config.yaml`
@@ -619,7 +620,7 @@ pragmas: []
 verbose: True
 ```
 
-And start the server by running the following command in your terminal:
+We now can run it with the following command:
 
 ```
 $ pact -s config.yaml
@@ -646,7 +647,7 @@ $ pact -s config.yaml
 2022/03/18-09:29:59 [disk replay]: No replay found
 ```
 
-There are several endpoints available that we can use to interact with the Pact server:
+Here is a list of the endpoints that Pact server provides:
 
 | Endpoint | Description |
 | -------- | ----------- |
@@ -659,7 +660,7 @@ There are several endpoints available that we can use to interact with the Pact 
 You can find detailed specifications of the above mentioned endpoints [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=YAML#endpoints)
 :::
 
-There are 2 ways to interact with these endpoints:
+There are two ways to interact with these endpoints:
 
 **1. Pact Request Formatter and `curl`**
 
@@ -697,19 +698,31 @@ You should see an output similar to the one below:
 
 :::info
 By default `-a` formats the YAML file into API requests for the `/send` endpoint. Adding the `-l` flag after the command formats the api request for the `/local` endpoint.
-:::
 
-I encourage you to try the other endpoints as well. The complete specs of the request file format are [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=YAML#request-yaml-file-format).
+The complete specs of the request file format are [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=YAML#request-yaml-file-format).
+:::
 
 #### 2. `pact-lang-api` Javascript library
 
-We will be using this approach for our voting app so let's start by installing the lib:
+`pact-lang-api` provides us a set of wrappers that we can use to interact with `Chainweb` blockchain from our applications. It can be used from any client or server-side Javascript environment.
+
+To install the library you can use NPM or Yarn for Node.js.
 
 ```bash
 npm install pact-lang-api
+
+## or
+
+yarn add pact-lang-api
 ```
 
-**Deploy Contract**
+Next we will cover three common use cases:
+
+1. [Deploy contract](#deploy-contract)
+2. [Read state](#read-state)
+3. [Submit a transaction](#submit-a-transaction)
+
+#### Deploy Contract
 
 > Deploy a Pact smart contract to Pact Server
 
@@ -758,7 +771,7 @@ Run the snippet and you should see a success message like the one below:
 }
 ```
 
-**Read State**
+#### Read State
 > Read data stored in the database using the `/local` endpoint
 
 ```javascript
@@ -795,7 +808,7 @@ The returned result is `0` because we didn't submit any vote yet.
 }
 ```
 
-**Submit a vote**
+#### Submit a transaction
 > Since submitting a vote requires a database update, we are using the `/send` endpoint
 
 ```javascript
@@ -831,12 +844,9 @@ This time we are calling the `vote` function of our contract and we should see a
   txId: 34
 }
 ```
+----
 
-> Now you can submit a few more votes and check the result using the snippets provided above.
-
-**Conclusion**
-
-We demonstrated how you can make use of *Pact Server* and `pact-lang-api` library to simulate blockchain interaction on your local development machine. It's recommended that you test your contracts using *Pact Server* first since it provides a much faster feedback loop that you can use to quickly iterate and fix any bugs before you move to `testnet` and finally `mainnet`.
+We demonstrated how you can use *Pact Server* and `pact-lang-api` library to simulate blockchain interaction on your local development machine. It's recommended that you test your contracts using *Pact Server* first since it provides a much faster feedback loop that you can use to iterate and fix any bugs before you move to `testnet` and finally `mainnet`.
 
 ## Deploy Contract
 
@@ -846,7 +856,7 @@ We also need a key/pair to create an account so let's generate one by running `p
 
 Next step is to fund your `testnet` account using this [faucet](http://faucet.testnet.chainweb.com). You will receive 20 testnet KDA.
 
-:::note
+:::note Namespaces & Modules Names
 There are two more things that we need to keep in mind when we deploy to a real network:
 
 **Namespaces**
@@ -1014,7 +1024,7 @@ npm install pact-lang-api
 In this tutorial we're using [ReactJS](https://reactjs.org) but you are free to use any framework that you are comfortable with. The main focus will be on blockchain and wallet interaction.
 :::
 
-The main aspects concerning a frontend implementation of a blockchain application are:
+There are a few key aspects concerning a frontend implementation of a blockchain application:
 * reading data from smart contracts
 * allowing users to sign and submit transactions
 * notify users when various actions take place like a transaction being mined or a smart contract event was emitted
