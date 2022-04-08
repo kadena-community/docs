@@ -26,7 +26,7 @@ Because Pact is non-trivial to build on Windows it is not available. If you need
 
 Before installing pact we install the z3 dependency. Open a terminal (ctrl+alt+t) and past the following instructions:
 ```
-apt install z3
+sudo apt install z3 unzip
 ```
 
 Download the latest Pact build from [github.com/kadena-io/pact/releases](https://github.com/kadena-io/pact/releases).
@@ -58,7 +58,7 @@ Press ctrl-d to exit the Pact prompt.
 
 Download Atom IDE from [atom.io](https://atom.io/). Run the installer either by clicking it or running
 ```
-dpkg -i atom-amd64.deb
+sudo dpkg -i atom-amd64.deb
 ```
 
 Start Atom by searching from the main menu.
