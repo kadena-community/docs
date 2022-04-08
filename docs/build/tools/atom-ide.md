@@ -24,7 +24,7 @@ Because Pact is non-trivial to build on Windows it is not available. If you need
 
 ## Installing the Pact executable
 
-Before installing pact we install the z3 dependency and some tools we need later. Open a terminal (ctrl+alt+t) and past the following instructions:
+Before installing pact we install the z3 dependency and some tools we need later. Open a terminal (ctrl+alt+t) and paste the following instructions:
 ```
 sudo apt install z3 unzip git
 ```
@@ -44,7 +44,7 @@ mkdir ~/bin && mv pact ~/bin
 chmod +x ~/bin/pact
 ```
 
-To test if the installation was successful open a new terminal run `pact`. 
+To test if the installation was successful open a new terminal and run `pact`. 
 ```
 $ pact
 pact> (+ "hello " "world")
@@ -83,4 +83,4 @@ From the Atom menu open the folder where you cloned kadenaswap. Double click on 
 
 <img src={AtomImageUrl} />
 
-You can open and close the linter from the bottom of the editor. The tracing and coverage can be activated from the menu or with key bindings. It might take a few seconds before you see the tracing while pact is processing the code in the background.
+You can open and close the linter from the bottom of the editor. The tracing and coverage can be activated from the menu or with key bindings. It might take a few seconds before the tracing is shown while pact is processing the code in the background.
