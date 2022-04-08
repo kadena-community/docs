@@ -18,7 +18,7 @@ Requires the Pact 4.1 executable or later. You need either Linux or MacOS to run
 
 :::note
 
-Because Pact is non-trivial to build on Windows it is not available. If you need to work from Windows consider using a virtual machine with Ubuntu.
+Because Pact is non-trivial to build on Windows it is not available. If you need to work from Windows consider using a virtual machine or WSL2: [dev.to/darksmile92/linux-on-windows-wsl-with-desktop-environment-via-rdp](https://dev.to/darksmile92/linux-on-windows-wsl-with-desktop-environment-via-rdp-522g).
 
 :::
 
