@@ -24,9 +24,9 @@ Because Pact is non-trivial to build on Windows it is not available. If you need
 
 ## Installing the Pact executable
 
-Before installing pact we install the z3 dependency. Open a terminal (ctrl+alt+t) and past the following instructions:
+Before installing pact we install the z3 dependency and some tools we need later. Open a terminal (ctrl+alt+t) and past the following instructions:
 ```
-sudo apt install z3 unzip
+sudo apt install z3 unzip git
 ```
 
 Download the latest Pact build from [github.com/kadena-io/pact/releases](https://github.com/kadena-io/pact/releases).
@@ -72,11 +72,6 @@ A new tab will open in you main pane with the Settings. Select the `+Install` se
 ## Testing linting and tracing
 
 To check if your setup was succesful clone kadenaswap.
-
-If you don't have git yet:
-```
-apt install git
-```
 
 ```
 git clone https://github.com/kadena-io/kadenaswap.git
