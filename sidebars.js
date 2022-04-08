@@ -118,7 +118,20 @@ const sidebars = {
     //     { type: "doc", label: "Learn more", id: "build/basics/learn-more" },
     //   ],
     // },
-    { type: "doc", label: "Tools", id: "build/resources/useful-tools" },
+    { type: "category", label: "Tools",
+      items: [
+        {
+          type: "doc",
+          label: "Atom IDE",
+          id: "build/tools/atom-ide",
+        },
+        {
+          type: "doc",
+          id: "build/tools/useful-tools",
+          label: "Other"
+        }
+       ]
+    },
     {
       type: "category",
       label: "Guides",
