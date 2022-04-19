@@ -359,7 +359,7 @@ We have written our contract but our work is not done yet. We need tests to vali
 (commit-tx)
 ```
 
-The comments should give you a fairly clear picture of what is happening here. We are using `expect-failure` to test if `vote` correctly fails if we try to vote for a candidate that does not exist.
+We are using `expect-failure` to test if `vote` correctly fails if we try to vote for a candidate that does not exist.
 
 :::info
 `expect` is one the functions that's only available in the REPL but there are many more, check them out <a href="https://pact-language.readthedocs.io/en/latest/pact-functions.html#repl-only-functions">here</a>.
