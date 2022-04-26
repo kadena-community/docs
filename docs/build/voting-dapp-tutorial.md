@@ -23,69 +23,21 @@ In this tutorial we will be building a voting application on the Kadena blockcha
 2. Web app (front-end)
 3. Gas Station
 
-## Environment Setup
+## Create Project Structure
 
-### Install Pact
-
-#### Mac
-
-  ```bash
-  brew update
-  brew install kadena-io/pact/pact
-  ```
-
-#### Linux
-  * Using **nix**
-
-  To build with **Nix** follow the setup instructions [here](https://github.com/kadena-io/pact/wiki/Building-Kadena-Projects).
-  Once the build is finished, you can run Pact with the following command:
-
-  `./result/ghc/pact/bin/pact`
-
-  For other options to build from source please refer to [this section](https://github.com/kadena-io/pact#building-from-source).
-
-**Verifying Installation**
-
-Type `pact` in a terminal and try out some commands:
-
-```clojure
-$ pact
-pact> (+ 1 2)
-3
-pact> (+ "hello, " "world")
-"hello, world"
-pact> (< 0 1)
-true
-```
-
-### Create Project Structure
+In your terminal of choice run the commands below to create a basic project structure:
 
 ```bash
 mkdir election-dapp && cd election-dapp
+# Pact smart contracts are stored in the `pact` directory
 mkdir pact
+# Front-end part of the application should be in `src`
 mkdir src
 ```
 
-### Atom IDE (Optional)
-
-You can use any text editor to write Pact but if you prefer the benefits of an IDE, "language-pact" is a package for [Atom](https://atom.io) that provides syntax highlighting and linting.
-
-To install it, go to `Preferences -> Packages -> Type "language-pact"` and click the `Install` button.
-
-![atom-language-pact](/img/docs/voting-dapp/atom-language-pact.png)
-
-## Smart Contracts
+## Writing the Smart Contract
 
 Our voting app will allow you to submit a vote while preventing an address to vote more than once.
-Additionally we will use a *gas station* to fund the gas fees for interacting with our contract, meaning our users don't have to worry about paying for gas.
-
-:::info
-**Gas** is the cost necessary to perform a transaction on the network. Gas is paid to miners and its price varies based on supply and demand. It's a critical piece of the puzzle, but at the same time it brings up a UX problem. Every user needs to be aware of what gas is as well as how much gas they need to pay for their transaction. This causes significant friction and a less than ideal experience.
-
-To help mitigate this problem Kadena brings an innovation to the game. Hello [gas stations](https://medium.com/kadena-io/the-first-crypto-gas-station-is-now-on-kadenas-blockchain-6dc43b4b3836)!
-
-Gas stations are a way for dApps to subsidize gas costs for their users. This means that your user doesn't need to know what gas is or how much the gas price is, which translates into a smooth experience when interacting with your dApp.
-:::
 
 ### Voting
 
