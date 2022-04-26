@@ -33,9 +33,13 @@ Once the app is deployed, the election has begun! The frontend for our dapp will
 
 In this tutorial we will be building a voting application on the Kadena blockchain. The application will consist of three distinct layers:
 
-1. Smart contract (back-end)
-2. Web app (front-end)
-3. Gas Station
+**Table of Contents**
+
+1. Building the Smart Contract Backend
+2. Testing our Smart Contract
+3. Implementing a Gas Station
+4. Building the Frontend Voting App
+5. Deploying to Chainweb
 
 ## Environment Setup
 
