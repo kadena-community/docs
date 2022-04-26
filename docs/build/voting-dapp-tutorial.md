@@ -115,15 +115,14 @@ A typical developer workflow looks like this:
 4. Deploy to local pact server
 5. Deploy to testnet
 
-In this section we will be focusing on steps 1-3 and later deploy to local pact server and testnet.
+In this section we will focus on steps 1 to 3. Later, we'll deploy our smart contract to a local Pact server and to testnet (the test version of Chainweb).
 
-Assuming you are still in your project directory, let's create the `election.pact` and `election.repl` files:
+In your project directory, let's create two files:
 
-```clojure
-touch pact/election.pact pact/election.repl
-```
+* `pact/election.pact`, which will hold the source code for our smart contract
+* `pact/election.repl`, which will hold our tests
 
-Remember, `election.pact` is the contract source code while in `election.repl` we'll write tests.
+The Pact REPL is an environment where we can load our Pact source code and work with it interactively. It's a best practice to include a `.repl` file next to your source code which imports your contract, calls functions from it, and inspects its current state to ensure everything is correct.
 
 We will also need the `coin` contract which requires the `fungible-v2` interface for our tests. You can get the latest `coin-v3` [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v3/coin-v3.pact) and `fungible-v2` [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v2/fungible-v2.pact). Add these to your project in the following directory: `pact/root/`.
 
