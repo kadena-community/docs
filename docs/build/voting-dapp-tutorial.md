@@ -9,9 +9,23 @@ import TabItem from '@theme/TabItem';
 
 # Building a voting dApp
 
-In its most basic form, Kadena blockchain is a digital ledger. This ledger is never stored, but rather exists on the “chain” supported by thousands of nodes simultaneously. Thanks to encryption and decentralization, Kadena blockchain’s database of transactions is incorruptible, and each record is easily verifiable. The network cannot be taken down or influenced by a single party because it doesn’t exist in one place.
+One of the best ways to learn a new technology is to get your hands dirty and build applications with it. In this tutorial we'll learn to use Kadena's smart contract language, Pact, to build a minimal voting application that runs on the Chainweb blockchain.
 
-Blockchain can solve the many problems discovered in these early attempts at online voting. A blockchain-based voting application does not concern itself with the security of its Internet connection, because any hacker with access to the terminal will not be able to affect other nodes. Voters can effectively submit their vote without revealing their identity or political preferences to the public. Officials can count votes with absolute certainty, knowing that each ID can be attributed to one vote, no fakes can be created, and that tampering is impossible.
+Along the way, we'll learn how to write and test smart contracts in Pact, the basic architecture of dApps on Chainweb, and about major concepts like gas stations and deploying contracts. We'll also get acquainted with several useful tools in the Kadena ecosystem, including the Pact local test server and JavaScript libraries you can use to interact with nodes running Pact.
+
+**Voting on the Blockchain**
+
+Elections are a necessary part of democracies and democratic organizations. The voting systems used to administer elections must ensure a fair process and trustworthy result — easier said than done! Election security is a deep, fascinating topic, especially when it comes to online voting.
+
+Blockchain technologies are well-suited to help secure online elections. A public blockchain gives participants a single view of all transactions, which makes it easy to verify votes without trusting a central election authority to tally and report the results. Kadena's rapid transaction speeds (480,000 per second, when using 20 chains) scale voting to even large elections.
+
+Blockchain technologies don't solve all election security issues, but they're a strong foundation and [researchers have proposed fully-secure online voting systems based on them](https://eprint.iacr.org/2019/1406.pdf). They've also seen success in the real world: Thailand's Democrat party held an election in which [more than 120,000 registered Democrats voted via blockchain](https://bitcoinmagazine.com/culture/thailand-uses-blockchain-supported-electronic-voting-system-primaries).
+
+**What We're Building**
+
+We'll build a tiny voting dApp prototype that lets anyone with a Kadena wallet address vote for a candidate from a selection of candidates. Each voter (ie. address) can vote once. Some Kadena accounts are chosen as "election officials", and the smart contract grants them special privileges to select the candidates. Election officials can add new candidates at any time (but they can't remove candidates or adjust their votes).
+
+Once the app is deployed, the election has begun! The frontend for our dapp will help users submit their votes and will display the total votes received by each candidate.
 
 ---
 
