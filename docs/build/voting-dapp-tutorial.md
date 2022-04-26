@@ -29,13 +29,9 @@ Once the app is deployed, the election has begun! The frontend for our dapp will
 
 ---
 
-## Overview
+## Table of Contents
 
-In this tutorial we will be building a voting application on the Kadena blockchain. The application will consist of three distinct layers:
-
-**Table of Contents**
-
-1. Building the Smart Contract Backend
+1. [Building the Smart Contract Backend](#writing-the-smart-contract)
 2. Testing our Smart Contract
 3. Implementing a Gas Station
 4. Building the Frontend Voting App
@@ -43,19 +39,19 @@ In this tutorial we will be building a voting application on the Kadena blockcha
 
 ## Create Project Structure
 
-In your terminal of choice run the commands below to create a basic project structure:
+Let's start by creating a basic project structure. Open your terminal and run the commands below:
 
 ```bash
 mkdir election-dapp && cd election-dapp
-# Pact smart contracts are stored in the `pact` directory
 mkdir pact
-# Front-end part of the application should be in `src`
 mkdir src
 ```
 
-## Writing the Smart Contract
+We've got the `election-dapp` directory and two additional sub-directories:
+* `pact`, which holds the smart contracts
+* `src`, which holds the front-end part of our application
 
-Our voting app will allow you to submit a vote while preventing an address to vote more than once.
+## Writing the Smart Contract
 
 ### Voting
 
@@ -74,9 +70,21 @@ In your project directory, let's create two files:
 * `pact/election.pact`, which will hold the source code for our smart contract
 * `pact/election.repl`, which will hold our tests
 
+:::info What is Pact REPL?
 The Pact REPL is an environment where we can load our Pact source code and work with it interactively. It's a best practice to include a `.repl` file next to your source code which imports your contract, calls functions from it, and inspects its current state to ensure everything is correct.
+:::
 
-We will also need the `coin` contract which requires the `fungible-v2` interface for our tests. You can get the latest `coin-v3` [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v3/coin-v3.pact) and `fungible-v2` [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v2/fungible-v2.pact). Add these to your project in the following directory: `pact/root/`.
+We also have to import some dependencies to our project but first let's provide some context to better understand why we need them. In introduction we explained that our voting smart contract allows anyone with a wallet address to vote for a candidate. Kadena uses an account model so creating a wallet means creating an account for the native coin, KDA, which is a smart contract deployed on Kadena blockchain. The name of this contract is intuitively `coin`.
+
+ The `coin` contract itself has two additional dependencies:
+ * `fungible-v2`, an interface that each fungible token deployed on Kadena should implement
+ * `fungible-xchain-v1`, an interface that provides standard capability for cross-chain transfers.
+
+To be able to properly test our voting contract we will need to invoke functions defined in the `coin` contract so we have to include it in our project together with its dependencies, the `fungible-v2` and `fungible-xchain-v1` interfaces.
+
+You can get the latest version of the `coin` module [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v4/coin-v4.pact), the `fungible-v2` interface [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v2/fungible-v2.pact) and the `fungible-xchain-v1` interface [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v4/fungible-xchain-v1.pact).
+
+Make sure to add these files to your project in the `pact/root/` directory. You should have 3 new files: `coin-v4.pact`, `fungible-v2.pact`, `fungible-xchain-v1.pact`.
 
 We are now set to start implementing our contract, so let's copy the following code in the `election.pact` file:
 
