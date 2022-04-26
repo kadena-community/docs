@@ -130,8 +130,8 @@ The relationship of modules to tables is important, as described in <a href="htt
 Tables are created outside of the module using <a href="https://pact-language.readthedocs.io/en/latest/pact-functions.html?highlight=create-table#create-table" target="_blank">create-table</a> followed by the table name as defined within the module.
 
 ```clojure
-(deftable cat-table:{cat})
-(deftable asset-tracker:{asset})
+(create-table cat-table)
+(create-table asset-tracker)
 ```
 
 This syntax for creating tables is simple. The main concern here is to make sure that you follow through with creating each of the tables that are defined within the module.
