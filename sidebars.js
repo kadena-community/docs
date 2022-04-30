@@ -122,13 +122,6 @@ const sidebars = {
     { type: "doc", label: "Tools", id: "build/resources/useful-tools" },
     {
       type: "category",
-      label: "Tutorials",
-      items: [
-        { type: "doc", label: "Voting dApp", id: "build/voting-dapp-tutorial" }
-      ]
-    },
-    {
-      type: "category",
       label: "Guides",
       items: [
         {

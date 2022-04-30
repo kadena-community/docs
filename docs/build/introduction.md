@@ -16,6 +16,7 @@ Build your best ideas with us
 ## Getting Started is Simple
 
 <PageRef url="../../../basics/quickstart" pageName="Quickstart" />
+<PageRef url="voting-dapp-tutorial" pageName="Zero To Hero: Kadena Dapp Development" />
 <PageRef url="https://github.com/kadena-io/create-pact-app" pageName="Explore dApp Templates" />
 <PageRef url="https://github.com/kadena-io/developer-scripts" pageName="View the source" />
 <PageRef url="resources/useful-tools" pageName="Get the tools" />
