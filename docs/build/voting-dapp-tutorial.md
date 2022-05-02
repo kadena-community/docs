@@ -32,12 +32,21 @@ Once the app is deployed, the election has begun! The frontend for our dapp will
 ## Table of Contents
 
 1. [Building the Smart Contract Backend](#writing-the-smart-contract)
-2. Testing our Smart Contract
-3. Implementing a Gas Station
-4. Building the Frontend Voting App
-5. Deploying to Chainweb
+2. [Testing our Smart Contract](#testing-the-contract)
+3. [Implementing a Gas Station](#implementing-the-gas-station)
+4. [Deploying to Chainweb](#deploying-to-chainweb)
+5. [Building the Frontend Voting App](#frontend)
 
-## Create Project Structure
+
+## Setup
+
+### Requirements
+
+1. [Pact](http://github.com/kadena-io/pact)
+2. [NodeJS](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+3. [Pact-Lang-API](http://github.com/kadena-io/pact-lang-api)
+
+### Create Project Structure
 
 Let's start by creating a basic project structure. Open your terminal and run the commands below:
 
@@ -524,7 +533,15 @@ Let's recap what we've learned in this section:
 
 A unique feature of Kadena is the ability to allow gas to be paid by a different entity than the one who initiated the transaction. This entity is what we call a *gas station*.
 
- In our voting app this will allow users to submit votes without paying for gas, instead gas will be subsidized by the gas station. In short, this means that miners will still be paid, but our users can vote for free.
+:::info
+**Gas** is the cost necessary to perform a transaction on the network. Gas is paid to miners and its price varies based on supply and demand. It's a critical piece of the puzzle, but at the same time it brings up a UX problem. Every user needs to be aware of what gas is as well as how much gas they need to pay for their transaction. This causes significant friction and a less than ideal experience.
+
+To help mitigate this problem Kadena brings an innovation to the game. Hello [gas stations](https://medium.com/kadena-io/the-first-crypto-gas-station-is-now-on-kadenas-blockchain-6dc43b4b3836)!
+
+Gas stations are a way for dApps to subsidize gas costs for their users. This means that your user doesn't need to know what gas is or how much the gas price is, which translates into a smooth experience when interacting with your dApp.
+:::
+
+In our voting app this will allow users to submit votes without paying for gas, instead gas will be subsidized by the gas station. In short, this means that miners will still be paid, but our users can vote for free.
 
 The standard for gas station implementation is defined by the `gas-payer-v1` interface. The `gas-payer-v1` interface is deployed to all chains on `testnet` and `mainnet` so you can directly use it in your contract. We can specify that a module implements an interface using the `(implements INTERFACE)` construct.
 
@@ -688,292 +705,15 @@ To summarize, a gas station is a coin account with a special guard that's valid 
 Guards and capabilities are an entire topic that we cannot cover in detail in this tutorial. To learn more check the [Guards, Capabilities and Events](https://pact-language.readthedocs.io/en/latest/pact-reference.html#guards-capabilities-and-events) section of the Pact documentation.
 :::
 
-## Testing
+## Deploying to Chainweb
 
-There are several ways you can test your smart contracts before going to mainnet. We recommend the following flow as best practice:
-
-1. REPL scripts
-2. Pact Server
-3. Testnet
-
-### REPL Scripts
-
-REPL stands for read - eval - print - loop. This acronym refers to the idea that given a Pact file, a REPL file is responsible for reading, evaluating, printing, and looping through the code as needed to both run and provide the output of the Pact file. It allows us to quickly test the smart contracts that we're building.
-
-We've already used the REPL earlier when we wrote tests in the `election.repl` file. I encourage you to have a look at the list of [REPL-only functions](https://pact-language.readthedocs.io/en/stable/pact-functions.html?highlight=repl-functions#repl-only-functions) and try them in your scripts, they offer a great way to quickly setup a feedback loop when you're iterating on your contracts.
-
-### Pact Server
-
-Pact interpreter comes with a built-in local http server and SQLite DB which effectively simulates a single-node blockchain environment, with the same API supported by *Chainweb*, Kadena's scalable PoW blockchain.
-
-To start the server we need a `config.yaml` file and a `log` directory:
-
-```bash
-touch config.yaml
-mkdir log
-```
-
-`config.yaml` contents:
-
-```yaml
-# Config file for pact http server. Launch with `pact -s config.yaml`
-
-# HTTP server port
-port: 8080
-
-# directory for HTTP logs
-logDir: log
-
-# persistence directory
-persistDir: log
-
-# SQLite pragmas for pact back-end
-pragmas: []
-
-# verbose: provide log output
-verbose: True
-```
-
-We now can run it with the following command:
-
-```
-$ pact -s config.yaml
-
-2022/03/18-09:29:59 [PactService] INIT Initializing pact SQLLite
-2022/03/18-09:29:59 [history] Persistence Enabled: log/commands.sqlite
-2022/03/18-09:29:59 [api] starting on port 8080
-2022/03/18-09:29:59 [PactService] INIT Creating Pact Schema
-2022/03/18-09:29:59 [PactPersist] DDL createTable: TableId "SYS_usertables"
-2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: DataTable (TableId "SYS_usertables")
-2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: TxTable (TableId "SYS_usertables")
-2022/03/18-09:29:59 [PactPersist] DDL createTable: TableId "SYS_keysets"
-2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: DataTable (TableId "SYS_keysets")
-2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: TxTable (TableId "SYS_keysets")
-2022/03/18-09:29:59 [PactPersist] DDL createTable: TableId "SYS_modules"
-2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: DataTable (TableId "SYS_modules")
-2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: TxTable (TableId "SYS_modules")
-2022/03/18-09:29:59 [PactPersist] DDL createTable: TableId "SYS_namespaces"
-2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: DataTable (TableId "SYS_namespaces")
-2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: TxTable (TableId "SYS_namespaces")
-2022/03/18-09:29:59 [PactPersist] DDL createTable: TableId "SYS_pacts"
-2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: DataTable (TableId "SYS_pacts")
-2022/03/18-09:29:59 [Persist-SQLite] DDL createTable: TxTable (TableId "SYS_pacts")
-2022/03/18-09:29:59 [disk replay]: No replay found
-```
-
-Here is a list of the endpoints that Pact server provides:
-
-| Endpoint | Description |
-| -------- | ----------- |
-| /send   | Takes in cmd object and returns tx hash. |
-| /listen | Takes in a hash and returns tx result. |
-| /poll   | Similar to /listen but works with multiple hashes and returns multiple tx results.|
-| /local  | Takes in cmd object with code that queries from blockchain. It performs a read-only operation without persisting changes and returns tx result. |
-
-:::info
-You can find detailed specifications of the above mentioned endpoints [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=YAML#endpoints)
-:::
-
-There are two ways to interact with these endpoints:
-
-**1. Pact Request Formatter and `curl`**
-
-Create a new file `request.yaml` with the following content:
-
-```
-code: "(+ 1 2)"
-data:
-  name: Stuart
-  language: Pact
-keyPairs:
-  - public: ba54b224d1924dd98403f5c751abdd10de6cd81b0121800bf7bdbdcfaec7388d
-    secret: 8693e641ae2bbe9ea802c736f42027b03f86afe63cae315e7169c9c496c17332
-```
-
-Run the following command in your terminal to send the request to the `/local` endpoint:
-
-```
-pact -a request.yaml -l | curl -H "Content-Type: application/json" -d @- http://localhost:8080/api/v1/local
-```
-
-You should see an output similar to the one below:
-
-```json
-{ "gas":0,
-  "result":{
-    "status":"success","data":3
-  },
-  "reqKey":"Ice7sTvYu4fDekYFsfErhYPmjM1Q8C-MC4lOBWM4x-0","logs":"wsATyGqckuIvlm89hhd2j4t6RMkCrcwJe_oeCYr7Th8",
-  "metaData":null,
-  "continuation":null,
-  "txId":null
-}
-```
-
-:::info
-By default `-a` formats the YAML file into API requests for the `/send` endpoint. Adding the `-l` flag after the command formats the api request for the `/local` endpoint.
-
-The complete specs of the request file format are [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=YAML#request-yaml-file-format).
-:::
-
-#### 2. `pact-lang-api` Javascript library
-
-`pact-lang-api` provides us a set of wrappers that we can use to interact with `Chainweb` blockchain from our applications. It can be used from any client or server-side Javascript environment.
-
-To install the library you can use NPM or Yarn for Node.js.
-
-```bash
-npm install pact-lang-api
-
-## or
-
-yarn add pact-lang-api
-```
-
-Next we will cover three common use cases:
-
-1. [Deploy contract](#deploy-contract)
-2. [Read state](#read-state)
-3. [Submit a transaction](#submit-a-transaction)
-
-#### Deploy Contract
-
-> Deploy a Pact smart contract to Pact Server
-
-```javascript
-const Pact = require('pact-lang-api');
-const fs = require('fs');
-
-const API_HOST = 'http://localhost:8080';
-const CONTRACT_PATH = './pact/election.pact';
-const KEY_PAIR = Pact.crypto.genKeyPair();
-
-const pactCode = fs.readFileSync(CONTRACT_PATH, 'utf8');
-
-deployContract(pactCode);
-
-async function deployContract(pactCode) {
-  const cmd = {
-    keyPairs: KEY_PAIR,
-    pactCode: pactCode,
-    envData: {
-      'election-admin-keyset': [KEY_PAIR['publicKey']],
-      'upgrade': false
-    }
-  };
-  const response = await Pact.fetch.send(cmd, API_HOST);
-  const txResult = await Pact.fetch.listen({ listen: response.requestKeys[0] }, API_HOST);
-  console.log(txResult);
-};
-
-```
-Notice that we defined the `election-admin-keyset` which is required by our module guard and we set `upgrade` to "false" so our initialization functions are executed.
-Run the snippet and you should see a success message like the one below:
-
-```json
-{
-  gas: 0,
-  result: {
-    status: 'success',
-    data: 'Loaded module election, hash niQoaBy1p4j4ifyozj26VvA2o8m5nyGCcLiSngXgcwA'
-  },
-  reqKey: 't7g2mAwbfvZdjPSoaLch2HQlS5H5Z4lvvloVGf2eG1Q',
-  logs: 'yr3G_Fjatl8SavWruAusVcAt7OpYV8Gd0P4ge4euHaA',
-  metaData: null,
-  continuation: null,
-  txId: 33
-}
-```
-
-#### Read State
-> Read data stored in the database using the `/local` endpoint
-
-```javascript
-const Pact = require('pact-lang-api');
-const fs = require('fs');
-
-const API_HOST = 'http://localhost:8080';
-const KEY_PAIR = Pact.crypto.genKeyPair();
-
-readState();
-
-async function readState() {
-  const cmd = {
-    keyPairs: KEY_PAIR,
-    pactCode: '(election.get-votes "1")'
-  };
-  const state = await Pact.fetch.local(cmd, API_HOST);
-  console.log(state);
-};
-```
-To call a contract function we add the corresponding Pact code under the `pactCode` key. In comparison, when we deployed the contract we sent the entire contract source code.
-
-The returned result is `0` because we didn't submit any vote yet.
-
-```json
-{
-  gas: 0,
-  result: { status: 'success', data: 0 },
-  reqKey: 'ebStUzTU6Nd08gLWofbyeFmGFebHw4x9P8gG0Zf1Sgk',
-  logs: 'wsATyGqckuIvlm89hhd2j4t6RMkCrcwJe_oeCYr7Th8',
-  metaData: null,
-  continuation: null,
-  txId: null
-}
-```
-
-#### Submit a transaction
-> Since submitting a vote requires a database update, we are using the `/send` endpoint
-
-```javascript
-const Pact = require('pact-lang-api');
-const fs = require('fs');
-
-const API_HOST = 'http://localhost:8080';
-const KEY_PAIR = Pact.crypto.genKeyPair();
-
-submitVote();
-
-async function submitVote() {
-  const cmd = {
-    keyPairs: KEY_PAIR,
-    pactCode: '(election.vote "alice" "1")'
-  };
-  const response = await Pact.fetch.send(cmd, API_HOST);
-  const txResult = await Pact.fetch.listen({ listen: response.requestKeys[0] }, API_HOST);
-  console.log(txResult);
-};
-```
-
-This time we are calling the `vote` function of our contract and we should see a message which confirms the vote was recorded:
-
-```json
-{
-  gas: 0,
-  result: { status: 'success', data: 'Voted for candidate "1" !' },
-  reqKey: 'Zx4N95rKThx2WcVJP-INuoFeYvNwSzs5K-CatPYI0N8',
-  logs: 'YK5ar4xVOe0q8SEeFdMF5FMpiq5QublFxpXx_IAmzU4',
-  metaData: null,
-  continuation: null,
-  txId: 34
-}
-```
-----
-
-We demonstrated how you can use *Pact Server* and `pact-lang-api` library to simulate blockchain interaction on your local development machine. It's recommended that you test your contracts using *Pact Server* first since it provides a much faster feedback loop that you can use to iterate and fix any bugs before you move to `testnet` and finally `mainnet`.
-
-## Deploy Contract
-
-In order to deploy our contract to the real blockchain network, wether it's testnet or mainnet we need to pay for the transaction using gas fees.
+In order to deploy our contracts to the real blockchain network, wether it's testnet or mainnet we need to pay for the transaction using gas fees.
 
 We also need a key/pair to create an account so let's generate one by running `pact -g` in your terminal or by using the `Pact.crypto.genKeyPair()` method available in the `pact-lang-api` lib.
 
 Next step is to fund your `testnet` account using this [faucet](http://faucet.testnet.chainweb.com). You will receive 20 testnet KDA.
 
 :::note Namespaces & Modules Names
-There are two more things that we need to keep in mind when we deploy to a real network:
-
-**Namespaces**
 
 Each module or interface needs to be part of a namespace. The `free` namespace is available to use on both `mainnet` and `testnet`.
 
@@ -982,12 +722,11 @@ To set the namespace of a module we have to use the `namespace` function. Insert
 ```clojure
 (namespace 'free)
 ```
-**Unique module and keyset names**
 
 Within the same namespace, each module name needs to be unique, similar requirement for defined keysets.
 
 Also when accessing a module's function we have to use the fully qualified name {namespace}.{module-name}.{function-name}, eg. `free.election.vote`.
-You can read more about namespaces [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=namespace#namespace-declaration).
+You can [read more about namespaces] [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=namespace#namespace-declaration).
 :::
 
 :::tip
@@ -1120,11 +859,9 @@ In order to pay transaction fees on `mainnet` you will have to fund your account
 
 ## Frontend
 
-If you made it until here, congrats. We wrote, tested and deployed our smart contract but we're still missing a key component, a way for users to interact with our dApp, so let's get this done.
+If you made it until here, congrats! We wrote, tested and deployed our smart contract but we're still missing a key component, a UI for users to interact with our dApp, so let's get this done.
 
-We've already introduced `pact-lang-api` in the [Pact Server](#2-pact-lang-api-javascript-library) section and it's the building block of any frontend application on Kadena.
-
-Start by adding it as a dependency to your project either via CDN or add it to your asset pipeline similar to any other Javascript library.
+Start by adding [Pact-Lang-API](http://github.com/kadena-io/pact-lang-api) as a dependency to your project either via CDN or add it to your asset pipeline similar to any other Javascript library.
 
 ```js
 <script src="https://cdn.jsdelivr.net/npm/pact-lang-api@4.1.2/pact-lang-api-global.min.js"></script>
@@ -1178,13 +915,14 @@ export const get-votes = async (candidate) => {
 }
 ```
 We're sending a command to the `/local` endpoint where the `pactCode` attribute is a call to our module function which returns the number of votes for the given candidate.
- >Remember to always use the fully qualified name, *namespace.module.function*.
+
+:::note
+Remember to always use the fully qualified name, *namespace.module.function*.
+:::
 
 Here's a screenshot from our demo app where we display the candidates and the number of votes received by each candidate:
 
 ![Election dApp](/img/docs/voting-dapp/election-dapp-1.png)
-
-The source code is available here: //TODO -> Insert link to repo file
 
 ### Sign & Send Transaction
 
