@@ -1006,10 +1006,6 @@ The request key together with the transaction result are displayed as notificati
 
 ![Notifications](/img/docs/voting-dapp/election-dapp-4.png)
 
-:::info
-The complete source-code of this application is available here: TODO add repo link
-:::
-
 ## Conclusion
 
 It took a while but we are now at the end of this tutorial. Congratulations! You've managed to implement a complete dApp on Kadena blockchain and we hope you found this guide useful.
