@@ -21,8 +21,9 @@ The desktop edition has a signing API to interact with dapps on Kadena Chainweb.
 [User Guide](https://docs.kadena.io/basics/chainweaver/chainweaver-user-guide)
 
 <PageRef url="https://chainweaver.kadena.network" pageName="Web beta" />
-<PageRef url="https://github.com/kadena-io/chainweaver/releases/download/v2.2.1/kadena-chainweaver-vm.2.2.1.0.ova" pageName="Windows & macOS" />
-<PageRef url="https://github.com/kadena-io/chainweaver/releases/download/v2.2.1/kadena-chainweaver_2.2.1.0_amd64.deb" pageName="Linux" />
+<PageRef url="https://chainweaver-builds.s3.amazonaws.com/2.2.2/kadena-chainweaver-mac-2.2.2.0.zip" pageName="MacOS" />
+<PageRef url="https://chainweaver-builds.s3.amazonaws.com/2.2.2/kadena-chainweaver-linux-2.2.2.0.deb" pageName="Linux" />
+<PageRef url="https://chainweaver-builds.s3.amazonaws.com/2.2.2/kadena-chainweaver-vm-2.2.2.0.ova" pageName="Windows (Virtual Machine)" />
 
 ### Zelcore
 
