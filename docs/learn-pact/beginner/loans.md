@@ -95,8 +95,8 @@ The first step is to create the module and keysets for your smart contract.
 
 Create a keyset named **loans-admin-keyset** and a module named **loans** that specifies access to this keyset.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/1-module-and-keyset/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/1-module-and-keyset/solution.pact" target="_blank">Solution</a>
+   * [Challange](https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/1-module-and-keyset/challenge.pact)
+   * [Solution](https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/1-module-and-keyset/solution.pact)
 
 :::
 
