@@ -150,8 +150,8 @@ The function you will write will enforce user authentication for payments made w
 
 Define a function enforce-user-auth that you can use to verify user authorization.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/1-auth-pact/1.1-enforce-user-auth/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/1-auth-pact/1.1-enforce-user-auth/solution.pact" target="_blank">Solution</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/1-auth-pact/1.1-enforce-user-auth/challenge.pact" target="_blank">Challenge</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/1-auth-pact/1.1-enforce-user-auth/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -189,8 +189,8 @@ It’s simple but extremely powerful! This is what will allow you to call functi
 
 Take a moment now to **use** the **auth** module from within the **payments** module.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.1-use-auth/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.1-use-auth/solution.pact" target="_blank">Solution</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.1-use-auth/challenge.pact" target="_blank">Challenge</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.1-use-auth/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -210,8 +210,8 @@ Take some time now to add this new functionality to your smart contract.
 
 Call **enforce-user-auth** from within the **create-account** function to authorize that the user is an administrator.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.2-create-account/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.2-create-account/solution.pact" target="_blank">Solution</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.2-create-account/challenge.pact" target="_blank">Challenge</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.2-create-account/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -227,8 +227,8 @@ Similar to before, check for authorization within the **get-balance** function.
 
 Call **enforce-user-auth** from within the **get-balance** function to authorize that function is called by the administrator.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.3-get-balance/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.3-get-balance/solution.pact" target="_blank">Solution</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.3-get-balance/challenge.pact" target="_blank">Challenge</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.3-get-balance/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -240,8 +240,8 @@ Finally, it’s important that payments are authorized by the owner of the accou
 
 Finish off the **payment** module by authorizing that the payment is being sent by the owner of the account.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.4-pay/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.4-pay/solution.pact" target="_blank">Solution</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.4-pay/challenge.pact" target="_blank">Challenge</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.4-pay/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -277,8 +277,8 @@ Try using **load** to complete the code challenge.
 
 Load the **auth** module into the **payments.repl** file.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.1-load-auth-module/challenge.repl" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.1-load-auth-module/solution.repl" target="_blank">Solution</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.1-load-auth-module/challenge.repl" target="_blank">Challenge</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.1-load-auth-module/solution.repl" target="_blank">Solution</a>
 
 :::
 
@@ -298,8 +298,8 @@ This can be done the same way as you did with the **auth** module.
 
 Load the **payments** module into the **payments.repl** file.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.2-load-payments-module/challenge.repl" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.2-load-payments-module/solution.repl" target="_blank">Solution</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.2-load-payments-module/challenge.repl" target="_blank">Challenge</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.2-load-payments-module/solution.repl" target="_blank">Solution</a>
 
 :::
 
@@ -317,8 +317,8 @@ Like before, this can be done with the special form **use**.
 
 Use the **auth** module from within the **payments.repl** file.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.3-use-auth-module/challenge.repl" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.3-use-auth-module/solution.repl" target="_blank">Solution</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.3-use-auth-module/challenge.repl" target="_blank">Challenge</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.3-use-auth-module/solution.repl" target="_blank">Solution</a>
 
 :::
 
@@ -330,8 +330,8 @@ Finally, you need to use the payments module. Write one final line of code that 
 
 Use the **payments** module from within the **payments.repl** file.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.4-use-payments-module/challenge.repl" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.4-use-payments-module/solution.repl" target="_blank">Solution</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.4-use-payments-module/challenge.repl" target="_blank">Challenge</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/3-payments-repl/3.4-use-payments-module/solution.repl" target="_blank">Solution</a>
 
 :::
 
