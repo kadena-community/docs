@@ -89,8 +89,8 @@ The first step is to set up the module and keysets for the smart contract.
 
 Define and read the admin-keyset, create the payments module, and give the admin-keyset access to the module.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/1-module-and-keysets/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/1-module-and-keysets/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/1-module-and-keysets/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/1-module-and-keysets/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -117,8 +117,8 @@ The **payments-table**, will keep track of the balance of the accounts and assoc
 
 Define a schema and table with columns **balance** and **keyset**.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/2-schema-and-table/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/2-schema-and-table/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/2-schema-and-table/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/2-schema-and-table/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -146,8 +146,8 @@ First, add a function that allows the administrator to create accounts. This wil
 
 Create a function **create-account** that allows administrator to create accounts.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/3-functions/3.1-create-account/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/3-functions/3.1-create-account/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/3-functions/3.1-create-account/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/3-functions/3.1-create-account/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -165,8 +165,8 @@ Now that you can create accounts, it is helpful to be able to view the balance o
 
 Create a function **get-balance** that allows administrators and users to view the balance of their account.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/3-functions/3.2-function-get-balance/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/3-functions/3.2-function-get-balance/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/3-functions/3.2-function-get-balance/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/3-functions/3.2-function-get-balance/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -178,8 +178,8 @@ Next, you’ll create the function that allows one account to pay another accoun
 
 Create a function **pay** that allows an account to pay another account.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/3-functions/3.3-function-pay/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/3-functions/3.3-function-pay/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/3-functions/3.3-function-pay/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/3-functions/3.3-function-pay/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -191,8 +191,8 @@ You have now completed the module. Outside of the module you can create the tabl
 
 Create the **payments-table**.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/4-create-table/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/4-create-table/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/4-create-table/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/4-create-table/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -217,8 +217,8 @@ To do this, you use the **create-account** function built earlier. This function
 
 Call the **create-account** function to create accounts for **Sarah** and **James**.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/5-create-accounts/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/5-create-accounts/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/5-create-accounts/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/5-create-accounts/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -229,8 +229,8 @@ The final step is to make a payment from one account to another. You can do this
 :::caution Code Challenge
 Use the pay function to transfer **25.0** to **James** from **Sarah’s** account. After making the payment, read the balance of both Sarah and James.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/6-make-payment/challenge.pact" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/6-make-payment/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/6-make-payment/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/6-make-payment/solution.pact" target="_blank">Solution</a>
 
 :::
 
