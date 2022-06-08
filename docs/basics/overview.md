@@ -82,7 +82,7 @@ HEADLINE: Chainweb is a braided, parallelized proof-of-work consensus mechanism 
 
 <YouTube videoId="hYvXxFbsN6I"/>
 
-n 2020, Kadena's public blockchain performed a live network expansion from 10 chains to 20 chains. This doubled throughput, proving the networks's ability to scale in production to meet ever-higher demand.
+In 2020, Kadena's public blockchain performed a live network expansion from 10 chains to 20 chains. This doubled throughput, proving the networks's ability to scale in production to meet ever-higher demand.
 
 **Informational Resources**
 
@@ -115,7 +115,7 @@ Resources for using Pact are available at the [Public chain interaction](https:/
 
 ### **3. Kuro, Kadena’s layer 2 blockchain** <a href="#2-kuro-kadenas-private-blockchain" id="2-kuro-kadenas-private-blockchain"></a>
 
-Kuro has been proven to support up to 8,000 transactions per second across 500 nodes, and is available for evaluation on [AWS](https://aws.amazon.com/marketplace/pp/Kadena-LLC-Kadena-Blockchain-for-Enterprise-Commun/B07MKMKP4F) and [Azure](https://azuremarketplace.microsoft.com/en-ca/marketplace/apps/kadenallc.scalablebft?tab=Overview).
+Kuro has been proven to support up to 8,000 transactions per second across 500 nodes and is available for evaluation on [AWS](https://aws.amazon.com/marketplace/pp/Kadena-LLC-Kadena-Blockchain-for-Enterprise-Commun/B07MKMKP4F).
 
 **Informational Resources**
 
