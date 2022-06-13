@@ -20,10 +20,13 @@ The desktop edition has a signing API to interact with dapps on Kadena Chainweb.
 
 [User Guide](https://docs.kadena.io/basics/chainweaver/chainweaver-user-guide)
 
-<PageRef url="https://chainweaver.kadena.network" pageName="Web beta" />
-<PageRef url="https://chainweaver-builds.s3.amazonaws.com/2.2.2/kadena-chainweaver-mac-2.2.2.0.zip" pageName="MacOS" />
-<PageRef url="https://chainweaver-builds.s3.amazonaws.com/2.2.2/kadena-chainweaver-linux-2.2.2.0.deb" pageName="Linux" />
-<PageRef url="https://chainweaver-builds.s3.amazonaws.com/2.2.2/kadena-chainweaver-vm-2.2.2.0.ova" pageName="Windows (Virtual Machine)" />
+[Web beta](https://chainweaver.kadena.network)
+
+[MacOS](https://chainweaver-builds.s3.amazonaws.com/2.2.2/kadena-chainweaver-mac-2.2.2.0.zip)
+
+[Linux](https://chainweaver-builds.s3.amazonaws.com/2.2.2/kadena-chainweaver-linux-2.2.2.0.deb)
+
+[Windows (Virtual Machine)](https://chainweaver-builds.s3.amazonaws.com/2.2.2/kadena-chainweaver-vm-2.2.2.0.ova)
 
 ### Zelcore
 
@@ -32,7 +35,7 @@ Zelcore has a signing API to interact with dapps on Kadena Chainweb.
 
 [User Guide](https://babening.io/zelcore-guide)
 
-<PageRef url="https://zelcore.io" pageName="Zelcore.io" />
+[Zelcore.io](https://zelcore.io)
 
 ### X-Wallet
 
@@ -41,3 +44,21 @@ X-Wallet does not have a signing API that interacts with current dapps.
 Within X-Wallet users will be able to send and receive assets, execute cross-chain transfers, view transactions, interact with Dapps, and more.
 
 [Chrome Web Store](https://chrome.google.com/webstore/detail/x-wallet/bofddndhbegljegmpmnlbhcejofmjgbn?hl=en&authuser=1)
+
+### Clover Finance
+
+Open source multicurrency web and mobile wallet
+
+[Clover Finance](https://clv.org/)
+
+### Ledger
+
+Leading hardware wallet and infrastructure solutions
+
+[Ledger](https://www.ledger.com/)
+
+### Torus 
+
+Crypto wallet that enables one-click login for Web 3.0 applications via social media accounts
+
+[Torus](https://toruswallet.io/)
