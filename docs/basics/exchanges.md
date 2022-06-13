@@ -20,6 +20,7 @@ The main purpose of a cryptocurrency exchange is to allow users to buy and sell 
 When withdrawing from exchanges or transferring KDA, be sure to follow the k:account protocol to protect your funds on the receiving account.
 
 [Official explanation](https://medium.com/kadena-io/introducing-kadena-account-protocols-kip-0012-303462b77af1)
+
 [Community explanation](https://thanos-42.medium.com/kip-0012-explained-k-accounts-e0cdc71ab455)
 
 Here is a summary of notable features regarding the exchanges that support KDA, for informational purposes only.
@@ -85,16 +86,22 @@ Here is a summary of notable features regarding the exchanges that support KDA, 
 - Accessible globally
 - KYC not required
 - Supports transfers on Chain ID 0 - 9 only
-- Reported user issues:
-  - Depositing KDA via cross-chain transfer is unreliable
-  - Withdrawing KDA to existing accounts is unreliable
-- Reported best practices:
-  - When depositing KDA, perform a simple same-chain transfer
-  - When withdrawing KDA, either (1) withdraw to an unnamed account that does not yet exist or (2) withdraw to an existing account that was already created by HotBit from a previous withdrawal
-  - Withdrawal Fee: 2 KDA
+- Withdrawal Fee: 2 KDA
 
 ### [Coinex](https://www.coinex.com)
 - Unofficial KDA exchange
 - Accessible globally
 - KYC not required
 - Withdrawal Fee: 0.1 KDA
+
+### [BKEX](https://www.bkex.com)
+- Unofficial KDA exchange
+- Accessible to non-US residents
+- KYC not required
+- KDA withdraw not available
+
+### [Hoo](https://hoo.com)
+- Unofficial KDA exchange
+- Accessible globally
+- KYC not required
+- KDA withdraw not available
