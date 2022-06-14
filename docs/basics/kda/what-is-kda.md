@@ -27,7 +27,7 @@ The total supply is fixed at 1 billion tokens to be mined over 120 years
 
 ## What is the total number of tokens in circulation?
 
-Current token circulation is about 185 million coins
+Current circulating supply can be found on the [Kadena Block Explorer](https://explorer.chainweb.com/mainnet).
 
 ![github](/img/docs/what-is-kda/coins-in-circulation.png)
 
