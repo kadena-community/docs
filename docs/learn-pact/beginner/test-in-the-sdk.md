@@ -164,8 +164,8 @@ To set up this environment using the .repl file, you will use two separate built
 
 For this code challenge, you will use **env-keys** and **env-data** to load the keys and environment data into the .repl file. Use the comments to help guide you, and if you’re unsure how to move forward, take a look at the solution for more details.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/1-load-environment-data/challenge.repl" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/1-load-environment-data/solution.repl" target="_blank">Solution</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/1-load-environment-data/challenge.repl" target="_blank">Challenge</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/1-load-environment-data/solution.repl" target="_blank">Solution</a>
 
 :::
 
@@ -240,8 +240,8 @@ All you need to do type load then specify the file path as a string. Pact and RE
 
 Load the loans.pact file into the REPL.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/2-load-pact-file/challenge.repl" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/2-load-pact-file/solution.repl" target="_blank">Solution</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/2-load-pact-file/challenge.repl" target="_blank">Challenge</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/2-load-pact-file/solution.repl" target="_blank">Solution</a>
 
 :::
 
@@ -276,8 +276,8 @@ Follow the links provided or view the loans.pact file for more details.
 
 Call the **create-a-loan**, **assign-a-loan**, and **sell-a-loan** functions from the loans.pact file and provide your own inputs as needed.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/3-call-functions/3.1-generate-data/challenge.repl" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/3-call-functions/3.1-generate-data/solution.repl" target="_blank">Solution</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/3-call-functions/3.1-generate-data/challenge.repl" target="_blank">Challenge</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/3-call-functions/3.1-generate-data/solution.repl" target="_blank">Solution</a>
 
 :::
 
@@ -302,8 +302,8 @@ Here is a brief overview of the functions you will call in this challenge.
 
 Call the read-loan-inventory and read-loans-with-status functions from the loans.pact file and provide your inputs as needed.
 
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/3-call-functions/3.2-read-loans/challenge.repl" target="_blank">Challenge</a>
-    * <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/3-call-functions/3.2-read-loans/solution.repl" target="_blank">Solution</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/3-call-functions/3.2-read-loans/challenge.repl" target="_blank">Challenge</a>
+>* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/test-in-sdk/2-challenges/3-call-functions/3.2-read-loans/solution.repl" target="_blank">Solution</a>
 
 :::
 
