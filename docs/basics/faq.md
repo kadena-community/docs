@@ -30,17 +30,9 @@ Blake2s_256
 
 Block rewards are readjusted against a set schedule every six months, with roughly half of the remaining minable coins issued as block rewards every 20 years. See the complete miner block reward schedule [here](https://github.com/kadena-io/chainweb-node/blob/master/rewards/miner_rewards.csv).
 
-### **What is KDA?**
-
-See the [What is KDA](kda/what-is-kda) page for information regarding Kadena’s native cryptocurrency, KDA
-
 ### **Does Kadena have a block explorer?**
 
 View the block explorer [here](https://explorer.chainweb.com/mainnet) which visualizes the mining, propagation and braiding of blocks across multiple Kadena chains in real time
-
-### **Where can I find Kadena’s whitepapers?**
-
-Kadena has published whitepapers for the public protocol Chainweb, the layer 2 blockchain Kuro, and the smart contract language Pact which can be found [here](whitepapers/overview).
 
 ### **Is Kadena open source?**
 

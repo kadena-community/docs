@@ -217,6 +217,7 @@ To do this, you use the **create-account** function built earlier. This function
 
 Call the **create-account** function to create accounts for **Sarah** and **James**.
 
+
 - <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/5-create-accounts/challenge.pact" target="_blank">Challenge</a>
 - <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/payments/2-challenges/5-create-accounts/solution.pact" target="_blank">Solution</a>
 

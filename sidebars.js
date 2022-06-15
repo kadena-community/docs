@@ -118,7 +118,19 @@ const sidebars = {
     //     { type: "doc", label: "Learn more", id: "build/basics/learn-more" },
     //   ],
     // },
+
     { type: "doc", label: "Tools", id: "build/resources/useful-tools" },
+    {
+      type: "category",
+      label: "Front-end",
+      items: [
+        {
+          type: "doc",
+          label: "Cookbook",
+          id: "build/frontend/pact-lang-api-cookbook",
+        }
+      ],
+    },
     {
       type: "category",
       label: "Guides",
