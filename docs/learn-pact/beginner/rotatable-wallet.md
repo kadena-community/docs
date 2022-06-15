@@ -94,8 +94,8 @@ Each of these keysets play a specific role that will be defined later in the app
 
 Complete define and read the **module-admin-keyset** and the **module-operate-keyset**.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/1-define-keysets/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/1-define-keysets/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/1-define-keysets/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/1-define-keysets/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -113,8 +113,8 @@ The next step is to create the module that will contain the logic of your smart 
 
 Define a module named **auth** that specifies access to the **module-admin** keyset.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/2-define-module/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/2-define-module/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/2-define-module/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/2-define-module/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -132,8 +132,8 @@ This smart contract contains a schema named **user** with 2 columns; **nickname*
 
 Define the user schema and table.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/3-define-schema-and-table/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/3-define-schema-and-table/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/3-define-schema-and-table/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/3-define-schema-and-table/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -164,8 +164,8 @@ In this step, you will create a function that allows the **operate-admin** to ad
 
 Define a function named **create-user** that takes 3 arguments; id, nickname, and keyset. Next, restrict access for function calls to the **operate-admin**. Finally, insert a row into the **users** table using the inputs specified by the user.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.1-create-user/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.1-create-user/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.1-create-user/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.1-create-user/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -195,8 +195,8 @@ This function doesn’t yet give any access to the data in a row. It’s purpose
 
 Define a function named **enforce-user-auth** that returns the keyset associated with a given id.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.2-enforce-user/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.2-enforce-user/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.2-enforce-user/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.2-enforce-user/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -227,8 +227,8 @@ This function combined with the previous function allows users with a specific k
 
 Define a function named **change-nickname** that allows users with a specific keyset to update their nickname in the **users** table.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.3-change-nickname/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.3-change-nickname/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.3-change-nickname/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.3-change-nickname/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -250,8 +250,8 @@ For this final function, use the information learned from previous steps to add 
 
 Define a function named rotate-keyset that allows the owner of a keyset to change their keyset.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.4-rotate-keyset/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.4-rotate-keyset/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.4-rotate-keyset/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/4-functions/4.4-rotate-keyset/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -269,8 +269,8 @@ The last step is to create the **user** table defined within the module.
 
 Create the user table.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/5-create-table/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/5-create-table/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/5-create-table/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/rotatable-wallet/2-challenges/5-create-table/solution.pact" target="_blank">Solution</a>
 
 :::
 

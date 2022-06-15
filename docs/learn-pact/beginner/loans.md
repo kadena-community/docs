@@ -95,8 +95,8 @@ The first step is to create the module and keysets for your smart contract.
 
 Create a keyset named **loans-admin-keyset** and a module named **loans** that specifies access to this keyset.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/1-module-and-keyset/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/1-module-and-keyset/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/1-module-and-keyset/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/1-module-and-keyset/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -139,8 +139,8 @@ The loan table will be used to hold loan entries.
 
 Take some time now to define the schema for the **loan** table.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/2-define-schemas/2.1-loan/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/2-define-schemas/2.1-loan/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/2-define-schemas/2.1-loan/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/2-define-schemas/2.1-loan/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -161,8 +161,8 @@ The **loan-history** table will be used to track the loan’s histories. It incl
 
 Take some time now to define the schema for the **loan-history** table.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/2-define-schemas/2.2-loan-history/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/2-define-schemas/2.2-loan-history/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/2-define-schemas/2.2-loan-history/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/2-define-schemas/2.2-loan-history/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -180,8 +180,8 @@ The **loan-inventory** table will be used to hold inventory balance.
 
 Take some time now to define the schema for the **loan-inventory** table.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/2-define-schemas/2.3-loan-inventory/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/2-define-schemas/2.3-loan-inventory/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/2-define-schemas/2.3-loan-inventory/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/2-define-schemas/2.3-loan-inventory/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -193,8 +193,8 @@ Having defined each of the schemas for each table in your smart contract, you ar
 
 Take some time now to define each of the tables for the loans smart contract.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/3-define-tables/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/3-define-tables/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/3-define-tables/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/3-define-tables/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -214,8 +214,8 @@ The purpose of each of these constants will be more clear as you begin integrati
 
 Take some time now to define each of the const values INITIATED and ASSIGNED in the loans smart contract.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/4-define-consts/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/4-define-consts/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/4-define-consts/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/4-define-consts/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -254,8 +254,8 @@ Your first function will be a utility function meant to help combine the paramet
 
 Create a function named **inventory-key** that creates a key from the **owner** and **loanId** in the format **“loanId:owner”**.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.1-inventory-key/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.1-inventory-key/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.1-inventory-key/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.1-inventory-key/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -296,8 +296,8 @@ Creating a loan can be done by populating specific columns with the appropriate 
 
 Given these requirements, construct a function named **create-a-loan** that accepts parameters **loanId**, **loanName**, **entityName**, and **loanAmount** to add the appropriate information to each table.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.2-create-a-loan/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.2-create-a-loan/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.2-create-a-loan/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.2-create-a-loan/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -341,8 +341,8 @@ The loan-inventory-table will have new data added and updated as needed.
 
 This code challenge is complex, so take your time and don’t worry if you get stuck. Follow each line as shown and try to construct the functionality needed to **assign-a-loan**.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.3-assign-a-loan/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.3-assign-a-loan/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.3-assign-a-loan/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.3-assign-a-loan/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -360,8 +360,8 @@ The goal of the next function is similar to allow users to sell a loan. This fun
 
 This is another difficult problem. Take your time and leverage what you learned in the previous section to help create this function.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.4-sell-a-loan/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.4-sell-a-loan/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.4-sell-a-loan/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.4-sell-a-loan/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -381,8 +381,8 @@ The next set of functions will allow you to **read** important information from 
 
 Create a function named **read-a-loan** that returns the values at a given loanId.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.5-read-a-loan/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.5-read-a-loan/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.5-read-a-loan/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.5-read-a-loan/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -392,8 +392,8 @@ Create a function named **read-a-loan** that returns the values at a given loanI
 
 Create a function named **read-loan-tx** that reads loan txids.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.6-read-loan-tx/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.6-read-loan-tx/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.6-read-loan-tx/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.6-read-loan-tx/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -403,8 +403,8 @@ Create a function named **read-loan-tx** that reads loan txids.
 
 Create a function named **read-all-loans** that selects all values from the loans table.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.7-read-all-loans/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.7-read-all-loans/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.7-read-all-loans/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.7-read-all-loans/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -414,8 +414,8 @@ Create a function named **read-all-loans** that selects all values from the loan
 
 Create a function named **read-inventory-pair** that reads the balance of a given key.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.8-read-inventory-pair/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.8-read-inventory-pair/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.8-read-inventory-pair/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.8-read-inventory-pair/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -425,8 +425,8 @@ Create a function named **read-inventory-pair** that reads the balance of a give
 
 Create a function named **read-loan-inventory** that reads the loan-inventory-table.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.9-read-loan-inventory/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.9-read-loan-inventory/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.9-read-loan-inventory/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.9-read-loan-inventory/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -436,8 +436,8 @@ Create a function named **read-loan-inventory** that reads the loan-inventory-ta
 
 Create a function named **read-loans-with-status** that reads all loans with a specific status.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.10-read-loans-with-status/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.10-read-loans-with-status/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.10-read-loans-with-status/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/5-functions/5.10-read-loans-with-status/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -449,8 +449,8 @@ Earlier in the smart contract, you defined 3 schemas and tables. Now that the mo
 
 Take some time now to create each of the tables for the loans smart contract.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/6-create-tables/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/6-create-tables/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/6-create-tables/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/loans/2-challenges/6-create-tables/solution.pact" target="_blank">Solution</a>
 
 :::
 
