@@ -1,12 +1,12 @@
 ---
-title: Safe rotate and drain
+title: Safe Rotate and Drain
 ---
 
 import PageRef from '@components/PageRef'
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Safe rotate and drain
+# Safe Rotate and Drain
 
 ---
 
