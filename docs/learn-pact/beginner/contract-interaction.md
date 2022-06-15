@@ -92,8 +92,8 @@ Each number in the image corresponds to one of the files you will work with.
 
 Both auth.pact and payments.pact are smart contracts that you have worked with in previous tutorials. If you would like to learn more about these smart contracts, feel free to view each of their tutorials.
 
-      * **Auth Module:** <a href="https://pactlang.org/beginner/project-rotatable-wallet/" target="_blank">Project: Rotatable Wallet</a>
-      * **Payments Module:** <a href="https://pactlang.org/beginner/pact-accounts-and-transfers/" target="_blank">Accounts and Transfers</a>
+* **Auth Module:** <a href="https://pactlang.org/beginner/project-rotatable-wallet/" target="_blank">Project: Rotatable Wallet</a>
+* **Payments Module:** <a href="https://pactlang.org/beginner/pact-accounts-and-transfers/" target="_blank">Accounts and Transfers</a>
 
 :::
 
@@ -150,8 +150,8 @@ The function you will write will enforce user authentication for payments made w
 
 Define a function enforce-user-auth that you can use to verify user authorization.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/1-auth-pact/1.1-enforce-user-auth/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/1-auth-pact/1.1-enforce-user-auth/solution.pact" target="_blank">Solution</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/1-auth-pact/1.1-enforce-user-auth/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/1-auth-pact/1.1-enforce-user-auth/solution.pact" target="_blank">Solution</a>
 
 :::
 
@@ -189,9 +189,8 @@ It’s simple but extremely powerful! This is what will allow you to call functi
 
 Take a moment now to **use** the **auth** module from within the **payments** module.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.1-use-auth/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.1-use-auth/solution.pact" target="_blank">Solution</a>
-
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.1-use-auth/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.1-use-auth/solution.pact" target="_blank">Solution</a>
 :::
 
 ### 2.2 Create Account
@@ -210,9 +209,8 @@ Take some time now to add this new functionality to your smart contract.
 
 Call **enforce-user-auth** from within the **create-account** function to authorize that the user is an administrator.
 
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.2-create-account/challenge.pact" target="_blank">Challenge</a>
->* <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.2-create-account/solution.pact" target="_blank">Solution</a>
-
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.2-create-account/challenge.pact" target="_blank">Challenge</a>
+- <a href="https://github.com/kadena-io/pact-lang.org-code/blob/master/interaction/2-challenges/2-payments-pact/2.2-create-account/solution.pact" target="_blank">Solution</a>
 :::
 
 ### 2.3 Get Balance
