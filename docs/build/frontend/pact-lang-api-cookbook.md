@@ -30,7 +30,7 @@ import TabItem from '@theme/TabItem';
 | [Verify Signature](#verify-signature) | Verify a key pair signature. |
 
 :::tip
-For convenience you can also find these scripts in this repository **( TODO: Insert repo link )**.
+For convenience you can find all these scripts in a [repository](https://github.com/raduciobanu22/pact-lang-api-cookbook).
 :::
 
 ## Accounts
