@@ -279,13 +279,6 @@ For beginners it is recommended that you name your account after your public key
 
 :::
 
-## Remove an account <a href="#remove-an-account" id="remove-an-account"></a>
-
-To remove an account from view, select the Details button beside the desired account
-@@ -294,6 +301,30 @@ As a result of this novel capability, it is important for users to clearly under
-
-![ownership-examples](https://kadena-io.github.io/kadena-docs/assets/Chainweaver/ownership-examples.png)
-
 :::note Key Takeaways
 
 While many blockchains require a suite of tools to perform various tasks, Kadena’s Chainweaver is designed as a one-stop-shop for interacting with the blockchain.
