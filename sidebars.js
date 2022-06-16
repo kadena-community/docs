@@ -19,23 +19,13 @@ const sidebars = {
     // },
     {
       type: "category",
-      label: "Whitepapers",
+      label: "KDA",
       items: [
-        { type: "doc", label: "Overview", id: "basics/whitepapers/overview" },
-        {
-          type: "doc",
-          label: "Chainweb",
-          id: "basics/whitepapers/chainweb-layer-1",
-        },
-        {
-          type: "doc",
-          label: "Pact",
-          id: "basics/whitepapers/pact-smart-contract-language",
-        },
-        { type: "doc", label: "Kuro", id: "basics/whitepapers/kuro-layer-2" },
+        { type: "doc", label: "What is KDA", id: "basics/kda/what-is-kda" },
+        { type: "doc", label: "Manage KDA", id: "basics/kda/kda" },
+        { type: "doc", label: "Key Concepts", id: "basics/kda/kda-concepts" },
       ],
     },
-    { type: "doc", label: "Exchanges", id: "basics/exchanges" },
     {
       type: "category",
       label: "Wallets",
@@ -64,13 +54,23 @@ const sidebars = {
         },
       ],
     },
+    { type: "doc", label: "Exchanges", id: "basics/exchanges" },
     {
       type: "category",
-      label: "KDA",
+      label: "Whitepapers",
       items: [
-        { type: "doc", label: "What is KDA", id: "basics/kda/what-is-kda" },
-        { type: "doc", label: "Manage KDA", id: "basics/kda/kda" },
-        { type: "doc", label: "Key Concepts", id: "basics/kda/kda-concepts" },
+        { type: "doc", label: "Overview", id: "basics/whitepapers/overview" },
+        {
+          type: "doc",
+          label: "Chainweb",
+          id: "basics/whitepapers/chainweb-layer-1",
+        },
+        {
+          type: "doc",
+          label: "Pact",
+          id: "basics/whitepapers/pact-smart-contract-language",
+        },
+        { type: "doc", label: "Kuro", id: "basics/whitepapers/kuro-layer-2" },
       ],
     },
     { type: "doc", label: "FAQ", id: "basics/faq" },
