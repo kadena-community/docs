@@ -4,7 +4,7 @@ const sidebars = {
   // ######################################
 
   basics: [
-    { type: "doc", label: "Get Started", id: "basics/get-started" },
+    { type: "doc", label: "Introduction", id: "basics/get-started" },
     { type: "doc", label: "Overview", id: "basics/overview" },
     // {
     //   type: "category",
@@ -74,7 +74,6 @@ const sidebars = {
       ],
     },
     { type: "doc", label: "FAQ", id: "basics/faq" },
-    { type: "doc", label: "Contribute to Docs", id: "contribute/docs" },
     // {
     //   type: "category",
     //   label: "Resources",
@@ -283,6 +282,7 @@ const sidebars = {
       ],
     },
     { type: "doc", label: "Kadena DAO", id: "contribute/kadena-dao" },
+    { type: "doc", label: "Contribute to Docs", id: "contribute/docs" },
   ],
 };
 
