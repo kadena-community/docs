@@ -4,7 +4,7 @@ const sidebars = {
   // ######################################
 
   basics: [
-    { type: "doc", label: "Get Started", id: "basics/get-started" },
+    { type: "doc", label: "Introduction", id: "basics/get-started" },
     { type: "doc", label: "Overview", id: "basics/overview" },
     // {
     //   type: "category",
@@ -19,23 +19,13 @@ const sidebars = {
     // },
     {
       type: "category",
-      label: "Whitepapers",
+      label: "KDA",
       items: [
-        { type: "doc", label: "Overview", id: "basics/whitepapers/overview" },
-        {
-          type: "doc",
-          label: "Chainweb",
-          id: "basics/whitepapers/chainweb-layer-1",
-        },
-        {
-          type: "doc",
-          label: "Pact",
-          id: "basics/whitepapers/pact-smart-contract-language",
-        },
-        { type: "doc", label: "Kuro", id: "basics/whitepapers/kuro-layer-2" },
+        { type: "doc", label: "What is KDA", id: "basics/kda/what-is-kda" },
+        { type: "doc", label: "Manage KDA", id: "basics/kda/kda" },
+        { type: "doc", label: "Key Concepts", id: "basics/kda/kda-concepts" },
       ],
     },
-    { type: "doc", label: "Exchanges", id: "basics/exchanges" },
     {
       type: "category",
       label: "Wallets",
@@ -64,17 +54,26 @@ const sidebars = {
         },
       ],
     },
+    { type: "doc", label: "Exchanges", id: "basics/exchanges" },
     {
       type: "category",
-      label: "KDA",
+      label: "Whitepapers",
       items: [
-        { type: "doc", label: "What is KDA", id: "basics/kda/what-is-kda" },
-        { type: "doc", label: "Manage KDA", id: "basics/kda/kda" },
-        { type: "doc", label: "Key Concepts", id: "basics/kda/kda-concepts" },
+        { type: "doc", label: "Overview", id: "basics/whitepapers/overview" },
+        {
+          type: "doc",
+          label: "Chainweb",
+          id: "basics/whitepapers/chainweb-layer-1",
+        },
+        {
+          type: "doc",
+          label: "Pact",
+          id: "basics/whitepapers/pact-smart-contract-language",
+        },
+        { type: "doc", label: "Kuro", id: "basics/whitepapers/kuro-layer-2" },
       ],
     },
     { type: "doc", label: "FAQ", id: "basics/faq" },
-    { type: "doc", label: "Contribute to Docs", id: "contribute/docs" },
     // {
     //   type: "category",
     //   label: "Resources",
@@ -118,19 +117,18 @@ const sidebars = {
     //     { type: "doc", label: "Learn more", id: "build/basics/learn-more" },
     //   ],
     // },
-    { type: "category", label: "Tools",
+
+    { type: "doc", label: "Tools", id: "build/resources/useful-tools" },
+    {
+      type: "category",
+      label: "Front-end",
       items: [
         {
           type: "doc",
-          label: "Atom IDE",
-          id: "build/tools/atom-ide",
-        },
-        {
-          type: "doc",
-          id: "build/tools/useful-tools",
-          label: "Other"
+          label: "Cookbook",
+          id: "build/frontend/pact-lang-api-cookbook",
         }
-       ]
+      ],
     },
     {
       type: "category",
@@ -273,17 +271,18 @@ const sidebars = {
         },
         {
           type: "doc",
-          label: "Technical Writer",
+          label: "Moderator",
           id: "contribute/ambassadors/moderator",
         },
         {
           type: "doc",
-          label: "Channel Leader",
+          label: "Community Channel Leader",
           id: "contribute/ambassadors/community-channel-leader",
         },
       ],
     },
     { type: "doc", label: "Kadena DAO", id: "contribute/kadena-dao" },
+    { type: "doc", label: "Contribute to Docs", id: "contribute/docs" },
   ],
 };
 

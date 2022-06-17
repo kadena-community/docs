@@ -16,6 +16,7 @@ Build your best ideas with us
 ## Getting Started is Simple
 
 <PageRef url="../../../basics/quickstart" pageName="Quickstart" />
+<PageRef url="voting-dapp-tutorial" pageName="Zero To Hero: Kadena Dapp Development" />
 <PageRef url="https://github.com/kadena-io/create-pact-app" pageName="Explore dApp Templates" />
 <PageRef url="https://github.com/kadena-io/developer-scripts" pageName="View the source" />
 <PageRef url="resources/useful-tools" pageName="Get the tools" />
@@ -25,7 +26,7 @@ Build your best ideas with us
 ### Pact
 
 <PageRef url="https://pact-language.readthedocs.io/en/stable/" pageName="ReadtheDocs" />
-<PageRef url="/blog" pageName="Developer tutorials" />
+<PageRef url="/learn-pact/intro" pageName="Developer tutorials" />
 <PageRef url="https://github.com/kadena-io/pact" pageName="Pact on GitHub" />
 <PageRef url="https://github.com/kadena-io/pact#atom" pageName="Install Pact on Atom" />
 <PageRef url="https://github.com/kadena-io/developer-scripts" pageName="Code samples" />
@@ -34,7 +35,7 @@ Build your best ideas with us
 ## Tutorial & Guides
 
 <PageRef url="../../../basics/quickstart" pageName="Developer Quickstart" />
-<PageRef url="/blog" pageName="Pact tutorials" />
+<PageRef url="/learn-pact/intro" pageName="Pact tutorials" />
 <PageRef url="https://www.youtube.com/playlist?list=PL4G3uLl2K-dm18c1QGo7T6NXJh2CSzXVf" pageName="Kadenas teaches" />
 <PageRef url="https://medium.com/kadena-io/beginners-guide-to-kadena-accounts-keysets-fb7f32104291" pageName="Guides to accounts & keysets" />
 <PageRef url="https://medium.com/kadena-io/beginners-guide-to-kadena-accounts-keysets-fb7f32104291" pageName="Getting started with transfers" />

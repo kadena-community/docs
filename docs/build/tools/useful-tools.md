@@ -6,7 +6,7 @@ import PageRef from '@components/PageRef'
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Useful Tools
+# Tools
 
 ---
 

@@ -8,7 +8,11 @@ import TabItem from '@theme/TabItem';
 
 # Contribute to Kadena
 
+Be a part of our ecosystem
+
 ---
+
+
 
 <PageRef url="node/overview" pageName="Run a Node" />
 <PageRef url="ambassadors/overview" pageName="Ambassadors" />

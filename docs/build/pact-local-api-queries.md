@@ -1,5 +1,5 @@
 ---
-title: Pact Local API queries
+title: Pact Local API Queries
 ---
 
 import PageRef from '@components/PageRef'

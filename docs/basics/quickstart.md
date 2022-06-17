@@ -65,30 +65,6 @@ Download Chainweaver, Kadena’s official wallet and developer workbench.
 
 Detailed set-up instructions can be found in the [Chainweaver User Guide](chainweaver/chainweaver-user-guide).
 
-:::note Key Takeaways
-
-While many blockchains require a suite of tools to perform various tasks, Kadena’s Chainweaver is designed as a one-stop-shop for interacting with the blockchain.
-
-As a cryptocurrency wallet, Chainweaver can:
-
-• Deterministically generate multiple key pairs
-• Configure and manage multiple accounts, each with custom access controls
-• Send & receive KDA across any Kadena chain, and adjust gas preferences
-• Watch the status of existing accounts (like an address book of known accounts)
-• Change networks to interact with Mainnet, Testnet, or a custom network
-
-As a development environment, Chainweaver can:
-
-• Expose all the features available in the Pact smart contract language
-• Perform common IDE functionality: code editor, automation tools, error messages
-• Facilitate the testing of contracts with a REPL
-• Preview results and deploy smart contracts to any Kadena network
-• Display a list of example contracts
-• View code and call functions from any deployed smart contract
-• Automate transaction signing between dApps and accounts
-
-:::
-
 ## Testnet Account Setup
 
 Create and fund a Testnet account using the “Coin Faucet” smart contract
@@ -105,25 +81,8 @@ Create and fund a Testnet account using the “Coin Faucet” smart contract
 3. Select “Create and fund new account”
 4. In the “Public Key” field, enter your public key
 5. In the “Account Name” field, enter some unique name.
-
-:::note
-
-For beginners it is recommended that you name your account after your public key. This is a standard convention in blockchain and may help to reduce confusion about which key is associated with your account.
-
-:::
-
 6. Select “Create and fund new account”
 7. Wait about 30 seconds, then select “Check Request Status” to see the transaction confirmation message.
-
-:::note Key Takeaway
-
-Keys and Accounts are not the same thing. In brief, Keys sign transactions and Accounts may be governed by one or multiple keys.
-
-With most blockchains, accounts are modeled as simply public/private keypairs. This one-to-one model keeps things simple, but runs into problems when account control requires a many-to-many model (such as with jointly owned or majority ruled accounts).
-
-Kadena natively supports multiple keys governing the same account, and this dynamic account control allows developers to more easily construct governance models that satisfy their workflow requirements.
-
-:::
 
 ### Additional Resources
 
