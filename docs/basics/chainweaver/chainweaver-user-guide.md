@@ -272,6 +272,38 @@ For convenience, Chainweaver will automatically define the keyset for accounts t
 
 Remember that the Kadena public blockchain network is comprised of many chains braided together. In effect, each chain is a standalone blockchain, therefore you will have to create your desired account on each chain for which you want it to exist. Naturally, the same account name will have a different account balance on each chain, and may also have different owners or a different keyset. Always be sure to take note of the chain on which you are transacting.
 
+
+:::note
+
+For beginners it is recommended that you name your account after your public key. This is a standard convention in blockchain and may help to reduce confusion about which key is associated with your account.
+
+:::
+
+:::note Key Takeaways
+
+While many blockchains require a suite of tools to perform various tasks, Kadena’s Chainweaver is designed as a one-stop-shop for interacting with the blockchain.
+
+As a cryptocurrency wallet, Chainweaver can:
+
+• Deterministically generate multiple key pairs
+• Configure and manage multiple accounts, each with custom access controls
+• Send & receive KDA across any Kadena chain, and adjust gas preferences
+• Watch the status of existing accounts (like an address book of known accounts)
+• Change networks to interact with Mainnet, Testnet, or a custom network
+
+As a development environment, Chainweaver can:
+
+• Expose all the features available in the Pact smart contract language
+• Perform common IDE functionality: code editor, automation tools, error messages
+• Facilitate the testing of contracts with a REPL
+• Preview results and deploy smart contracts to any Kadena network
+• Display a list of example contracts
+• View code and call functions from any deployed smart contract
+• Automate transaction signing between dApps and accounts
+
+:::
+
+
 ## Remove an account <a href="#remove-an-account" id="remove-an-account"></a>
 
 To remove an account from view, select the Details button beside the desired account
