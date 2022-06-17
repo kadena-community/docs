@@ -271,12 +271,12 @@ const sidebars = {
         },
         {
           type: "doc",
-          label: "Technical Writer",
+          label: "Moderator",
           id: "contribute/ambassadors/moderator",
         },
         {
           type: "doc",
-          label: "Channel Leader",
+          label: "Community Channel Leader",
           id: "contribute/ambassadors/community-channel-leader",
         },
       ],
