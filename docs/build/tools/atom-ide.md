@@ -18,12 +18,13 @@ Requires the Pact 4.1 executable or later. You need either Linux or MacOS to run
 
 :::note
 
-Because Pact is non-trivial to build on Windows it is not available. If you need to work from Windows consider using a virtual machine or WSL2: [dev.to/darksmile92/linux-on-windows-wsl-with-desktop-environment-via-rdp](https://dev.to/darksmile92/linux-on-windows-wsl-with-desktop-environment-via-rdp-522g).
+Because Pact is non-trivial to build on Windows it is not available. If you need to work from Windows consider using a virtual machine or WSL: [dev.to/darksmile92/linux-on-windows-wsl-with-desktop-environment-via-rdp](https://dev.to/darksmile92/linux-on-windows-wsl-with-desktop-environment-via-rdp-522g).
 
 :::
 
 ## Installing the Pact executable
 
+There are several methods of installing pact. For other install methods such as building from source I refer to the [pact readme](https://github.com/kadena-io/pact).
 Before installing pact we install the z3 dependency and some tools we need later. Open a terminal (ctrl+alt+t) and paste the following instructions:
 ```
 sudo apt install z3 unzip git
