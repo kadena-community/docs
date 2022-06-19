@@ -46,9 +46,11 @@ More instructions on installing Pact can be found on the <a href="https://github
 
 ### Install Pact
 
-To get started with Pact you’ll first need to install the Pact programming language. Next we go over the steps with [Mac](/learn-pact/beginner/atom-sdk#installing-pact-mac) and Linux to get in installed on your local computer.
+To get started with Pact you’ll first need to install the Pact programming language. Next we go over the steps with [Mac](/learn-pact/beginner/atom-sdk#installing-pact-mac) and Linux to get it installed on your local computer.
 
 #### Installing Pact Linux
+
+Instructions tested with Ubuntu LTS but should work for many distributions with minor modifications.
 
 ```
 sudo apt install z3 unzip git
