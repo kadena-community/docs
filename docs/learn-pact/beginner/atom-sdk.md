@@ -85,13 +85,7 @@ Press ctrl-d to exit the Pact prompt.
 
 <iframe width="720" height="405" src="https://www.youtube.com/embed/J-GuviTE3qo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-The easiest way to do this for Mac is by using Homebrew. If you have Homebrew, run the following line in your terminal.
-
-```terminal
-brew install kadena-io/pact/pact
-```
-
-This will install Pact on your computer.
+The easiest way to do this for Mac is by using Homebrew. If you have Homebrew continue to [installing Pact language with Homebrew](/learn-pact/beginner/atom-sdk#installing-pact-with-homebrew).
 
 ##### Homebrew
 
@@ -109,7 +103,7 @@ After a few moments you’ll have Homebrew installed on your computer. To verify
 
 This should return the current version of your installation.
 
-##### Pact Programming Langauge
+##### Installing Pact with Homebrew
 
 Now that you have Homebrew, you can use it to install the Pact language. As I mentioned earlier, you’ll do this with the following command.
 
