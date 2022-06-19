@@ -118,7 +118,7 @@ const sidebars = {
     //   ],
     // },
 
-    { type: "doc", label: "Tools", id: "build/resources/useful-tools" },
+    { type: "doc", label: "Tools", id: "build/useful-tools" },
     {
       type: "category",
       label: "Front-end",
