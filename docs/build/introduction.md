@@ -28,7 +28,7 @@ Build your best ideas with us
 <PageRef url="https://pact-language.readthedocs.io/en/stable/" pageName="ReadtheDocs" />
 <PageRef url="/learn-pact/intro" pageName="Developer tutorials" />
 <PageRef url="https://github.com/kadena-io/pact" pageName="Pact on GitHub" />
-<PageRef url="https://github.com/kadena-io/pact#atom" pageName="Install Pact on Atom" />
+[Install Pact on Atom](/learn-pact/beginner/atom-sdk)
 <PageRef url="https://github.com/kadena-io/developer-scripts" pageName="Code samples" />
 <PageRef url="https://medium.com/kadena-io/safer-smarter-contracts-with-pact-e86b9ccaca9f" pageName="Articles" />
 
@@ -47,7 +47,7 @@ Build your best ideas with us
 <PageRef url="https://github.com/kadena-io/chainweaver/releases" pageName="Chainnweaver Liunx" />
 <PageRef url="https://github.com/kadena-io/chainweaver/releases" pageName="Chainweaver Windows" />
 <PageRef url="../../../basics/chainweaver/chainweaver-user-guide" pageName="Chainweaver user guide" />
-<PageRef url="https://atom.io/" pageName="Atom IDE" />
+[Atom IDE](/learn-pact/beginner/atom-sdk)
 <PageRef url="https://explorer.chainweb.com/mainnet" pageName="Block explorer" />
 <PageRef url="https://transfer.chainweb.com/" pageName="Web transfer tools" />
 <PageRef url="https://balance.chainweb.com/" pageName="Balance checker" />
