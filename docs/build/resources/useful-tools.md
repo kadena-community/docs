@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem';
 ---
 
 - [Chainweaver (Wallet & Workbench)](../../basics/chainweaver/chainweaver-user-guide/)
-- [Atom IDE](atom-ide)
+- [Atom IDE](atom-sdk)
 - [Block Explorer](https://explorer.chainweb.com/mainnet)
 - [Web transfer tools](https://transfer.chainweb.com)
 - [Balance checker](https://balance.chainweb.com)

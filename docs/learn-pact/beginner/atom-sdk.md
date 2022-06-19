@@ -36,21 +36,57 @@ Pact and the Atom SDK provide a powerful development environment that allows you
 
 Getting started with Pact on your local device allows you to work in a powerful development environment to run your smart contracts locally. This environment can be set up on Mac, Windows, and Linux operating systems.
 
-This tutorial will go over the details of getting up and running on a Mac operating system.
+This tutorial will go over the details of getting up and running on a Mac and Ubuntu operating system.
 
-:::caution Windows and Linux Users
+:::caution Windows
 
-More instructions on installing Pact with **Windows** or **Linux** can be found on the <a href="https://github.com/kadena-io/pact" target="_blank">GitHub</a> page.
+Because Pact is non-trivial to build on Windows it is not available. If you need to work from Windows consider using a virtual machine or WSL: [dev.to/darksmile92/linux-on-windows-wsl-with-desktop-environment-via-rdp](https://dev.to/darksmile92/linux-on-windows-wsl-with-desktop-environment-via-rdp-522g).
+More instructions on installing Pact can be found on the <a href="https://github.com/kadena-io/pact" target="_blank">GitHub</a> page.
 
 :::
 
-<iframe width="720" height="405" src="https://www.youtube.com/embed/J-GuviTE3qo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 ### Install Pact
 
-To get started with Pact you’ll first need to install the Pact programming language.
+To get started with Pact you’ll first need to install the Pact programming language. Next we go over the steps with [Mac](/learn-pact/beginner/atom-sdk#installing-pact-mac) and Linux to get in installed on your local computer.
 
-The easiest way to do this is by using Homebrew for Mac. If you have Homebrew, run the following line in your terminal.
+#### Installing Pact Linux
+
+```
+sudo apt install z3 unzip git
+```
+
+Download the latest Pact build from [github.com/kadena-io/pact/releases](https://github.com/kadena-io/pact/releases).
+Assuming you have the zip in the folder Downloads :
+```
+cd ~/Downloads
+```
+```
+unzip pact-4*
+```
+```
+mkdir ~/bin && mv pact ~/bin
+```
+```
+chmod +x ~/bin/pact
+```
+
+To test if the installation was successful open a new terminal and run `pact`. 
+```
+pact
+pact> (+ "hello " "world")
+"hello world"
+pact>
+```
+
+Press ctrl-d to exit the Pact prompt.
+
+#### Installing Pact Mac
+
+<iframe width="720" height="405" src="https://www.youtube.com/embed/J-GuviTE3qo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+The easiest way to do this for Mac is by using Homebrew. If you have Homebrew, run the following line in your terminal.
 
 ```terminal
 brew install kadena-io/pact/pact
@@ -58,7 +94,7 @@ brew install kadena-io/pact/pact
 
 This will install Pact on your computer.
 
-### Homebrew
+##### Homebrew
 
 If you don’t have Homebrew, you’ll need to get that first. To find instructions for this go to <a href="https://brew.sh/" target="_blank">brew.sh</a>.
 
@@ -74,7 +110,7 @@ After a few moments you’ll have Homebrew installed on your computer. To verify
 
 This should return the current version of your installation.
 
-### Pact Programming Langauge
+##### Pact Programming Langauge
 
 Now that you have Homebrew, you can use it to install the Pact language. As I mentioned earlier, you’ll do this with the following command.
 
