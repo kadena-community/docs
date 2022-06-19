@@ -105,7 +105,7 @@ This should return the current version of your installation.
 
 ##### Installing Pact with Homebrew
 
-Now that you have Homebrew, you can use it to install the Pact language. As I mentioned earlier, you’ll do this with the following command.
+Now that you have Homebrew, you can use it to install the Pact language. You’ll do this with the following command.
 
 ```terminal
 brew install kadena-io/pact/pact
