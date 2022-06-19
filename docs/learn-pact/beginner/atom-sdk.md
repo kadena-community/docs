@@ -16,7 +16,6 @@ Welcome to this tutorial on Pact Development on Atom SDK!
 **Topics covered in this tutorial**
 
 - Pact in Atom SDK Overview
-- Install Homebrew
 - Install the Pact Programming Language
 - Install Atom
 - Install the Atom language-pact package
@@ -34,13 +33,11 @@ Pact and the Atom SDK provide a powerful development environment that allows you
 
 ## Pact Development on Atom SDK Tutorial
 
-Getting started with Pact on your local device allows you to work in a powerful development environment to run your smart contracts locally. This environment can be set up on Mac, Windows, and Linux operating systems.
-
-This tutorial will go over the details of getting up and running on a Mac and Ubuntu operating system.
+Getting started with Pact on your local device allows you to work in a powerful development environment to run your smart contracts locally. This environment can be set up on Mac and Linux operating systems.
 
 :::caution Windows
 
-Because Pact is non-trivial to build on Windows it is not available. If you need to work from Windows consider using a virtual machine or WSL: [dev.to/darksmile92/linux-on-windows-wsl-with-desktop-environment-via-rdp](https://dev.to/darksmile92/linux-on-windows-wsl-with-desktop-environment-via-rdp-522g).
+Because Pact is non-trivial to build on Windows it is not available for download as an executable. If you need to work from Windows consider using a virtual machine or WSL: [dev.to/darksmile92/linux-on-windows-wsl-with-desktop-environment-via-rdp](https://dev.to/darksmile92/linux-on-windows-wsl-with-desktop-environment-via-rdp-522g).
 More instructions on installing Pact can be found on the <a href="https://github.com/kadena-io/pact" target="_blank">GitHub</a> page.
 
 :::
