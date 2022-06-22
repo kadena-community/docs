@@ -19,8 +19,7 @@ import TabItem from '@theme/TabItem';
 
 ### **Azure**
 
-- [Kuro on Azure](https://azuremarketplace.microsoft.com/en-ca/marketplace/apps/kadenallc.scalablebft?tab=Overview): This takes you to the official listing of Kadena's layer 2 Blockchain on Azure. This is the community edition version of the software, which limits the cluster size to a maximum of 4 nodes.
-- [Azure Setup Instructions](https://kadena-io.github.io/scalableBFT.github.io/azure/#ansible-and-azure): Our documentation for using Ansible to setup the Kuro cluster on AWS.
+- [Azure Setup Instructions](https://kadena-io.github.io/scalableBFT.github.io/azure/#ansible-and-azure): Our documentation for using Ansible to setup the Kuro cluster on Azure.
 
 For a version without any of restrictions, please contact us at [info@kadena.io](mailto:info@kadena.io).
 
