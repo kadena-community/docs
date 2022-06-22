@@ -45,20 +45,3 @@ Within X-Wallet users will be able to send and receive assets, execute cross-cha
 
 [Chrome Web Store](https://chrome.google.com/webstore/detail/x-wallet/bofddndhbegljegmpmnlbhcejofmjgbn?hl=en&authuser=1)
 
-### Clover Finance
-
-Open source multicurrency web and mobile wallet
-
-[Clover Finance](https://clv.org/)
-
-### Ledger
-
-Leading hardware wallet and infrastructure solutions
-
-[Ledger](https://www.ledger.com/)
-
-### Torus 
-
-Crypto wallet that enables one-click login for Web 3.0 applications via social media accounts
-
-[Torus](https://toruswallet.io/)
