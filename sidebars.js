@@ -221,6 +221,7 @@ const sidebars = {
     { type: "doc", label: "Pact and Javascript", id: "learn-pact/intermediate/pact-and-javascript" },
     { type: "doc", label: "Safety Using Control Flow", id: "learn-pact/intermediate/safety-using-control-flow" },
     { type: "doc", label: "Interfaces with Pact", id: "learn-pact/intermediate/interfaces-with-pact" }
+    { type: "doc", label: "Built-in Functions", id: "learn-pact/intermediate/built-in-functions" }
   ],
 
   // ######################################
