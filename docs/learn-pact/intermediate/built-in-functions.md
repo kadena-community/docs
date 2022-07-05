@@ -91,3 +91,24 @@ The managed capability feature is most commonly used by coin contracts to govern
 :::
 
 The manager function has the job of confirming that sufficient resource exists and deducting from the resource. It is called whenever `with-capability` is used and the capability has not yet been granted.
+
+## Select
+
+The `select` built-in funciton can be found [here](https://pact-language.readthedocs.io/en/stable/pact-functions.html?highlight=select#select).
+
+The `select` function is able to pull information from a table under specific conditions.
+
+This is an example of finding people in a table with a single condition, having "Fatima" as their first or last name.
+
+```terminal
+(select people ['firstName,'lastName] (where 'name (= "Fatima")))
+```
+
+But, what if you want to use mulitple clauses to get a more specific result.
+
+In this example, you can use the following format to find someone with the name "Fatima" that is older than 40.
+
+
+```terminal
+(select people ['firstName,'lastName] (and? (where 'name (= "Fatima")) (where 'age (> 40))))
+```
