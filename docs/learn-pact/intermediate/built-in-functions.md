@@ -32,3 +32,83 @@ Currently chainweb supports "ETH" and "TXOUT" only ([github](https://github.com/
 TXOUT is the same as what is used for crosschain, but should not be used for "once-and-only-once" which demands using a cross-chain defpact to enforce. TXOUT can be used for "broadcast" of e.g. a price feed to other chains.
 
 ::
+
+## Managed Capabilities
+
+Documentation for understanding capabilities can be found [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html#capabilities).
+
+The capability built-in functions can be found [here](https://pact-language.readthedocs.io/en/latest/pact-functions.html#capabilities-1).
+
+Before diving into managed capabilities, it is important to understand the difference between managed and unmanaged capabilities. Capabilities are never "changed" since they are only granted by `with-capability`. In addition to defining a capability, managed capabilities also define a "resource" that is decreased whenever the associated capability is granted. 
+
+Think of it like this, stateless capabilities are granted by `with-capability` and demanded by `require-capability`. Managed capabilities setup an initial "resource" by `install-capability`, then deduct from the resource, granted by `with-capability`, and are demanded by `require-capability`.
+
+Note that `install-capability` is unique to managed capabilities while `with-capability` does double duty. `with-capability` essentailly is two seperate operations composed together in the managed case: 
+
+```terminal
+;; You write this:
+(install-capability (TRANSFER FROM TO PROVIDED))
+...
+(with-capability (TRANSFER FROM TO REQUESTED) EXPR)
+
+;; ----
+
+;; But what it does internally is more like this:
+(install-capability (TRANSFER FROM TO) PROVIDED)
+...
+(if (already-granted-p (TRANSFER FROM TO))
+    EXPR
+  (consume-resource (TRANSFER FROM TO) REQUESTED
+    (with-capability (TRANSFER FROM TO) EXPR)))
+```
+
+You can see here that `(TRANSFER FROM TO)` identifies the capability - in both the managed and unmanaged cases. The extra parameter relating to the resource is what's new in the managed case. The fact that it gets passed as an argument in `(TRANSFER FROM TO AMOUNT)` to both `install-capability` and `with-capability` is just a syntactic convenience.
+
+Now lets take a look at the [TRANSFER managed capability](https://pact-language.readthedocs.io/en/latest/pact-reference.html#the-transfer-managed-capability) to get a better understanding.
+
+The `@managed` keyword identifies the argument referring to the resource parameter. In the case of `TRANSFER`, this is the `amount` argument, as declared by:
+
+```terminal
+@managed amount TRANSFER_mgr
+```
+
+This also states that `TRANSFER_mgr` will receive two arguments related to the amount:
+1. The current amount of the resource 
+2. The proposed amount to be deducted by the call to `with`
+
+```terminal
+(defun TRANSFER_mgr:decimal (current:decimal requested:decimal)
+```
+
+For `install-capability`, the `amount` argument passed is the initial amount of the resource. For `with-capability`, the `amount` argument is the amount of resource being requested before the capability can be granted. In that case, the current amount that is passed as the first argument to the management function comes from the current state of the Pact evaluator.
+
+`@managed` allows for only a single argument, but lists and objects are valid arguments too. For example, you could provide a list of names as the "resource" and write a management function that removes names from the list as they are "used." If you wanted a single managed capability to manage multiple resources, you could use an object instead.
+
+:::note
+
+The managed capability feature is most commonly used by coin contracts to govern transfer amounts.
+
+:::
+
+The manager function has the job of confirming that sufficient resource exists and deducting from the resource. It is called whenever `with-capability` is used and the capability has not yet been granted.
+
+## Select
+
+The `select` built-in funciton can be found [here](https://pact-language.readthedocs.io/en/stable/pact-functions.html?highlight=select#select).
+
+The `select` function is able to pull information from a table under specific conditions.
+
+This is an example of finding people in a table with a single condition, having "Fatima" as their first or last name.
+
+```terminal
+(select people ['firstName,'lastName] (where 'name (= "Fatima")))
+```
+
+But, what if you want to use mulitple clauses to get a more specific result.
+
+In this example, you can use the following format to find someone with the name "Fatima" that is older than 40.
+
+
+```terminal
+(select people ['firstName,'lastName] (and? (where 'name (= "Fatima")) (where 'age (> 40))))
+```
