@@ -71,7 +71,7 @@ The purpose of the manifest is to create the underlying data, called the manifes
 
 This is what creating the uri of a JPEG image would look like:
 
-```
+```js
 ;; Create the parameters for the uri function
 "uri": {
     "data": "/9j/4AAQSkZJRgABAQAAAQABAAD/4gIoSUNDX1BST0ZJTEUAAQEAAAIYAAAAAAQwAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAAHRyWFlaAAABZAAAABRnWFlaAAABeAAAABRiWFlaAAABjAAAABRyVFJDAAABoAAAAChnVFJDAAABoAAAAChiVFJDAAABoAAAACh3dHB0AAAByAAAABRjcHJ0AAAB3AAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAFgAAAAcAHMAUgBHAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA..."
@@ -87,7 +87,7 @@ This code is for a JPEG, but it can be replaced with anything else. I could crea
 
 Creating datum can look as follows:
 
-```
+```js
 "datum": {
   "assetUrl": "https://dna-tokens-test.s3.us-east-2.amazonaws.com/public/thumb_01680428-36db-46c2-b059-fe59f2ca5a4b.jpeg",
   "creationDate": "2022-02-09",
@@ -109,7 +109,7 @@ Creating datum can look as follows:
 
 **Create Manifest**: This is the final, most crucial step of creating our token/NFT. The `create-manifest` function takes the uri and data as parameters and returns the manifest of the token. 
 
-```
+```js
 (create-manifest uri datum) ;; function call
 ```
 
@@ -129,7 +129,7 @@ This is due to policies’ customizable nature, which allows them to enforce dif
 
 Here is an example of the creation of a fixed quote policy token:
 
-```
+```js
 {
     "hash": "0wNWu4Of36FGGOu5PznASvULdmjn4vsjmaoMGeUl-BM",
     "cmd": "{
@@ -160,7 +160,7 @@ Here is an example of the creation of a fixed quote policy token:
 
 Here is an example of the creation of a guard policy token:
 
-```
+```js
 {"hash":"-NAUtAL0-xAssDrve6V-dddOUlY-88FBGxlGJHMgid8",
 "cmd":"{"networkId":"testnet04","signers":[{"clist":[{"name":"coin.GAS","args":[]}],
 "pubKey":"e6ee763bd659fb2bb4e1f402f338e4bb374b91434f34d5fd49d85e99a00df9e2"}],
@@ -179,7 +179,7 @@ Here is an example of the creation of a guard policy token:
 
 The function call looks as simple as this:
 
-```
+```js
 (mint "MarmaladeCoin" "MarmaladeAccount" some_keyset_guard_object 20000)
 ```
 
@@ -228,7 +228,7 @@ a. Create the uri and datum
 
 To use the already created kip.token-manifest contract, all you have to do is replace contractAddress with it.
 
-```
+```js
 const createUri = async (scheme:Object, data:Object):Promise<Uri> => {
  
 const res = await Pact.fetch.local(
@@ -265,7 +265,7 @@ In this case, with an image, we would want to add the IPFS url, a title, a descr
 “imageUrl” : “https://gateway.pinata.cloud/ipfs/”
 }`
 
-```
+```js
 const createDatum = async (uri:Uri, datum:any):Promise<Datum>=> {
   //calling get-all() function from smart contract
     const res = await Pact.fetch.local(
@@ -285,7 +285,7 @@ const createDatum = async (uri:Uri, datum:any):Promise<Datum>=> {
 b. Create manifest:
 This is the final part to creating the manifest. Simply pass your uri and datum array (you can add as much datum as you want) into the manifest.
 
-```
+```js
 const createManifest = async (uri:Uri, data:Array<Datum>):Promise<TypeWrapper> => {
   //calling get-all() function from smart contract
     const res = await Pact.fetch.local(
@@ -309,7 +309,7 @@ This manifest is simply used to store data about the token. Calling this functio
 
 To create a token, you only need the precision, the token name (id), the private key of the creator, the policy, and the parameters to pass into the policy. The policy is the most important part of the token because it dictates factors such as royalties and how to buy/sell.
 
-```
+```js
 export const createToken = async (
     precision,
     id,
@@ -350,7 +350,7 @@ export const createToken = async (
 
 The mint function allows the NFT creator (or someone else) to mint the token that they just created. All it needs is the token name, amount to mint, the receiver’s account, the receiver’s keyset, and the signer’s private key.
 
-```
+```js
   export const mintToken = async (
         tokenId, // Token name
         amount,
