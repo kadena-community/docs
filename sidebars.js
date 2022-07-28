@@ -136,6 +136,11 @@ const sidebars = {
       items: [
         {
           type: "doc",
+          label: "Marmalade Tutorial",
+          id: "build/marmalade-tutorial",
+        },
+        {
+          type: "doc",
           label: "Pact Local API Queries",
           id: "build/pact-local-api-queries",
         },
