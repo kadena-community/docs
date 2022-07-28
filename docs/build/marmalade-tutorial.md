@@ -183,15 +183,15 @@ The function call looks as simple as this:
 (mint "MarmaladeCoin" "MarmaladeAccount" some_keyset_guard_object 20000)
 ```
 
-## Let's Mint in Marmalade - Mint-a-Stu!
+## Let's Mint in Marmalade!
 
 ### Introduction
 
 A tutorial on minting a PFT with limited supply, fixed quote, and royalty.
 
-Stu.Art Token
+marmalade-tutorial.art Token
 
-![stu Art](https://user-images.githubusercontent.com/107141954/178042233-33664d94-7f9b-4050-a617-23bd9e93d973.png)
+![marmalade-tutorial Art](https://user-images.githubusercontent.com/107141954/178042233-33664d94-7f9b-4050-a617-23bd9e93d973.png)
 
 
 If you haven’t already, you will need to make a chainweaver wallet. Go to [this tutorial](https://docs.kadena.io/basics/chainweaver/chainweaver-user-guide) if you need help building one.
@@ -207,7 +207,7 @@ There are many different IPFS gateways that can be used such as Infura, Pinata, 
 
 ![pinataFilePage](https://user-images.githubusercontent.com/107141954/178035521-24e371f1-4033-4101-b024-f7a2140d36b3.png)
 
-3. Upload a file of your choice, Stu.art image recommended.
+3. Upload a file of your choice, marmalade-tutorial.art image recommended.
 
 ![pinataUploadFile](https://user-images.githubusercontent.com/107141954/178035687-65fec618-1163-420e-958b-9a85a56a49c3.png)
 
@@ -259,10 +259,10 @@ In this case it is calling the .uri contract function which simply parses the pa
 
 **Datum**: A datum is simply a singular piece of information. 
 This information could be anything we want to embed with the token (ex. Something about versioning). 
-In this case, with an image, we would want to add the IPFS url, a title, a description, and some other details. An example datum for Stu.art Token would be:`{
-“Name”: “stu.art”,
-“Description” : “tutorial Stu”,
-“imageUrl” : “https://gateway.pinata.cloud/ipfs/”
+In this case, with an image, we would want to add the IPFS url, a title, a description, and some other details. An example datum for marmalade-tutorial.art Token would be:`{
+“Name”: “marmalade-tutorial.art”,
+“Description” : “Marmalade tutorial token”,
+“imageUrl” : “https://gateway.pinata.cloud/ipfs/QmR8ZWmRj8Rh5kCRwcRr6AaiPTf8AjWeGxVJ6KjGjhwqPQ”
 }`
 
 ```js
