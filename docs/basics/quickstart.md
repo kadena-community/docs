@@ -44,9 +44,9 @@ Something hidden just allowed you to instantly interact with a real blockchain, 
 - Read more about gas stations [here](https://medium.com/kadena-io/the-first-crypto-gas-station-is-now-on-kadenas-blockchain-6dc43b4b3836).
 - [See the Smart Contract Code For Memory Wall](https://github.com/kadena-io/developer-scripts/tree/master/pact/dapp-contracts/memory-wall)
 
-## Install Chainweaver
+## Setup Chainweaver
 
-Download Chainweaver, Kadena’s official wallet and developer workbench.
+Setup Chainweaver, Kadena’s official wallet and developer workbench.
 
 ### What you will accomplish
 
@@ -56,14 +56,14 @@ Download Chainweaver, Kadena’s official wallet and developer workbench.
 ### Step-by-step instructions
 
 1. Go to [kadena.io/chainweaver](https://kadena.io/chainweaver-tos/)
-2. Download desktop version for macOS, Linux or Windows
-3. Open Chainweaver and follow the 3-step process for creating a new wallet:
+2. Agree to the terms of service and click "Create new wallet"
+3. Follow the 3-step process for creating a new wallet:
 
 - Set password
 - Record recovery phrase
 - Verify recovery phrase
 
-Detailed set-up instructions can be found in the [Chainweaver User Guide](chainweaver/chainweaver-user-guide).
+To download Chainweaver and find detailed instructions on Chainweaver usage go here [Chainweaver User Guide](chainweaver/chainweaver-user-guide).
 
 ## Testnet Account Setup
 
@@ -80,9 +80,12 @@ Create and fund a Testnet account using the “Coin Faucet” smart contract
 2. Go to [faucet.testnet.chainweb.com](https://faucet.testnet.chainweb.com/)
 3. Select “Create and fund new account”
 4. In the “Public Key” field, enter your public key
-5. In the “Account Name” field, enter some unique name.
+5. In the “Account Name” field, enter some unique name
 6. Select “Create and fund new account”
-7. Wait about 30 seconds, then select “Check Request Status” to see the transaction confirmation message.
+7. Wait about 30 seconds, then select “Check Request Status” to see the transaction confirmation message
+8. Go back to chainweaver, in the account section click on "+ Watch Account"
+9. Type the account name you have chosen for yourself and click "Add"
+10. You should see all 20 tokens you have received from the testnet faucet!
 
 ### Additional Resources
 
