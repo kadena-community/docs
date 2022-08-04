@@ -191,7 +191,7 @@ A tutorial on minting a PFT with limited supply, fixed quote, and royalty.
 
 marmalade-tutorial.art Token
 
-![marmalade-tutorial Art](https://github.com/ManasGandhi73/docs/blob/919a4edbde3a306f17b182b619ccdd8349f8210d/static/img/marmalade-tutorial.jpg)
+![marmalade-tutorial Art](/img/docs/marmalade-tutorial.jpg)
 
 
 
