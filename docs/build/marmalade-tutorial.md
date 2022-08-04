@@ -191,7 +191,8 @@ A tutorial on minting a PFT with limited supply, fixed quote, and royalty.
 
 marmalade-tutorial.art Token
 
-![marmalade-tutorial Art](https://github.com/ManasGandhi73/docs/blob/919a4edbde3a306f17b182b619ccdd8349f8210d/static/img/marmalade-tutorial.jpg =100x20)
+![marmalade-tutorial Art]<img src="[Assets/icon.png](https://github.com/ManasGandhi73/docs/blob/919a4edbde3a306f17b182b619ccdd8349f8210d/static/img/marmalade-tutorial.jpg)" width="200" height="200">
+
 
 
 If you haven’t already, you will need to make a chainweaver wallet. Go to [this tutorial](https://docs.kadena.io/basics/chainweaver/chainweaver-user-guide) if you need help building one.
