@@ -483,13 +483,13 @@ Select “Call” beside your chosen function to open a three-part dialog:
 
 Preview the transaction, then select “Create Transaction” to execute the operation.
 
-## Interact with Dapps <a href="#interact-with-dapps" id="interact-with-dapps"></a>
+## Interact with dApps <a href="#interact-with-dapps" id="interact-with-dapps"></a>
 
-As a user, interacting with dapps is simple. Chainweaver takes advantage of a novel [wallet signing API](https://github.com/kadena-io/signing-api) which facilitates communication between dapps and wallets.
+As a user, interacting with dApps is simple. Chainweaver takes advantage of a novel [wallet signing API](https://github.com/kadena-io/signing-api) which facilitates communication between dApps and wallets.
 
-First ensure your Chainweaver desktop application is open. When you’re ready to start some transaction with a dapp, initiate the request by submitting the required information (e.g. account name) to the dapp.
+First ensure your Chainweaver desktop application is open. When you’re ready to start some transaction with a dApp, initiate the request by submitting the required information (e.g. account name) to the dApp.
 
-Once a call has been made, by pressing a button on the dapp interface or through some other means, the signing API will hit Chainweaver. When Chainweaver receives an API call, a new dialog will appear within Chainweaver displaying input data from the dapp.
+Once a call has been made, by pressing a button on the dApp interface or through some other means, the signing API will hit Chainweaver. When Chainweaver receives an API call, a new dialog will appear within Chainweaver displaying input data from the dApp.
 
 Review the transaction details and complete the flow as you would for any other transaction; configure settings, grant capabilities, preview and create.
 
