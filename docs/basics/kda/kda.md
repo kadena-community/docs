@@ -13,7 +13,7 @@ import TabItem from '@theme/TabItem';
 ## **Resources**
 
 - [Bag of Holding](https://github.com/kadena-community/bag-of-holding) (wallet): Terminal Wallet (Community contribution)
-- [Secure Key Generation](https://github.com/kadena-community/secure-keygen): Package for generating ED25519 key pairs with user supplied entropy (Community contribution)
+- [Secure Key Generation](https://github.com/kadena-community/secure-keygen): Package for generating Ed25519 key pairs with user supplied entropy (Community contribution)
 - [Simple Key Generation](https://kadena-community.github.io/kadena-transfer-js/): Generate a key pair with one click (Community contribution)
 - [Simple Token Transfer](https://kadena-community.github.io/kadena-transfer-js/): Transfer KDA to new or existing accounts (Community contribution)
 - [Simple Balance Checker](https://balance.chainweb.com): View the current balance of any account

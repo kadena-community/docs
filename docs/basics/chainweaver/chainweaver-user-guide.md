@@ -173,7 +173,7 @@ Ensure you have a secure connection before downloading any applications. Most is
 Chainweaver allows you to interact with different networks, including the main network (“Mainnet”) and a test network (“Testnet”)
 
 - Mainnet is the primary live blockchain network where assets of value can be transferred and smart contract services can be called.
-- Testnet is a network with which you can safely test various blockchain interactions without the risk of losing valuable asets.
+- Testnet is a network with which you can safely test various blockchain interactions without the risk of losing valuable assets.
 - Both Mainnet and Testnet are fully operational, real blockchains. It is only Testnet, however, where you can acquire KDA coins for free from a [coin faucet](https://faucet.testnet.chainweb.com). Naturally, account balances cannot move between networks.
 
 ## Change networks <a href="#change-networks" id="change-networks"></a>
@@ -308,7 +308,7 @@ As a development environment, Chainweaver can:
 
 To remove an account from view, select the Details button beside the desired account
 
-Select “Remove Accunt”
+Select “Remove Account”
 
 Read the warning message and confirm your selection by selecting “Remove Account”
 

@@ -24,7 +24,7 @@ Blake2s_256
 
 ### **What is the target block time for Kadena?**
 
-Every chain of the 20 braided chains has a new block on average 30 seconds in between. Total is 20 blocks every 30 seconds. Which translates to 1.5 seconds theoretical blocktime.
+Every chain of the 20 braided chains has a new block on average 30 seconds in between. Total is 20 blocks every 30 seconds. Which translates to 1.5 seconds theoretical block time.
 
 ### **What are the block rewards?**
 

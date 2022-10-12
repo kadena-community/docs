@@ -150,7 +150,7 @@ Notice that this JSON object includes the name of your keyset, the public key of
 
 You can also create keysets using the JSON format rather than the user interface. Creating keysets with JSON is done using the **Raw** tab.
 
-This format will be used in real DApps or in .repl files for simulation. It allows you to copy your JSON formatted keysets to test and deploy on pact-web, allowing you simply copy and paste into this box rather than re-creating everything from scratch.
+This format will be used in real dApps or in .repl files for simulation. It allows you to copy your JSON formatted keysets to test and deploy on pact-web, allowing you simply copy and paste into this box rather than re-creating everything from scratch.
 
 ![7-raw](./assets/beginner-tutorials/pact-keysets/7-raw.png)
 

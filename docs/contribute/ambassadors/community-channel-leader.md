@@ -12,7 +12,7 @@ import TabItem from '@theme/TabItem';
 
 Community channels serve as a home for community members to discuss niche topics about Kadena or share news about Kadena not otherwise discussed in the main channel. To foster community growth on a more organic level, Kadena plans to help fund community channels by token awards to Community Channel Leaders who create the group and the community events.
 
-**Eligiblity**
+**Eligibility**
 
 - Member of Telegram or Discord for at least three months
 - Must be active on Kadena’s social channels

@@ -12,11 +12,11 @@ import TabItem from '@theme/TabItem';
 
 ### Debian Installation Issues <a href="#debian-installation-issues" id="debian-installation-issues"></a>
 
-If you think that the install didn't update your chainweaver, jump into a terminal and enter
+If you think that the install didn't update your Chainweaver, jump into a terminal and enter
 
 `dpkg -s kadena-chainweaver`
 
-If this doesn't return the chainweaver version that you expect, then the automatic install window didn't work. Type
+If this doesn't return the Chainweaver version that you expect, then the automatic install window didn't work. Type
 
 `sudo dpkg -i ~/Downloads/kadena-chainweaver_1.0.0_amd64.deb`
 
@@ -24,19 +24,19 @@ to try to install from the terminal. If something is going wrong, this will give
 
 #### Uninstall Chainweaver <a href="#uninstall-chainweaver" id="uninstall-chainweaver"></a>
 
-To remove chainweaver (this won't delete your wallet, just chainweaver itself) to try to reinstall, type `sudo dpkg -r kadena-chainweaver` in a terminal.
+To remove Chainweaver (this won't delete your wallet, just chainweaver itself) to try to reinstall, type `sudo dpkg -r kadena-chainweaver` in a terminal.
 
 ### OVA Installation Issues <a href="#ova-installation-issues" id="ova-installation-issues"></a>
 
 #### Starting the Virtual Machine <a href="#starting-the-virtual-machine" id="starting-the-virtual-machine"></a>
 
-You don't need to import the ova each time to run chainweaver. To start chainweaver again, open Virtual Box from the start menu. The Virtual Box Manager should open up and you can double click "Chainweaver VM".
+You don't need to import the ova each time to run Chainweaver. To start Chainweaver again, open Virtual Box from the start menu. The Virtual Box Manager should open up and you can double click "Chainweaver VM".
 
 ![ova vm menu](https://kadena-io.github.io/kadena-docs/assets/ova/ova_startvm.png)
 
 #### Stopping the Virtual Machine <a href="#stopping-the-virtual-machine" id="stopping-the-virtual-machine"></a>
 
-To stop the virtualmachine, it is best to shut it down like a regular computer. Press "Applications" in the lower left corner.
+To stop the virtual machine, it is best to shut it down like a regular computer. Press "Applications" in the lower left corner.
 
 ![applications menu](https://kadena-io.github.io/kadena-docs/assets/ova/ova_menu.png)
 
@@ -48,7 +48,7 @@ It is safe to close the "Virtual Box Manager" window at this time.
 
 #### Upgrading the Virtual Machine <a href="#upgrading-the-virtual-machine" id="upgrading-the-virtual-machine"></a>
 
-When a new chainweaver is released, you don't need to download a new OVA every time. Instead, close the chainweaver application inside the VM and notice these two icons on the desktop. Click the "Upgrade Chainweaver" icon and an update script will start. You can then click the other desktop icon to restart chainweaver.
+When a new Chainweaver is released, you don't need to download a new OVA every time. Instead, close the Chainweaver application inside the VM and notice these two icons on the desktop. Click the "Upgrade Chainweaver" icon and an update script will start. You can then click the other desktop icon to restart Chainweaver.
 
 ![desktop icons](https://kadena-io.github.io/kadena-docs/assets/ova/ova_desktop.png)
 
@@ -56,7 +56,7 @@ When a new chainweaver is released, you don't need to download a new OVA every t
 
 Virtualbox requires certain hardware acceleration to be able to operate. Almost all modern computers have this feature (VT-x for Intel and AMD-v for AMD CPUs) but some computers ship with it off by default. If you see an error like this when importing or starting the VM, it is turned off for your computer.
 
-![virtualisation cpu support error](https://kadena-io.github.io/kadena-docs/assets/ova/ova_vtx_error.jpg)
+![Virtualisation CPU support error](https://kadena-io.github.io/kadena-docs/assets/ova/ova_vtx_error.jpg)
 
 You'll need to turn this on in your system firmware menu. Known systems where this is necessary are:
 

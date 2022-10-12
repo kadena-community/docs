@@ -222,7 +222,7 @@ pact > (+ "Hello" " REPL")
 
 :::note Try More Commands
 
-You can view many more commands in the <a href="https://pact-language.readthedocs.io/en/latest/pact-reference.html#syntax" target="_blank">Pact Syntax Documentation</a> and <a href="https://pact-language.readthedocs.io/en/latest/pact-functions.html" target="_blank">Built-in Functions Documentation</a>. Try running a few for yourself to learn more about the Pact programming langauge.
+You can view many more commands in the <a href="https://pact-language.readthedocs.io/en/latest/pact-reference.html#syntax" target="_blank">Pact Syntax Documentation</a> and <a href="https://pact-language.readthedocs.io/en/latest/pact-functions.html" target="_blank">Built-in Functions Documentation</a>. Try running a few for yourself to learn more about the Pact programming language.
 
 :::
 

@@ -23,7 +23,7 @@ The goal of this tutorial is to help you run and deploy a working Pact test serv
 - Endpoint Types
 - Exercise: Write a YAML file
 
-In this tutorial you will go into depth on the **pact-lang-api** including topics like yaml API requests and endpoint types. Aside from letting you explore even more of pact’s functionality, it puts you in a good position to complete our next tutorial, Pact and Javascript. In that tutorial you bring all the pieces together and get your first look at developing your first full stack blockchain application with pact.
+In this tutorial you will go into depth on the **pact-lang-api** including topics like yaml API requests and endpoint types. Aside from letting you explore even more of pact’s functionality, it puts you in a good position to complete our next tutorial, Pact and JavaScript. In that tutorial you bring all the pieces together and get your first look at developing your first full stack blockchain application with pact.
 
 <!--truncate-->
 
@@ -181,7 +181,7 @@ from: entity name for addressing private messages
 to: entity names for addressing private messages
 ```
 
-Here you’ll see that the format includes keys such as code, codefile, data, datafile, keypairs, nonce, from, and to.
+Here you’ll see that the format includes keys such as code, codeFile, data, dataFile, keyPairs, nonce, from, and to.
 
 Each of these have their own use case but only the **code** and **keypairs** are required. Looking at your example.yaml file, you can see that these 2 keys are included.
 
@@ -251,7 +251,7 @@ Looking at the data you’ll see the hash, the signature, the payload and a few 
 
 :::info
 
-By default -a formats the YAML file into API requests for the /send endpoint. Adding the -l flag after the command formats the api request for the local endpoint.
+By default -a formats the YAML file into API requests for the /send endpoint. Adding the -l flag after the command formats the API request for the local endpoint.
 
 :::
 

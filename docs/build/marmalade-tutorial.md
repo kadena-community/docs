@@ -50,7 +50,7 @@ The reason Marmalade allows for this is because Kadena is the only scalable proo
 Marmalade is a protocol composed of an ecosystem of modules/smart contracts that are live on the Kadena Chainweb network. In this tutorial, we will be diving into the details of creating and transacting tokens in this protocol.
 
 ### Marmalade Workflow
-The workflow of the Marmalade ecosystem can be broken down to three main steps that each include few substeps
+The workflow of the Marmalade ecosystem can be broken down to three main steps that each include few sub steps
 
 1. Manifest Creation
 
@@ -67,9 +67,9 @@ The workflow of the Marmalade ecosystem can be broken down to three main steps t
 ### Manifest
 The purpose of the manifest is to create the underlying data, called the manifest, of the token that a creator is going to sell. 
 
-**Create URI**: The Manifest starts with creating the uri using the `uri` function, which has parameters `scheme:string data:string`. This function forces the user to create an object of proper schema based on the NFT. For example, suppose we have an image in the JPEG format. The URL of the image would be inputted for the scheme and data can be the image data in the format of a key. This would create the uri for the image.
+**Create URI**: The Manifest starts with creating the URI using the `uri` function, which has parameters `scheme:string data:string`. This function forces the user to create an object of proper schema based on the NFT. For example, suppose we have an image in the JPEG format. The URL of the image would be inputted for the scheme and data can be the image data in the format of a key. This would create the URI for the image.
 
-This is what creating the uri of a JPEG image would look like:
+This is what creating the URI of a JPEG image would look like:
 
 ```js
 ;; Create the parameters for the uri function
@@ -83,7 +83,7 @@ This is what creating the uri of a JPEG image would look like:
 
 This code is for a JPEG, but it can be replaced with anything else. I could create my own schema with `"data": "orange"` and `“scheme”: ”marmalade”`.
 
-**Create Datum**: Then, the user creates the datum. The datum is created using the `create-datum` function, which follows the `mf-datum` schema and takes the `datum` (in the form of an object) and `uri` as the parameters. The uri is the same as the uri created in the step before. The datum is some kind of data about the NFT in the form of an object (objects are created using the following format: `{“type1”:”data1”, “type2”:”data2”, …}`.
+**Create Datum**: Then, the user creates the datum. The datum is created using the `create-datum` function, which follows the `mf-datum` schema and takes the `datum` (in the form of an object) and `uri` as the parameters. The URI is the same as the URI created in the step before. The datum is some kind of data about the NFT in the form of an object (objects are created using the following format: `{“type1”:”data1”, “type2”:”data2”, …}`.
 
 Creating datum can look as follows:
 
@@ -107,7 +107,7 @@ Creating datum can look as follows:
 (create-datum uri datum) ;; function call
 ```
 
-**Create Manifest**: This is the final, most crucial step of creating our token/NFT. The `create-manifest` function takes the uri and data as parameters and returns the manifest of the token. 
+**Create Manifest**: This is the final, most crucial step of creating our token/NFT. The `create-manifest` function takes the URI and data as parameters and returns the manifest of the token. 
 
 ```js
 (create-manifest uri datum) ;; function call
@@ -117,7 +117,7 @@ Creating datum can look as follows:
 
 **What is a Policy**: The essence of a Marmalade token is its policy. A policy is the mechanism for the creator to specify their unique requirements for how their token can be sold. This is what enables the creator to enforce requirements such as royalties. However, a policy is nothing more than a smart contract module that is deployed to the Chainweb.
 
-To create a token, the user must deploy their own policy onto the blockchain or use a policy that has already been deployed to the chainweb (examples of these policies below).
+To create a token, the user must deploy their own policy onto the blockchain or use a policy that has already been deployed to the Chainweb (examples of these policies below).
 
 Some policies that have already been deployed as part of the Marmalade Ecosystem are the [guard policy](https://github.com/kadena-io/marmalade/blob/main/pact/policy.pact), the [fixed quote policy](https://github.com/kadena-io/marmalade/blob/main/pact/fixed-quote-policy.pact), and the [fixed quote with royalty policy](https://github.com/kadena-io/marmalade/blob/main/pact/fixed-quote-royalty-policy.pact). All policies, whether they are custom made or already deployed by marmalade, must conform to a standard interface called kip.token-policy-v1, which can be viewed [here](https://github.com/kadena-io/marmalade/blob/main/pact/kip/token-policy-v1.pact).
 
@@ -195,7 +195,7 @@ marmalade-tutorial.art Token
 
 
 
-If you haven’t already, you will need to make a chainweaver wallet. Go to [this tutorial](https://docs.kadena.io/basics/chainweaver/chainweaver-user-guide) if you need help building one.
+If you haven’t already, you will need to make a Chainweaver wallet. Go to [this tutorial](https://docs.kadena.io/basics/chainweaver/chainweaver-user-guide) if you need help building one.
 
 ### Interplanetary Storage Saving
 Although storing data on-chain is possible, and recommended for certain use cases, to save on-chain storage for this tutorial, we’re making use of another super cool technology called [Inter-Planetary-File-System](https://docs.ipfs.io/concepts/what-is-ipfs/) AKA IPFS, which is a decentralized storage protocol. 
@@ -221,9 +221,9 @@ And once done, your file is pinned on the decentralized IPFS!
 
 1. Creating a data manifest
 
-The token manifest is the data we want to bind to the token. In this case we would want to bind the lookup url to the image we uploaded to the IPFS in part one, and maybe some other data like the token’s name and description too!
+The token manifest is the data we want to bind to the token. In this case we would want to bind the lookup URL to the image we uploaded to the IPFS in part one, and maybe some other data like the token’s name and description too!
 
-a. Create the uri and datum
+a. Create the URI and datum
 
 **Uri**: The contract that we are calling for manifest creation is called kip.token-manifest. However, in the code snippets below, we replaced it with a contractAddress placeholder. 
 
@@ -247,20 +247,20 @@ const all:Uri = res.result.data;
 return(all);
 ```
 
-The scheme parameter is usually filled with the encoding/type of the uri data and the data parameter is the data itself. 
-Uri’s are usually used to store on-chain data, but since our image is getting stored off-chain (in IPFS!) we can freely choose what we fill in here.
+The scheme parameter is usually filled with the encoding/type of the URI data and the data parameter is the data itself. 
+URIs are usually used to store on-chain data, but since our image is getting stored off-chain (in IPFS!) we can freely choose what we fill in here.
 
 :::note Additional Code Explanation
 
 The createUri function calls `Pact.fetch.local`, which is a function that calls a specified non-signing/read-only contract call to the blockchain. Information on the function can be found [here](https://github.com/kadena-io/pact-lang-api).
 
-In this case it is calling the .uri contract function which simply parses the parameters into a suitable uri object.
+In this case it is calling the .uri contract function which simply parses the parameters into a suitable URI object.
 
 :::
 
 **Datum**: A datum is simply a singular piece of information. 
 This information could be anything we want to embed with the token (ex. Something about versioning). 
-In this case, with an image, we would want to add the IPFS url, a title, a description, and some other details. An example datum for marmalade-tutorial.art Token would be:`{
+In this case, with an image, we would want to add the IPFS URL, a title, a description, and some other details. An example datum for marmalade-tutorial.art Token would be:`{
 “Name”: “marmalade-tutorial.art”,
 “Description” : “Marmalade tutorial token”,
 “imageUrl” : “https://gateway.pinata.cloud/ipfs/QmR8ZWmRj8Rh5kCRwcRr6AaiPTf8AjWeGxVJ6KjGjhwqPQ”
@@ -284,7 +284,7 @@ const createDatum = async (uri:Uri, datum:any):Promise<Datum>=> {
 ```
 
 b. Create manifest:
-This is the final part to creating the manifest. Simply pass your uri and datum array (you can add as much datum as you want) into the manifest.
+This is the final part to creating the manifest. Simply pass your URI and datum array (you can add as much datum as you want) into the manifest.
 
 ```js
 const createManifest = async (uri:Uri, data:Array<Datum>):Promise<TypeWrapper> => {
@@ -304,7 +304,7 @@ const createManifest = async (uri:Uri, data:Array<Datum>):Promise<TypeWrapper> =
 };
 ```
 
-This manifest is simply used to store data about the token. Calling this function adds the hash onto the uri and datum. If this data is ever changed, the hash would be different, so it gives us a way to identify the original.
+This manifest is simply used to store data about the token. Calling this function adds the hash onto the URI and datum. If this data is ever changed, the hash would be different, so it gives us a way to identify the original.
 
 2. Create Token
 
@@ -396,4 +396,4 @@ The mint function allows the NFT creator (or someone else) to mint the token tha
         }
 ```
 
-Congratulations, you have learned the innner workings of Marmalade and know how to mint an NFT. Now get out there and have fun building!
+Congratulations, you have learned the inner workings of Marmalade and know how to mint an NFT. Now get out there and have fun building!

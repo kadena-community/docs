@@ -22,10 +22,10 @@ The quick explanation of the `verify-spv` function can be found [here](https://p
 `verify-spv` takes some blob, a binary data type, provided by the user and runs code on it that would be too expensive to do in pact. Thus, in the statement `(verify-spv "ETH")`, "ETH" has code in the chainweb-node binary to validate that the data is well-formed and returns a normal Pact object with all of the data. It is NOT an oracle; it is a tool that an oracle would use to guarantee data integrity.
 [Here](https://github.com/kadena-io/kadenaswap/blob/master/pact/relay/kerc/kERC.pact#L210-L245) is example code using the chain relay to validate a proof that the sender has retrieved from infura.
 
-In a repl script, all you can do is simulate this, as the "ETH" support does not ship with Pact. The [`mock-spv`](https://pact-language.readthedocs.io/en/stable/pact-functions.html#mock-spv) REPL native allows you to mock a call to verify-spv ([github](https://github.com/kadena-io/kadenaswap/blob/master/pact/relay/kerc/kERC.repl#L44-L81)).
+In a REPL script, all you can do is simulate this, as the "ETH" support does not ship with Pact. The [`mock-spv`](https://pact-language.readthedocs.io/en/stable/pact-functions.html#mock-spv) REPL native allows you to mock a call to verify-spv ([github](https://github.com/kadena-io/kadenaswap/blob/master/pact/relay/kerc/kERC.repl#L44-L81)).
 
-You can simulate any protocol desired. However, getting a protocol added to chainweb requires support in the chainweb binary and is a hard fork. Therefore, the community would need to spearhead by opening a pull request for a KIP, Kadena Improvement Process. For instance, to support BTC proofs, a KIP would be opened to add `verify-spv "BTC"` to discuss and specify what is needed. Afterwards, the Haskell support would need to be implemented and released with a Chainweb version upgrade.
-Currently chainweb supports "ETH" and "TXOUT" only ([github](https://github.com/kadena-io/chainweb-node/blob/f0b47973f1653878d7a51b73b4422f980b67dd84/src/Chainweb/Pact/SPV.hs#L120-L152)).
+You can simulate any protocol desired. However, getting a protocol added to Chainweb requires support in the Chainweb binary and is a hard fork. Therefore, the community would need to spearhead by opening a pull request for a KIP, Kadena Improvement Process. For instance, to support BTC proofs, a KIP would be opened to add `verify-spv "BTC"` to discuss and specify what is needed. Afterwards, the Haskell support would need to be implemented and released with a Chainweb version upgrade.
+Currently Chainweb supports "ETH" and "TXOUT" only ([github](https://github.com/kadena-io/chainweb-node/blob/f0b47973f1653878d7a51b73b4422f980b67dd84/src/Chainweb/Pact/SPV.hs#L120-L152)).
 
 ::: note
 
@@ -43,7 +43,7 @@ Before diving into managed capabilities, it is important to understand the diffe
 
 Think of it like this, stateless capabilities are granted by `with-capability` and demanded by `require-capability`. Managed capabilities setup an initial "resource" by `install-capability`, then deduct from the resource, granted by `with-capability`, and are demanded by `require-capability`.
 
-Note that `install-capability` is unique to managed capabilities while `with-capability` does double duty. `with-capability` essentailly is two seperate operations composed together in the managed case: 
+Note that `install-capability` is unique to managed capabilities while `with-capability` does double duty. `with-capability` essentially is two separate operations composed together in the managed case: 
 
 ```terminal
 ;; You write this:
@@ -94,7 +94,7 @@ The manager function has the job of confirming that sufficient resource exists a
 
 ## Select
 
-The `select` built-in funciton can be found [here](https://pact-language.readthedocs.io/en/stable/pact-functions.html?highlight=select#select).
+The `select` built-in function can be found [here](https://pact-language.readthedocs.io/en/stable/pact-functions.html?highlight=select#select).
 
 The `select` function is able to pull information from a table under specific conditions.
 
@@ -104,7 +104,7 @@ This is an example of finding people in a table with a single condition, having 
 (select people ['firstName,'lastName] (where 'name (= "Fatima")))
 ```
 
-But, what if you want to use mulitple clauses to get a more specific result.
+But, what if you want to use multiple clauses to get a more specific result.
 
 In this example, you can use the following format to find someone with the name "Fatima" that is older than 40.
 
