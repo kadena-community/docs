@@ -106,8 +106,9 @@ Let's copy the following code in the `election.pact` file:
 ```clojure
 ;; election.pact
 
-;; Define a keyset with name `election-admin-keyset`
-(define-keyset 'election-admin-keyset)
+;; Define a keyset with name `election-admin-keyset`.
+;; Keysets cannot be created in code, thus we read them in from the load message data.
+(define-keyset 'election-admin-keyset (read-keyset 'election-admin-keyset))
 
 ;; Define `election` module
 (module election GOVERNANCE
@@ -436,10 +437,13 @@ In the snippet above we've learned that we can use `expect-failure` to test that
 
 Next we're going to add some candidates and check if their number of votes is correctly initialized.
 
-```
+```clojure
 ;; election.repl
 
 (begin-tx "Add candidates")
+
+;; Need to provide the key that is part of the election-admin-keyset
+(env-sigs [{ "key": "admin-key", "caps": []}])
 
 ;; Call `insert-candidates` to add 3 candidates
 (election.insert-candidates [{ "key": "1", "name": "Candidate A" } { "key": "2", "name": "Candidate B" } { "key": "3", "name": "Candidate B" }])
@@ -460,7 +464,7 @@ We can use `expect` function to test that any 2 expressions value is equal, in t
 
 Moving on, we want to validate that votes are correctly recorded, the `VOTED` event is emitted and double-voting is not allowed.
 
-```
+```clojure
 ;; election.repl
 
 (begin-tx)
