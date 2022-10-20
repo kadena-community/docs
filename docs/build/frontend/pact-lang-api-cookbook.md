@@ -23,7 +23,7 @@ import TabItem from '@theme/TabItem';
 | [Rotate Keys](#rotate-keys) | Update the keyset controlling the account.|
 | [Get Balance](#get-balance) | Get the KDA account balance. |
 | **TRANSACTIONS**  | |
-| [Get Transaction Status](#get-transaction-status) | Get transaction status using tx request key. |
+| [Get Transaction Status](#get-transaction-status) | Get transaction status using Tx request key. |
 | **UTILS**  | |
 | [Deploy contract](#deploy-contract) | Deploy a Pact smart contract. |
 | [Read State](#read-state) | Read state of a contract. |
@@ -325,7 +325,7 @@ async function getBalance(account) {
 
 ### Get Transaction Status
 
-> Get transaction status using tx request key.
+> Get transaction status using Tx request key.
 
 ```js
 const HELP = "Usage example: \n\nnode get-status {request-key}";

@@ -17,7 +17,7 @@ Chainweb is a braided, parallelized proof-of-work consensus mechanism that impro
 
 <YouTube videoId="hYvXxFbsN6I"/>
 
-In 2020, Kadena's public blockchain performed a live network expansion from 10 chains to 20 chains. This doubled throughput, proving the networks's ability to scale in production to meet ever-higher demand.
+In 2020, Kadena's public blockchain performed a live network expansion from 10 chains to 20 chains. This doubled throughput, proving the network's ability to scale in production to meet ever-higher demand.
 
 **Informational Resources**
 

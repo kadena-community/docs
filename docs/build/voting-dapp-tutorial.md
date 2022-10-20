@@ -23,9 +23,9 @@ Blockchain technologies don't solve all election security issues, but they're a 
 
 **What We're Building**
 
-We'll build a tiny voting dApp prototype that lets anyone with a Kadena wallet address vote for a candidate from a selection of candidates. Each voter (ie. address) can vote once. Some Kadena accounts are chosen as "election officials", and the smart contract grants them special privileges to select the candidates. Election officials can add new candidates at any time (but they can't remove candidates or adjust their votes).
+We'll build a tiny voting dApp prototype that lets anyone with a Kadena wallet address vote for a candidate from a selection of candidates. Each voter (i.e. address) can vote once. Some Kadena accounts are chosen as "election officials", and the smart contract grants them special privileges to select the candidates. Election officials can add new candidates at any time (but they can't remove candidates or adjust their votes).
 
-Once the app is deployed, the election has begun! The frontend for our dapp will help users submit their votes and will display the total votes received by each candidate.
+Once the app is deployed, the election has begun! The frontend for our dApp will help users submit their votes and will display the total votes received by each candidate.
 
 ---
 
@@ -66,11 +66,11 @@ A typical developer workflow looks like this:
 
 1. Write contract code in `.pact` files
 2. Write tests in `.repl` files
-3. Execute your tests in the repl
+3. Execute your tests in the REPL
 4. Deploy to local pact server
-5. Deploy to testnet
+5. Deploy to Testnet
 
-In this section we will focus on steps 1 to 3. Later, we'll deploy our smart contract to a local Pact server and to testnet (the test version of Chainweb).
+In this section we will focus on steps 1 to 3. Later, we'll deploy our smart contract to a local Pact server and to Testnet (the test version of Chainweb).
 
 In your project directory, let's create two files:
 
@@ -124,12 +124,12 @@ Let's copy the following code in the `election.pact` file:
 The `GOVERNANCE` keyword on the module definition line is the *module governance capability* and it references the capability defined right below using the `defcap` construct. It's purpose is to restrict access to the module upgrade and administration operations, for example later on we'll add an `insert-candidate` function that only administrators should be able to call and we'll use the GOVERNANCE capability to guard it. The implementation can be as simple as in our example, enforcing a keyset or more complex like tallying a stakeholder vote on an upgrade hash.
 
 :::note
-Module names and keyset definitions are required to be unique. We will mention this again when we get to deploy our contract to testnet, but you should keep this mind when you think about choosing a name for your modules and keysets.
+Module names and keyset definitions are required to be unique. We will mention this again when we get to deploy our contract to Testnet, but you should keep this mind when you think about choosing a name for your modules and keysets.
 :::
 
 ### Capabilities
 
-Capabilities offer a system to manage user rights in an explicit way, i.e. allow a user to perform some sensitive task if the required capability has been succcessfully acquired. If not, the transaction will fail.
+Capabilities offer a system to manage user rights in an explicit way, i.e. allow a user to perform some sensitive task if the required capability has been successfully acquired. If not, the transaction will fail.
 
 Our module already defines one capability, the module governance capability. In addition to that, we're going to define the `ACCOUNT-OWNER` capability that validates the ownership of the KDA account that's used to identify a user. This might not be clear at first but let's look at the code:
 
@@ -199,7 +199,7 @@ To find out about all Pact's supported types you can check the [Data Types](http
 :::
 
 :::note
-Pact implements a key-row model which means a row is accessed by a single key. The key is implicitly present in the schema but it is our responsibility as developers to design the schema in a way that we can retrieve the information that we need using a single row query. Multiple row queries are very expensive and shoud not be used.
+Pact implements a key-row model which means a row is accessed by a single key. The key is implicitly present in the schema but it is our responsibility as developers to design the schema in a way that we can retrieve the information that we need using a single row query. Multiple row queries are very expensive and should not be used.
 
 The row key is always a simple string, to not be confused with the cryptographic keys used for signing transaction.
 :::
@@ -321,7 +321,7 @@ Last thing on the list is adding candidates:
 
 Inserting a new candidate is an "admin-only" operation and we reused the already defined `GOVERNANCE` capability to guard it.
 
-We have now esentially completed our module. All the required functionality is implemented.
+We have now essentially completed our module. All the required functionality is implemented.
 
 When a module is deployed, the tables that it defines need to be created. This is done using the `create-table` function. Insert the snippet below after the module's closing parenthesis:
 
@@ -696,7 +696,7 @@ To recap, the `GAS_PAYER` capability implementation performs a few checks and co
 First we define the `ALLOW_GAS` capability which is brought in scope by the `GAS_PAYER` capability through `compose-capability` function.
 
 :::note
-Composing capabilities allows for modular factoring of guard code, eg. an "outer" capability could be composed out of multiple "inner" capabilities. Also composed capabilities are only in scope when their parent capability is granted.
+Composing capabilities allows for modular factoring of guard code, e.g. an "outer" capability could be composed out of multiple "inner" capabilities. Also composed capabilities are only in scope when their parent capability is granted.
 :::
 
 Then we implement the `gas-payer-guard` function which tests if `GAS` (magic capability defined in coin contract) and `ALLOW_GAS` capabilities have been granted which are needed to be able to pay for gas fees. By composing `ALLOW_GAS` in `GAS_PAYER` we hide the implementation details of `GAS_PAYER` that `gas-payer-guard` function does not need to know about. This is then used in `create-gas-payer-guard` to create a special guard for the coin contract account from where the gas fees are paid.
@@ -711,11 +711,11 @@ Guards and capabilities are an entire topic that we cannot cover in detail in th
 
 ## Deploying to Chainweb
 
-In order to deploy our contracts to the real blockchain network, wether it's testnet or mainnet we need to pay for the transaction using gas fees.
+In order to deploy our contracts to the real blockchain network, whether it's Testnet or Mainnet we need to pay for the transaction using gas fees.
 
 We also need a key/pair to create an account so let's generate one by running `pact -g` in your terminal or by using the `Pact.crypto.genKeyPair()` method available in the `pact-lang-api` lib.
 
-Next step is to fund your `testnet` account using this [faucet](http://faucet.testnet.chainweb.com). You will receive 20 testnet KDA.
+Next step is to fund your `testnet` account using this [faucet](http://faucet.testnet.chainweb.com). You will receive 20 Testnet KDA.
 
 :::note Namespaces & Modules Names
 
@@ -729,7 +729,7 @@ To set the namespace of a module we have to use the `namespace` function. Insert
 
 Within the same namespace, each module name needs to be unique, similar requirement for defined keysets.
 
-Also when accessing a module's function we have to use the fully qualified name {namespace}.{module-name}.{function-name}, eg. `free.election.vote`.
+Also when accessing a module's function we have to use the fully qualified name {namespace}.{module-name}.{function-name}, e.g. `free.election.vote`.
 You can [read more about namespaces] [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=namespace#namespace-declaration).
 :::
 
@@ -865,7 +865,7 @@ In order to pay transaction fees on `mainnet` you will have to fund your account
 
 If you made it until here, congrats! We wrote, tested and deployed our smart contract but we're still missing a key component, a UI for users to interact with our dApp, so let's get this done.
 
-Start by adding [Pact-Lang-API](http://github.com/kadena-io/pact-lang-api) as a dependency to your project either via CDN or add it to your asset pipeline similar to any other Javascript library.
+Start by adding [Pact-Lang-API](http://github.com/kadena-io/pact-lang-api) as a dependency to your project either via CDN or add it to your asset pipeline similar to any other JavaScript library.
 
 ```js
 <script src="https://cdn.jsdelivr.net/npm/pact-lang-api@4.1.2/pact-lang-api-global.min.js"></script>
@@ -937,7 +937,7 @@ The next step is to allow users to vote for a candidate. When it comes to updati
 4. Notify when transaction is mined
 
 :::info
-In this tutorial we are using Chainweaver wallet to sign transactions, other wallets might have a different API but the steps mentioned above are similar. There might be the case where a wallet takes care of more than signing a transaction (eg. it also sends it to the network) and you will have to adapt your implementation accordingly.
+In this tutorial we are using Chainweaver wallet to sign transactions, other wallets might have a different API but the steps mentioned above are similar. There might be the case where a wallet takes care of more than signing a transaction (e.g. it also sends it to the network) and you will have to adapt your implementation accordingly.
 :::
 
 Here's a diagram of the above:

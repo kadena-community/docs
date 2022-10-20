@@ -12,7 +12,7 @@ import TabItem from '@theme/TabItem';
 
 Moderators are essential to keeping our official online social media channels up to date as well as providing a welcoming environment for community members to come together and monitoring those discussions.
 
-**Eligiblity**
+**Eligibility**
 
 - Member of our [Telegram](https://t.me/kadena_io) or [Discord](https://discord.com/invite/bsUcWmX) channels for at least three months.
 - Must be active on Kadena’s social channels.

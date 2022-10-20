@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 
 ---
 
-This takes an account `rotest` owned by key `2993f795d133fa5d0fd877a641cabc8b28cd36147f666988cacbaa4379d1ff93`, rotates it to key `dea647009295dc015ba6e6359b85bafe09d2ce935a03c3bf83f775442d539025`, and transfers the whole balance to another account `croesus`. The `croesus` account pays the gas which makes it easy to drain the `rotest` account balance to exactly zero. The transfer out of `rotest` happens after the key is rotated which means that this transaction MUST be signed by the key you are rotating to and is therefore "safe"...i.e. it is impoossible to accidentally rotate to an incorrect key and lose control of the `rotest` account.
+This takes an account `rotest` owned by key `2993f795d133fa5d0fd877a641cabc8b28cd36147f666988cacbaa4379d1ff93`, rotates it to key `dea647009295dc015ba6e6359b85bafe09d2ce935a03c3bf83f775442d539025`, and transfers the whole balance to another account `croesus`. The `croesus` account pays the gas which makes it easy to drain the `rotest` account balance to exactly zero. The transfer out of `rotest` happens after the key is rotated which means that this transaction MUST be signed by the key you are rotating to and is therefore "safe"...i.e. it is impossible to accidentally rotate to an incorrect key and lose control of the `rotest` account.
 
 ### Signing <a href="#signing" id="signing"></a>
 

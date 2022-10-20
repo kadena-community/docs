@@ -44,7 +44,7 @@ You can see that most entries are null, and the metadata has been stubbed out fo
 
 ### **Sending the Command to Chainweb** <a href="#sending-the-command-to-chainweb" id="sending-the-command-to-chainweb"></a>
 
-Once one has a command at the ready, they may send it as JSON using their favorite program to the `local` pact endpoint of any chainweb node on a chain where the account exists. Using the `us-e2` bootstrap node as an example, sending to the local endpoint looks something like the following:
+Once one has a command at the ready, they may send it as JSON using their favorite program to the `local` pact endpoint of any Chainweb node on a chain where the account exists. Using the `us-e2` bootstrap node as an example, sending to the local endpoint looks something like the following:
 
 ```
 curl -X POST \

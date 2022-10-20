@@ -56,7 +56,7 @@ Issue `./chainweb-node --print-config` to create a fresh config yaml.
 
 #### Discover peers to mine <a href="#discover-peers-to-mine" id="discover-peers-to-mine"></a>
 
-Every chainweb node maintains a list of peers. If you want a list of peers to mine, curl the `/cut/peer` endpoint on any node to discover its list of peers. A good start would be any bootstrap node:
+Every Chainweb node maintains a list of peers. If you want a list of peers to mine, curl the `/cut/peer` endpoint on any node to discover its list of peers. A good start would be any bootstrap node:
 
 ```
 → curl -sk "https://us-e2.chainweb.com/chainweb/0.0/mainnet01/cut/peer" | python -m json.tool | grep hostname

@@ -12,7 +12,7 @@ import TabItem from '@theme/TabItem';
 
 ## 1. Account name & keys can be different
 
-With most blockchains, accounts are modeled as simply public/private keypairs (ie. your account name is the same as your public key). This “one-to-one” model keeps things simple, but runs into problems when you want to use multiple keys for a single account, such as with jointly-owned or majority-ruled accounts.
+With most blockchains, accounts are modeled as simply public/private keypairs (i.e. your account name is the same as your public key). This “one-to-one” model keeps things simple, but runs into problems when you want to use multiple keys for a single account, such as with jointly-owned or majority-ruled accounts.
 
 Kadena natively supports multiple keys governing the same account name, and thus the distinction between “keys” and “account name” becomes important.
 
@@ -81,7 +81,7 @@ Kadena’s major breakthrough is that it has solved scalability in Proof of Work
 
 For users, this means that any account you create will only exist on that chain. If you would like to own a particular account name across all chains then you must be the first person to create that account on each chain.
 
-Important: The account name alone does not determine ownership. The keyset associated with an account determines ownership. You could own account alice on chain ID 0, and someone else could own account alice on chain ID 5.
+Important: The account name alone does not determine ownership. The keyset associated with an account determines ownership. You could own account Alice on chain ID 0, and someone else could own account Alice on chain ID 5.
 
 The key takeaway is that you should pay attention to the chain on which you are transacting.
 

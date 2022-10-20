@@ -16,12 +16,12 @@ Build your best ideas with us
 ## Getting Started is Simple
 
 <PageRef url="../../../basics/quickstart" pageName="Quickstart" />
-<PageRef url="voting-dapp-tutorial" pageName="Zero To Hero: Kadena Dapp Development" />
+<PageRef url="voting-dapp-tutorial" pageName="Zero To Hero: Kadena dApp Development" />
 <PageRef url="https://github.com/kadena-io/create-pact-app" pageName="Explore dApp Templates" />
 <PageRef url="https://github.com/kadena-io/developer-scripts" pageName="View the source" />
 <PageRef url="resources/useful-tools" pageName="Get the tools" />
 
-## Here's what you''l need
+## Here's what you'll need
 
 ### Pact
 
@@ -36,7 +36,7 @@ Build your best ideas with us
 
 <PageRef url="../../../basics/quickstart" pageName="Developer Quickstart" />
 <PageRef url="/learn-pact/intro" pageName="Pact tutorials" />
-<PageRef url="https://www.youtube.com/playlist?list=PL4G3uLl2K-dm18c1QGo7T6NXJh2CSzXVf" pageName="Kadenas teaches" />
+<PageRef url="https://www.youtube.com/playlist?list=PL4G3uLl2K-dm18c1QGo7T6NXJh2CSzXVf" pageName="Kadena Teaches" />
 <PageRef url="https://medium.com/kadena-io/beginners-guide-to-kadena-accounts-keysets-fb7f32104291" pageName="Guides to accounts & keysets" />
 <PageRef url="https://medium.com/kadena-io/beginners-guide-to-kadena-accounts-keysets-fb7f32104291" pageName="Getting started with transfers" />
 

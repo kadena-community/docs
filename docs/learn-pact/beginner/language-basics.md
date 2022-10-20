@@ -134,7 +134,7 @@ pact > ["Alice" "Dinesh" "Lee"]
 
 #### Objects
 
-Pact also has objects that closely resemble Javascript objects. Objects are key-value as shown below.
+Pact also has objects that closely resemble JavaScript objects. Objects are key-value as shown below.
 
 ```terminal
 pact > { "type": "cat", "name": "Scratchy", "age": 6 }
