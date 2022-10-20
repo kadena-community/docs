@@ -30,7 +30,7 @@
 }
 
 .url {
-  justify-self: end;
+  text-align: right;
   color: var(--ifm-color-secondary-darkest);
   font-size: 12px;
 }
