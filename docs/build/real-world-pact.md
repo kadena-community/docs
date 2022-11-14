@@ -153,9 +153,7 @@ Second, you don’t have to define a keyset inside your smart contract. You may 
 ## Interfaces & Modules
 So far we’ve been writing code at the top level. Code at the top level is ordinary Pact that Chainweb can execute. However, when you are defining a new smart contract, you need to organize your Pact code into interfaces and/or modules so that it can be referenced later from other contracts or via a Chainweb node’s Pact API. Chainweb will store your interfaces and modules within the namespace you’ve entered.
 
-Interfaces and modules are both units for organizing Pact code, but they serve different purposes. An interface describes the API that a module will
-
-implement and can supply constants and models for formal verification to aid in that implementation, but it doesn’t contain any implementations itself and cannot be executed on Chainweb. [#interfaces](https://pact-language.readthedocs.io/en/stable/pact-reference.html#interfaces)
+Interfaces and modules are both units for organizing Pact code, but they serve different purposes. An interface describes the API that a module will implement and can supply constants and models for formal verification to aid in that implementation, but it doesn’t contain any implementations itself and cannot be executed on Chainweb. [#interfaces](https://pact-language.readthedocs.io/en/stable/pact-reference.html#interfaces)
 
 Interfaces purely exist as a method of abstraction. An interface can be implemented by multiple modules (that means that the module provides an implementation for every function included in the interface), so it serves as a blueprint for implementers. Also, Pact functions take a reference to module as an argument so long as the module implements a specific interface. That means you can write a function that can be used with any module that implements the given interface — a powerful form of abstraction. [#module-references](https://pact-language.readthedocs.io/en/stable/pact-reference.html#module-references)
 
