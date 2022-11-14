@@ -136,7 +136,7 @@ From there, follow the installation instructions to get up and running with Atom
 
 ### Language-pact Package
 
-To install the language-pact package, open **Atom**, go to Atom in the menu and select **preferences**. From within preferences select **packages** and type **language-pact**.
+To install the language-pact package, open **Atom**, go to Atom in the menu and select **preferences**. From within preferences select **install** and type **language-pact**.
 
 Once you do this you should see the package appear. Click **install** to install this package.
 
