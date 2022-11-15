@@ -136,6 +136,11 @@ const sidebars = {
       items: [
         {
           type: "doc",
+          label: "A Step-By-Step Guide to Writing Pact Smart Contract",
+          id: "build/real-world-pact",
+        },
+        {
+          type: "doc",
           label: "Marmalade Tutorial",
           id: "build/marmalade-tutorial",
         },
@@ -143,6 +148,11 @@ const sidebars = {
           type: "doc",
           label: "Pact Local API Queries",
           id: "build/pact-local-api-queries",
+        },
+        {
+          type: "doc",
+          label: "Voting dApp Tutorial",
+          id: "build/voting-dapp-tutorial",
         },
         {
           type: "doc",
@@ -204,7 +214,7 @@ const sidebars = {
     { type: "doc", label: "Introduction", id: "learn-pact/intro" },
     { type: "doc", label: "Beginner", id: "learn-pact/beginner/welcome-to-pact" },
     { type: "doc", label: "Intermediate", id: "learn-pact/intermediate/deploy-to-a-local-server" }
-     
+
   ],
   beginner: [
     { type: "doc", label: "Welcome to Pact", id: "learn-pact/beginner/welcome-to-pact" },
