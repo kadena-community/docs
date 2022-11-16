@@ -21,7 +21,7 @@ Don't forget to follow us on [Twitter](https://twitter.com/kadena_io) for the la
 ## General
 
 <PageRef url="basics/overview" pageName="Overview of Kadena" />
-<PageRef url="basics/kda/kda" pageName="Manage your KDA" />
+<PageRef url="basics/kda/manage-kda" pageName="Manage your KDA" />
 <PageRef url="basics/whitepapers/overview" pageName="Whitepapers" />
 <PageRef url="contribute/node/overview" pageName="Contribute to the Network" />
 
