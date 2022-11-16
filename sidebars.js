@@ -22,7 +22,7 @@ const sidebars = {
       label: "KDA",
       items: [
         { type: "doc", label: "What is KDA", id: "basics/kda/what-is-kda" },
-        { type: "doc", label: "Manage KDA", id: "basics/kda/kda" },
+        { type: "doc", label: "Manage KDA", id: "basics/kda/manage-kda" },
         { type: "doc", label: "Key Concepts", id: "basics/kda/kda-concepts" },
       ],
     },
