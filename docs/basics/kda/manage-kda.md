@@ -10,6 +10,10 @@ import TabItem from '@theme/TabItem';
 
 ---
 
+## **Wallets**
+
+- [Wallets](/basics/wallets): You can find a number of official & unofficial wallets for a wide variety of platforms available in this section.
+
 ## **Resources**
 
 - [Bag of Holding](https://github.com/kadena-community/bag-of-holding) (wallet): Terminal Wallet (Community contribution)
