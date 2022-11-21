@@ -222,6 +222,12 @@ Summarily, keysets look like the following as JSON data:
 
 When signing a transaction, the list of private keys supplied as signing key pairs will be checked against the keyset and predicate to ensure that not only are all keys that need to be present accounted for but also that the predicate is satisfied.
 
+:::note Help
+
+Learn more about Keys and Accounts in [this guide](https://medium.com/kadena-io/beginners-guide-to-kadena-accounts-keysets-fb7f32104291) for beginners.
+
+:::
+
 ## Generate a Key <a href="#generate-a-key" id="generate-a-key"></a>
 
 The first step towards transacting on the Kadena blockchain is to generate a key pair. Chainweaver automatically generates your first key.

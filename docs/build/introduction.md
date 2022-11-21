@@ -42,9 +42,9 @@ Build your best ideas with us
 
 ## Tools
 
-<PageRef url="https://github.com/kadena-io/chainweaver" pageName="Chaineweaver (wallet & workbench)" />
+<PageRef url="https://github.com/kadena-io/chainweaver" pageName="Chainweaver (wallet & workbench)" />
 <PageRef url="https://github.com/kadena-io/chainweaver/releases" pageName="Chainweaver macOS" />
-<PageRef url="https://github.com/kadena-io/chainweaver/releases" pageName="Chainnweaver Liunx" />
+<PageRef url="https://github.com/kadena-io/chainweaver/releases" pageName="Chainweaver Linux" />
 <PageRef url="https://github.com/kadena-io/chainweaver/releases" pageName="Chainweaver Windows" />
 <PageRef url="../../../basics/chainweaver/chainweaver-user-guide" pageName="Chainweaver user guide" />
 
