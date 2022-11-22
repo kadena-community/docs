@@ -25,7 +25,7 @@ Build your best ideas with us
 
 ### Pact
 
-<PageRef url="https://pact-language.readthedocs.io/en/stable/" pageName="ReadtheDocs" />
+<PageRef url="https://pact-language.readthedocs.io/en/stable/" pageName="Read the Docs" />
 <PageRef url="/learn-pact/intro" pageName="Developer tutorials" />
 <PageRef url="https://github.com/kadena-io/pact" pageName="Pact on GitHub" />
 <PageRef url="/learn-pact/beginner/atom-sdk" pageName="Install Pact on Atom" />

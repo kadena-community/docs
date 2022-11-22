@@ -12,7 +12,7 @@ import TabItem from '@theme/TabItem';
 
 ## **Getting Started** <a href="#chainweaver-user-guide" id="chainweaver-user-guide"></a>
 
-#### Installing the Chainweaver software <a href="#installing-the-chainweaver-software" id="installing-the-chainweaver-software"></a>
+### Installing the Chainweaver software <a href="#installing-the-chainweaver-software" id="installing-the-chainweaver-software"></a>
 
 Chainweaver is available for download in three formats to accommodate users’ preference in operating system; (1) .dmg for Mac, (2) .deb for Linux, (3) and .ova for Windows, Linux, and Mac as a virtual appliance
 
@@ -104,7 +104,7 @@ See the [Chainweaver Troubleshoot ](chainweaver-troubleshooting.md)page if you e
 
 :::
 
-#### Create a new wallet or restore an existing wallet <a href="#create-a-new-wallet-or-restore-an-existing-wallet" id="create-a-new-wallet-or-restore-an-existing-wallet"></a>
+### Create a new wallet or restore an existing wallet <a href="#create-a-new-wallet-or-restore-an-existing-wallet" id="create-a-new-wallet-or-restore-an-existing-wallet"></a>
 
 ![create-a-new](https://kadena-io.github.io/kadena-docs/assets/Chainweaver/create-a-new.png)
 
