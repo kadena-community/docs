@@ -25,7 +25,7 @@ Build your best ideas with us
 
 ### Pact
 
-<PageRef url="https://pact-language.readthedocs.io/en/stable/" pageName="ReadtheDocs" />
+<PageRef url="https://pact-language.readthedocs.io/en/stable/" pageName="Read the Docs" />
 <PageRef url="/learn-pact/intro" pageName="Developer tutorials" />
 <PageRef url="https://github.com/kadena-io/pact" pageName="Pact on GitHub" />
 <PageRef url="/learn-pact/beginner/atom-sdk" pageName="Install Pact on Atom" />
@@ -42,9 +42,9 @@ Build your best ideas with us
 
 ## Tools
 
-<PageRef url="https://github.com/kadena-io/chainweaver" pageName="Chaineweaver (wallet & workbench)" />
+<PageRef url="https://github.com/kadena-io/chainweaver" pageName="Chainweaver (wallet & workbench)" />
 <PageRef url="https://github.com/kadena-io/chainweaver/releases" pageName="Chainweaver macOS" />
-<PageRef url="https://github.com/kadena-io/chainweaver/releases" pageName="Chainnweaver Liunx" />
+<PageRef url="https://github.com/kadena-io/chainweaver/releases" pageName="Chainweaver Linux" />
 <PageRef url="https://github.com/kadena-io/chainweaver/releases" pageName="Chainweaver Windows" />
 <PageRef url="../../../basics/chainweaver/chainweaver-user-guide" pageName="Chainweaver user guide" />
 
