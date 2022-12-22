@@ -1,58 +1,19 @@
----
-description: >-
-  This site is the number one location for Kadena information, guides and
-  content. It will evolve alongside Kadena with consistent additions and
-  modifications.
-cover: .gitbook/assets/KDACover.png
-coverY: 0
----
+# 🛠 Build on Kadena
 
-# Welcome to Kadena Docs!
+This documentation system is managed with [Gitbook.com](https://gitbook.com).  Changes may be made via this repository or the web interface at gitbook.com; both will translate into pull requests.
 
-## 📍**Start Here**&#x20;
+https://docs.kadena.io
 
-{% embed url="https://www.youtube.com/watch?v=83g2Uzp7lVs" %}
+## Gitbook samples
 
-### <mark style="color:blue;">**General**</mark>
+Here are a couple of example overviews from products with really great docs:
 
-{% content-ref url="welcome-to-kadena-docs/overview-of-kadena.md" %}
-[overview-of-kadena.md](welcome-to-kadena-docs/overview-of-kadena.md)
-{% endcontent-ref %}
+> Loom is a video messaging tool that helps you get your message across through instantly shareable videos.
+>
+> With Loom, you can record your camera, microphone, and desktop simultaneously. Your video is then instantly available to share through Loom's patented technology.
+>
+> — From the [Loom Docs](https://support.loom.com/hc/en-us/articles/360002158057-What-is-Loom-)
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
-
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
-
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
-
-{% content-ref url="faq/faq.md" %}
-[faq.md](faq/faq.md)
-{% endcontent-ref %}
-
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
-
-### <mark style="color:blue;">**Build**</mark>
-
-{% content-ref url="https://app.gitbook.com/o/S3eImLIvO5CmipCN6f1l/s/edPNGwryfHrci4HOs1Kn/" %}
-[Build](https://app.gitbook.com/o/S3eImLIvO5CmipCN6f1l/s/edPNGwryfHrci4HOs1Kn/)
-{% endcontent-ref %}
-
-### <mark style="color:blue;">**Contribute**</mark>
-
-{% content-ref url="https://app.gitbook.com/o/S3eImLIvO5CmipCN6f1l/s/2pM27HcfBaqNztSK9B7O/" %}
-[Contribute](https://app.gitbook.com/o/S3eImLIvO5CmipCN6f1l/s/2pM27HcfBaqNztSK9B7O/)
-{% endcontent-ref %}
-
-### <mark style="color:blue;">Learn Pact</mark>
-
-{% content-ref url="https://app.gitbook.com/o/S3eImLIvO5CmipCN6f1l/s/v15k9jqHqXa3ZQPz3nb9/" %}
-[Learn Pact](https://app.gitbook.com/o/S3eImLIvO5CmipCN6f1l/s/v15k9jqHqXa3ZQPz3nb9/)
-{% endcontent-ref %}
+> The Mailchimp Marketing API provides programmatic access to Mailchimp data and functionality, allowing developers to build custom features to do things like sync email activity and campaign analytics with their database, manage audiences and campaigns, and more.
+>
+> — From the [Mailchimp Marketing API docs](https://mailchimp.com/developer/marketing/docs/fundamentals/)
