@@ -1,29 +1,41 @@
 # Table of contents
 
-* [🛠 Build on Kadena](README.md)
-* [Quickstart](quickstart.md)
-* [Tools](tools.md)
+* [Welcome to Kadena Docs!](README.md)
+  * [Overview of Kadena](welcome-to-kadena-docs/overview-of-kadena.md)
+  * [Code of Conduct](welcome-to-kadena-docs/code-of-conduct.md)
 
-## Frontend
+## KDA
 
-* [Pact-Lang-API Cookbook](frontend/pact-lang-api-cookbook.md)
+* [What is KDA?](kda/what-is-kda.md)
+* [Manage KDA](kda/manage-kda.md)
+* [KDA - Key Concepts](kda/kda-key-concepts.md)
 
-## Guides
+## Kadena Wallets
 
-* [A Step-By-Step Guide to Writing Pact Smart Contract](guides/a-step-by-step-guide-to-writing-pact-smart-contract.md)
-* [Marmalade Tutorial](guides/marmalade-tutorial.md)
-* [Pact Local API queries](guides/pact-local-api-queries.md)
-* [Building a voting dApp](guides/building-a-voting-dapp.md)
-* [Safe Rotate and Drain](guides/safe-rotate-and-drain.md)
-* [Safe Transfer](guides/safe-transfer.md)
+* [Overview](kadena-wallets/overview.md)
+* [Chainweaver](kadena-wallets/chainweaver/README.md)
+  * [User Guide](kadena-wallets/chainweaver/user-guide.md)
+  * [Troubleshooting](kadena-wallets/chainweaver/troubleshooting.md)
+  * [Terms of Service](kadena-wallets/chainweaver/terms-of-service.md)
 
-## Support
+***
 
-* [Developer Program](support/developer-program.md)
-* [Technical Grants](support/technical-grants.md)
+* [Exchanges](exchanges.md)
+
+## Whitepapers
+
+* [Overview](whitepapers/overview.md)
+* [Chainweb](whitepapers/chainweb.md)
+* [Pact](whitepapers/pact.md)
+* [Kuro](whitepapers/kuro.md)
+
+## FAQ
+
+* [FAQ](faq/faq.md)
 
 ## Resources
 
-* [Pact Resources](resources/pact-resources/README.md)
-  * [Pact Language Reference](https://pact-language.readthedocs.io/en/stable/)
-* [Kuro Resources](resources/kuro-resources.md)
+* [Official Links](resources/official-links.md)
+* [Glossary](resources/glossary.md)
+* [Press Kit](resources/press-kit.md)
+* [Kadena Content Repository](resources/kadena-content-repository.md)
