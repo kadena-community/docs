@@ -24,7 +24,7 @@ Once the app is deployed, the election has begun! The frontend for our dApp will
 
 1. [Pact](http://github.com/kadena-io/pact)
 2. [NodeJS](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-3. [Pact-Lang-API](http://github.com/kadena-io/pact-lang-api)
+3. [Kadena.js](https://github.com/kadena-community/kadena.js)
 
 #### Create Project Structure
 
@@ -33,13 +33,13 @@ Let's start by creating a basic project structure. Open your terminal and run th
 ```bash
 mkdir election-dapp && cd election-dapp
 mkdir pact
-mkdir src
+mkdir front-end
 ```
 
 We've got the `election-dapp` directory and two additional sub-directories:
 
 * `pact`, which holds the smart contracts
-* `src`, which holds the front-end part of our application
+* `front-end`, which holds the front-end part of our application
 
 ### Implementing the Voting Smart Contract
 
@@ -87,7 +87,7 @@ Let's copy the following code in the `election.pact` file:
 
 ;; Define a keyset with name `election-admin-keyset`.
 ;; Keysets cannot be created in code, thus we read them in from the load message data.
-(define-keyset 'election-admin-keyset (read-keyset 'election-admin-keyset))
+(define-keyset "free.election-admin-keyset" (read-keyset 'election-admin-keyset))
 
 ;; Define `election` module
 (module election GOVERNANCE
@@ -96,7 +96,7 @@ Let's copy the following code in the `election.pact` file:
   (defcap GOVERNANCE ()
     "Module governance capability that only allows the admin to update this module"
     ;; Check if the tx was signed with the provided keyset, fail if not
-    (enforce-keyset 'election-admin-keyset))
+    (enforce-keyset "free.election-admin-keyset"))
 )
 ```
 
@@ -108,7 +108,7 @@ The `GOVERNANCE` keyword on the module definition line is the _module governance
 
 Capabilities offer a system to manage user rights in an explicit way, i.e. allow a user to perform some sensitive task if the required capability has been successfully acquired. If not, the transaction will fail.
 
-Our module already defines one capability, the module governance capability. In addition to that, we're going to define the `ACCOUNT-OWNER` capability that validates the ownership of the KDA account that's used to identify a user. This might not be clear at first but let's look at the code:
+Our module already defines one capability, the module governance capability. In addition to that, we're going to define the `ACCOUNT-OWNER` and the `VOTED` capabilities. The `VOTED` capability is used to emit an event when a vote has been made. The `ACCOUNT-OWNER` capability validates the ownership of the KDA account that's used to identify a user. This might not be clear at first but let's look at the code:
 
 ```clojure
 ;; election.pact
@@ -123,6 +123,12 @@ Our module already defines one capability, the module governance capability. In 
     ;; Get the guard of the given KDA account using coin.details function
     ;; and execute it using `enforce-guard`
     (enforce-guard (at 'guard (coin.details account)))
+  )
+
+  (defcap VOTED (candidateId:string)
+    "Emit an event that indicates a vote has been made for the provided candidate"
+    @event
+    true
   )
 ```
 
@@ -211,6 +217,7 @@ We've defined our data storage so now we can add functions to read and write dat
       { "name": "" }
       { "name" := name }
       (> (length name) 0))
+  )
 
   (defun vote-protected (account:string candidateId:string)
     "Safe vote"
@@ -314,7 +321,7 @@ When a module is deployed, the tables that it defines need to be created. This i
 
 :::info Code outside the module will be called when the module is loaded the first time, when its deployed or upgraded. In the snippet above we are checking if the `upgrade` key that comes from transaction data is `true` and only execute the `create-table` calls if it's not since we cannot recreate tables when upgrading a module. :::
 
-You can find the complete source code of the `election.pact` contract \[here]. TODO: Insert repo link
+You can find the complete source code of the `election.pact` contract [here](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp/pact).
 
 It's time to summarize what we've learned so far:
 
@@ -350,10 +357,22 @@ Open the `election.repl` file and copy the snippet below:
   'election-admin-keyset: { "keys": ["admin-key"], "pred": "keys-all" },
   'alice-keyset: { "keys": ["alice-key"], "pred": "keys-all" },
   'bob-keyset: { "keys": ["bob-key"], "pred": "keys-all" },
+  'namespace-keyset: { "keys": [ ], "pred": "keys-all" },
 
   ;; Upgrade key is set to false because we are deploying the modules
   'upgrade: false
 })
+
+;; All Pact modules must exist within a namespace on Chainweb, except for basic contracts provided by Kadena.
+;; There are two namespaces available for anyone to use on Chainweb: the 'free' namespace and the 'user'
+;; namespace. Our contract uses the "free" namespace, so we need to make sure it exists in our REPL
+;; environment.
+
+;; Defining a namespace requires that we provide two keysets. The first keyset indicates the user that must
+;; have signed any transaction that deploys code to the given namespace. The second keyset is the namespace
+;; admin's keyset, and it indicates that the admin must sign the transaction that creates the new namespace.
+;; For testing purposes we will use the same mock namespace keyset for both.
+(define-namespace "free" (read-keyset "namespace-keyset") (read-keyset "namespace-keyset"))
 
 ;; load fungible-v2 interface
 (load "root/fungible-v2.pact")
@@ -363,6 +382,10 @@ Open the `election.repl` file and copy the snippet below:
 
 ;; load coin module
 (load "root/coin-v4.pact")
+
+;; create coin module tables
+(create-table coin.coin-table)
+(create-table coin.allocation-table)
 
 ;; load election module
 (load "election.pact")
@@ -407,6 +430,7 @@ Next we're going to add some candidates and check if their number of votes is co
 ;; election.repl
 
 (begin-tx "Add candidates")
+(use free.election)
 
 ;; Need to provide the key that is part of the election-admin-keyset
 (env-sigs [{ "key": "admin-key", "caps": []}])
@@ -415,13 +439,13 @@ Next we're going to add some candidates and check if their number of votes is co
 (election.insert-candidates [{ "key": "1", "name": "Candidate A" } { "key": "2", "name": "Candidate B" } { "key": "3", "name": "Candidate B" }])
 
 ;; test if votes count for candidate "1" is initialized with 0
-(expect "votes for Candidate A initialized" (election.get-votes "1") 0)
+(expect "votes for Candidate A initialized" (get-votes "1") 0)
 
 ;; test if votes count for candidate "2" is initialized with 0
-(expect "votes for Candidate B initialized" (election.get-votes "2") 0)
+(expect "votes for Candidate B initialized" (get-votes "2") 0)
 
 ;; test if votes count for candidate "3" is initialized with 0
-(expect "votes for Candidate C initialized" (election.get-votes "3") 0)
+(expect "votes for Candidate C initialized" (get-votes "3") 0)
 
 (commit-tx)
 ```
@@ -434,12 +458,12 @@ Moving on, we want to validate that votes are correctly recorded, the `VOTED` ev
 ;; election.repl
 
 (begin-tx)
-(use election)
+(use free.election)
 ;; we set the key signing this tx and the capabilities that can be signed
 ;; coin.GAS is a capability that allows gas payments, we will talk more about gas and gas stations in the
 ;; next section
 ;; election.ACCOUNT-OWNER is the capability we implemented that validates the owner of the KDA account
-(env-sigs [{ "key": "alice-key", "caps": [(coin.GAS), (election.ACCOUNT-OWNER "alice")]}])
+(env-sigs [{ "key": "alice-key", "caps": [(coin.GAS), (free.election.ACCOUNT-OWNER "alice")]}])
 
 ;; test if votes count for candidate "1" is correctly increased by 1
 ;; 1. Retrieve the number of votes
@@ -451,20 +475,20 @@ Moving on, we want to validate that votes are correctly recorded, the `VOTED` ev
 
 ;; Test if the `VOTED` event with parameter "1" was emitted in this transaction
 (expect "voted event"
-  [ { "name": "election.VOTED", "params": ["1"], "module-hash": (at 'hash (describe-module "election"))}]
+  [ { "name": "free.election.VOTED", "params": ["1"], "module-hash": (at 'hash (describe-module "free.election"))}]
   (env-events true))
 
 ;; execute the same test using a different account
-(env-sigs [{ "key": "bob-key", "caps": [(coin.GAS), (election.ACCOUNT-OWNER "bob")]}]}])
+(env-sigs [{ "key": "bob-key", "caps": [(coin.GAS), (free.election.ACCOUNT-OWNER "bob")]}]}])
 ;; test if votes count for candidate "2" is correctly increased by 1
 (let ((count (get-votes "2")))
   (vote "bob" "2")
   (expect "votes count is increased by 1" (get-votes "2") (+ count 1)))
 
 (expect "voted event"
-  [ { "name": "election.VOTED",
+  [ { "name": "free.election.VOTED",
       "params": ["2"],
-      "module-hash": (at 'hash (describe-module "election"))
+      "module-hash": (at 'hash (describe-module "free.election"))
     }
   ]
   (env-events true))
@@ -571,7 +595,7 @@ Create a new file `election-gas-station.pact` and paste the following snippet:
 (module election-gas-station GOVERNANCE
   (defcap GOVERNANCE ()
     "Only admin can update the smart contract"
-    (enforce-keyset 'election-admin-keyset))
+    (enforce-keyset "free.election-admin-keyset"))
 
   ; Signal that the module implements the gas-payer-v1 interface
   (implements gas-payer-v1)
@@ -670,7 +694,7 @@ To summarize, a gas station is a coin account with a special guard that's valid 
 
 In order to deploy our contracts to the real blockchain network, whether it's Testnet or Mainnet we need to pay for the transaction using gas fees.
 
-We also need a key/pair to create an account so let's generate one by running `pact -g` in your terminal or by using the `Pact.crypto.genKeyPair()` method available in the `pact-lang-api` lib.
+In this tutorial we are using Chainweaver wallet to create accounts and sign transactions. Head over to Chainweaver and create an account on `testnet`.
 
 Next step is to fund your `testnet` account using this [faucet](http://faucet.testnet.chainweb.com). You will receive 20 Testnet KDA.
 
@@ -678,7 +702,7 @@ Next step is to fund your `testnet` account using this [faucet](http://faucet.te
 
 Each module or interface needs to be part of a namespace. The `free` namespace is available to use on both `mainnet` and `testnet`.
 
-To set the namespace of a module we have to use the `namespace` function. Insert the following line at the beginning of `election.pact` file:
+To set the namespace of a module we have to use the `namespace` function. Insert the following line at the beginning of `election.pact` and `election-gas-station.pact` files:
 
 ```clojure
 (namespace 'free)
@@ -691,134 +715,142 @@ Also when accessing a module's function we have to use the fully qualified name 
 :::tip Here's a snippet that you can use to list all deployed modules by using the top-level `list-modules` built-in function:
 
 ```javascript
-const Pact = require('pact-lang-api');
+const { PactCommand  } = require('@kadena/client');
+const { createExp } = require('@kadena/pactjs');
 
 const NETWORK_ID = 'testnet04';
 const CHAIN_ID = '0';
 const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
-const KEY_PAIR = Pact.crypto.genKeyPair();
-
-const creationTime = () => Math.round((new Date).getTime() / 1000) - 15;
 
 listModules();
 
 async function listModules() {
-  const cmd = {
-    keyPairs: KEY_PAIR,
-    pactCode: Pact.lang.mkExp('list-modules'),
-    meta: Pact.lang.mkMeta("", "", 0.0001, 6000, creationTime(), 600)
-  };
-  const response = await Pact.fetch.local(cmd, API_HOST);
+  const pactCommand = new PactCommand();
+  const publicMeta = { chainId: CHAIN_ID, gasLimit: 6000, gasPrice: 0.001, ttl: 600 };
+  pactCommand.code = createExp('list-modules')
+  pactCommand.setMeta(publicMeta, NETWORK_ID)
+
+  const response = await pactCommand.local(API_HOST)
   console.log(response.result.data);
 };
 ```
 
 :::
 
-You can use the snippets below to deploy your contract to **chain 1** on `testnet` and `mainnet`:
+You can use the snippets below to deploy your contract to **chain 0** on `testnet` and `mainnet`:
 
 ```js
-const Pact = require('pact-lang-api');
+const { PactCommand, signWithChainweaver  } = require('@kadena/client');
 const fs = require('fs');
 
 const NETWORK_ID = 'testnet04';
-const CHAIN_ID = '1';
+const CHAIN_ID = '0';
 const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
-const CONTRACT_PATH = './pact/election.pact';
-const KEY_PAIR = {
-  'publicKey': 'some-public-key',
-  'secretKey': 'some-private-key'
-}
+const CONTRACT_PATH = '../pact/election.pact';
+const ACCOUNT_NAME = 'some-account-name';
+const PUBLIC_KEY = 'some-public-key';
 
 const pactCode = fs.readFileSync(CONTRACT_PATH, 'utf8');
-const creationTime = () => Math.round((new Date).getTime() / 1000);
 
 deployContract(pactCode);
 
 async function deployContract(pactCode) {
-  const cmd = {
-    networkId: NETWORK_ID,
-    keyPairs: KEY_PAIR,
-    pactCode: pactCode,
-    envData: {
-      'election-admin-keyset': [KEY_PAIR['publicKey']],
-      'upgrade': false
-    },
-    meta: {
-      creationTime: creationTime(),
-      ttl: 28000,
-      gasLimit: 65000,
-      chainId: CHAIN_ID,
-      gasPrice: 0.000001,
-      sender: KEY_PAIR.publicKey // the account paying for gas
-    }
+  const publicMeta = {
+    ttl: 28000,
+    gasLimit: 100000,
+    chainId: CHAIN_ID,
+    gasPrice: 0.000001,
+    sender: ACCOUNT_NAME // the account paying for gas
   };
-  const response = await Pact.fetch.send(cmd, API_HOST);
+  const pactCommand = new PactCommand()
+    .setMeta(publicMeta, NETWORK_ID)
+    .addCap('coin.GAS', PUBLIC_KEY)
+    .addData( {
+      'election-admin-keyset': [ PUBLIC_KEY ],
+      'upgrade': false
+    });
+  pactCommand.code = pactCode;
+
+  const signedTransaction = await signWithChainweaver(pactCommand);
+
+  const response = await signedTransaction[0].send(API_HOST);
   console.log(response);
-  const txResult = await Pact.fetch.listen({ listen: response.requestKeys[0] }, API_HOST);
-  console.log(txResult);
 };
 ```
 
 ```js
-const Pact = require('pact-lang-api');
+const { PactCommand, signWithChainweaver  } = require('@kadena/client');
 const fs = require('fs');
 
 const NETWORK_ID = 'mainnet01';
 const CHAIN_ID = '1';
 const API_HOST = `https://api.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
-const CONTRACT_PATH = './pact/election.pact';
-const KEY_PAIR = {
-  'publicKey': 'some-public-key',
-  'secretKey': 'some-private-key'
-}
+const CONTRACT_PATH = '../pact/election.pact';
+const ACCOUNT_NAME = 'some-account-name';
+const PUBLIC_KEY = 'some-public-key';
 
 const pactCode = fs.readFileSync(CONTRACT_PATH, 'utf8');
-const creationTime = () => Math.round((new Date).getTime() / 1000);
 
 deployContract(pactCode);
 
 async function deployContract(pactCode) {
-  const cmd = {
-    networkId: NETWORK_ID,
-    keyPairs: KEY_PAIR,
-    pactCode: pactCode,
-    envData: {
-      'election-admin-keyset': [KEY_PAIR['publicKey']],
-      'upgrade': false
-    },
-    meta: {
-      creationTime: creationTime(),
-      ttl: 28000,
-      gasLimit: 65000,
-      chainId: CHAIN_ID,
-      gasPrice: 0.000001,
-      sender: KEY_PAIR.publicKey // the account paying for gas
-    }
+  const publicMeta = {
+    ttl: 28000,
+    gasLimit: 65000,
+    chainId: CHAIN_ID,
+    gasPrice: 0.000001,
+    sender: ACCOUNT_NAME // the account paying for gas
   };
-  const response = await Pact.fetch.send(cmd, API_HOST);
+  const pactCommand = new PactCommand()
+    .setMeta(publicMeta, NETWORK_ID)
+    .addCap('coin.GAS', PUBLIC_KEY)
+    .addData( {
+      'election-admin-keyset': [ PUBLIC_KEY ],
+      'upgrade': false
+    });
+  pactCommand.code = pactCode;
+
+  const signedTransaction = await signWithChainweaver(pactCommand);
+
+  const response = await signedTransaction[0].send(API_HOST);
   console.log(response);
-  const txResult = await Pact.fetch.listen({ listen: response.requestKeys[0] }, API_HOST);
-  console.log(txResult);
 };
 ```
 
 :::info In order to pay transaction fees on `mainnet` you will have to fund your account with real KDA. :::
 
+The above snippets can also be found in the [tutorial repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp).
+
 ### Frontend
 
 If you made it until here, congrats! We wrote, tested and deployed our smart contract but we're still missing a key component, a UI for users to interact with our dApp, so let's get this done.
 
-Start by adding [Pact-Lang-API](http://github.com/kadena-io/pact-lang-api) as a dependency to your project either via CDN or add it to your asset pipeline similar to any other JavaScript library.
-
-```js
-<script src="https://cdn.jsdelivr.net/npm/pact-lang-api@4.1.2/pact-lang-api-global.min.js"></script>
-```
+Start by adding the required libraries from [Kadena.js](https://github.com/kadena-community/kadena.js) as a dependency to your project either via a package manager or add it to your asset pipeline similar to any other JavaScript library.
 
 ```bash
-npm install pact-lang-api
+npm install @kadena/client
+npm install @kadena/chainweb-node-client
 ```
 
+#### Typescript
+
+The Kadena.js team has created libraries that allow Javascript/Typescript users to easily interact with the Kadena Blockchain. Also there's a commandline tool `pactjs-cli` that allows generation of types from pact contracts, which we're going to make use of in this tutorial. Let's first add the required libraries to your project.
+
+```bash
+npm install @kadena/types
+npm install @kadena/pactjs-cli
+```
+
+From the root of the front-end folder, use the following command to generate type for our `election`, `election-gas-station` and `coin` contract. Generating types for the `coin` contract is necessary because when paying for gas we use the capability `coin.GAS` from the coin contract so we also need those types generated.
+
+```bash
+pactjs contract-generate --file ../pact/election.pact; pactjs contract-generate --file ../pact/election-gas-station.pact; pactjs contract-generate --file ../pact/root/coin-v4.pact
+```
+
+The log shows what has happened. Inside the `node_modules` directory, a new package has been created: `.kadena/pactjs-generated`. This package is extending the @kadena/client types to give you type information. Make sure to add `"types": [".kadena/pactjs-generated"]` to your tsconfig.json.
+
+
+### Our implementation
 :::note In this tutorial we're using [ReactJS](https://reactjs.org) but you are free to use any framework that you are comfortable with. The main focus will be on blockchain and wallet interaction. :::
 
 There are a few key aspects concerning a frontend implementation of a blockchain application:
@@ -827,37 +859,38 @@ There are a few key aspects concerning a frontend implementation of a blockchain
 * allowing users to sign and submit transactions
 * notify users when various actions take place like a transaction being mined or a smart contract event was emitted
 
+The complete code of this tutorial can also be found in front-end folder in the [tutorial repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp/front-end). For demonstration purposes the election smart contracts have been deployed to ***testnet chain 0***
+
 #### Read Data
 
 For this demo application we would like to display the number of votes that each candidate received. To do that we have to call the `get-votes` function from our `election` module. Here's how that looks like:
 
 ```js
-import Pact from 'pact-lang-api';
+import { Pact, signWithChainweaver } from '@kadena/client'
+import { pollTransactions } from './utils'
 
-const GAS_PRICE = 0.0000001;
-const GAS_LIMIT = 400;
-const TTL = 28000;
-const NETWORK_ID = 'testnet04';
-const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
-const GAS_STATION='election-gas-station';
-export const CHAIN_ID = '1';
+const NETWORK_ID = 'testnet04'
+const CHAIN_ID = '0'
+const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`
 
-const creationTime = () => Math.round((new Date).getTime() / 1000) - 15;
+const accountKey = (account: string): string => account.split(':')[1]
 
-export const get-votes = async (candidate) => {
-  const cmd = {
-    pactCode: `(free.election.get-votes "${candidate}")`,
-    meta: {
-      creationTime: creationTime(),
-      ttl: TTL,
-      gasLimit: GAS_LIMIT,
-      chainId: CHAIN_ID,
-      gasPrice: GAS_PRICE,
-      // IMPORTANT: the API requires this attribute even if it's an empty value like in this case
-      sender: ''
-    }
-  };
-  return Pact.fetch.local(cmd, API_HOST);
+/**
+ * Return the amount of votes a candidate has received
+ *
+ * @param candidateId - The candidate's id
+ * @return the number of votes
+ */
+export const getVotes = async (candidateId: string): Promise<number> => {
+  const transactionBuilder = Pact.modules['free.election']['get-votes'](candidateId)
+  const { result } = await transactionBuilder.local(API_HOST)
+
+  if (result.status === 'success') {
+    return result.data.valueOf() as number
+  } else {
+    console.log(result.error)
+    return 0
+  }
 }
 ```
 
@@ -866,6 +899,8 @@ We're sending a command to the `/local` endpoint where the `pactCode` attribute 
 :::note Remember to always use the fully qualified name, _namespace.module.function_. :::
 
 Here's a screenshot from our demo app where we display the candidates and the number of votes received by each candidate:
+
+![alt text](https://github.com/kadena-community/kadena.js/blob/master/packages/tutorials/election-dapp/front-end/screens/main.png?raw=true)
 
 #### Sign & Send Transaction
 
@@ -878,64 +913,68 @@ The next step is to allow users to vote for a candidate. When it comes to updati
 
 :::info In this tutorial we are using Chainweaver wallet to sign transactions, other wallets might have a different API but the steps mentioned above are similar. There might be the case where a wallet takes care of more than signing a transaction (e.g. it also sends it to the network) and you will have to adapt your implementation accordingly. :::
 
-Here's a diagram of the above:
-
-**pact-lang-api** provides a couple of useful methods here: `Pact.wallet.sign` to interact with the Chainweaver signing API and `Pact.wallet.sendSigned` to submit the signed transaction to the network.
+**@kadena/client** provides a couple of useful methods here: `signWithChainweaver` to interact with the Chainweaver signing API and `send` on the `ICommandBuilder` to submit the signed transaction to the network.
 
 In the snippet below we are constructing a transaction that calls the `free.election.vote` contract function to vote for a candidate.
 
 ```js
-export const signTx = async (account, candidateId) => {
-  const cmd = {
-    networkId: NETWORK_ID,
-    pactCode: `(free.election.vote "${account}" "${candidateId}")`,
-    caps: [
-      Pact.lang.mkCap("Gas payer", "Capability to allow gas payment by gas station", "free.election-gas-station.GAS_PAYER", ["", { int: 1 }, 1.0]),
-      Pact.lang.mkCap("Account Owner", "Capability to validate KDA account ownership", "free.election.ACCOUNT-OWNER", [account])
-    ],
-    creationTime: creationTime(),
-    ttl: TTL,
-    gasLimit: GAS_LIMIT,
-    chainId: CHAIN_ID,
-    gasPrice: GAS_PRICE,
-    sender: GAS_STATION,
-  };
-  return Pact.wallet.sign(cmd);
-}
+/**
+ * Vote for a candidate and poll the transaction status afterwards
+ *
+ * @param account - The account that is voting
+ * @param candidateId - The candidateId that is being voted for
+ * @return
+ */
+export const vote = async (account: string, candidateId: string): Promise<void> => {
+  const transactionBuilder = Pact.modules['free.election']
+    .vote(account, candidateId)
+    .addCap('coin.GAS', accountKey(account))
+    .addCap('free.election.ACCOUNT-OWNER', accountKey(account), account)
+    .setMeta({
+      ttl: 28000,
+      gasLimit: 100000,
+      chainId: CHAIN_ID,
+      gasPrice: 0.000001,
+      sender: account,
+    }, NETWORK_ID)
 
-export const sendTx = async (signedCmd) => {
-    return Pact.wallet.sendSigned(signedCmd, API_HOST);
-}
+    const signedTransaction = await signWithChainweaver(transactionBuilder)
 
-export const listenTx = async (requestKey) => {
-    return Pact.fetch.listen({ listen: requestKey }, API_HOST);
+    console.log(`Sending transaction: ${signedTransaction[0].code}`)
+    const response = await signedTransaction[0].send(API_HOST)
+
+    console.log('Send response: ', response)
+    const requestKey = response.requestKeys[0]
+    await pollTransactions([requestKey], API_HOST)
 }
 ```
 
-Notice the `caps` attribute where we define the capabilities that the user's keyset will have to sign using the `Pact.lang.mkCap` helper method. In this case we have two:
+Notice the `addCap` function where we define the capabilities that the user's keyset will have to sign. In this case we have two:
 
+* `coin.GAS` -> enables the payment of gas fees
 * `free.election.ACCOUNT-OWNER` -> checks if the user is the owner of the KDA account
-* `free.election-gas-station.GAS_PAYER` -> enables the payment of gas fees by the gas station that we deployed
 
 :::note Scoping signatures Keep in mind, for security reasons a keyset should only sign specific capabilities and using a keyset in "unrestricted mode" is not recommended. Scoping the signature allows the signer to safely call untrusted code which is an important security feature of Pact and Kadena.
 
 "Unrestricted mode" means that we do not define any capabilities when creating a transaction. :::
 
-:::note When reading values from a JSON, Pact converts numbers to `decimal` type but the second parameter of the `GAS_PAYER` capability requires an integer so we have to force the correct type using this approach: `{ int: 1 }`. :::
+Since this is a transaction that requires gas fees, we now set `sender` (account paying for gas) to the name of the KDA account of the user. If we would want to utilize the gas station we deployed we would set the sender to the account owned by our gas station `election-gas-station` and use the `free.election-gas-station.GAS_PAYER` capability instead of `coin.GAS`.
 
-Since this is a transaction that requires gas fees, we now set `sender` (account paying for gas) to the name of the KDA account owned by our gas station.
+Lastly, to get the result of a transaction we are using the `pollTransactions` helper method which can be found in the project repository.
 
-Lastly, to get the result of a transaction we are using the `Pact.fetch.listen` method.
-
-Going back to the UI, we implemented this signing flow using a modal window where users have to enter their KDA account and click on the **Sign Transaction** button which automatically opens the Chainweaver signing wizard.
+Going back to the UI, we implemented this signing flow using a modal window where users have to enter their KDA account. Once the account is entered and the user hasn't voted yet the **Vote Now** button will become available. Clicking on the **Vote Now** button will automatically open the Chainweaver signing wizard.
 
 Below is the first step of the Chainweaver request signing wizard:
 
-Once the transaction is signed, clicking on **Send Transaction** button in our dApp modal window will submit it to the network.
+![alt text](https://github.com/kadena-community/kadena.js/blob/master/packages/tutorials/election-dapp/front-end/screens/quicksign.png?raw=true)
 
-The request key together with the transaction result are displayed as notifications in the right side of the screen as the promises complete.
+Once the transaction is signed, our dApp modal will automatically submit it to the network.
+
+The request key together with the transaction result are displayed in the browsers console output.
 
 _Note: Since mining is an external process, while waiting for our transaction to be included in the blockchain, the user should be able to keep using the application freely._
+
+:::info As an extra excercise; modify the code to utilize the gasstation instead of having the user pay for gas fees.
 
 ### Conclusion
 
