@@ -137,29 +137,33 @@ const sidebars = {
         {
           type: "doc",
           label: "A Step-By-Step Guide to Writing Pact Smart Contract",
-          id: "build/real-world-pact",
+          id: "build/guides/a-step-by-step-guide-to-writing-pact-smart-contract",
         },
         {
           type: "doc",
           label: "Marmalade Tutorial",
-          id: "build/marmalade-tutorial",
+          id: "build/guides/marmalade-tutorial",
         },
         {
           type: "doc",
           label: "Pact Local API Queries",
-          id: "build/pact-local-api-queries",
+          id: "build/guides/pact-local-api-queries",
         },
         {
           type: "doc",
           label: "Voting dApp Tutorial",
-          id: "build/voting-dapp-tutorial",
+          id: "build/guides/building-a-voting-dapp",
         },
         {
           type: "doc",
           label: "Safe Rotate and Drain",
-          id: "build/safe-rotate-and-drain",
+          id: "build/guides/safe-rotate-and-drain",
         },
-        { type: "doc", label: "Safe Transfer", id: "build/safe-transfer" },
+        {
+          type: "doc",
+          label: "Safe Transfer",
+          id: "build/guides/safe-transfer"
+        },
       ],
     },
     {
