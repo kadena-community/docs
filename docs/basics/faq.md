@@ -8,19 +8,30 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import YouTube from '@components/YouTube';
 
-# FAQ
 
-Answers to commonly asked questions about Kadena.
+### **Table of Contents**
 
----
+1. [What consensus mechanism does Kadena use?](faq.md#what-consensus-mechanism-does-kadena-use)
+2. [What hashing algorithm does Kadena use?](faq.md#what-hashing-algorithm-does-kadena-use)
+3. [What is the target block time for Kadena?](faq.md#what-is-the-target-block-time-for-kadena)
+4. [What are the block rewards?](faq.md#what-are-the-block-rewards)
+5. [Does Kadena have a block explorer?](faq.md#does-kadena-have-a-block-explorer)
+6. [Is Kadena open source?](faq.md#is-kadena-open-source)
+7. [Why does Kadena’s public blockchain use proof of work?](faq.md#why-does-kadenas-public-blockchain-use-proof-of-work)
+8. [How does Kadena scale?](faq.md#how-does-kadena-scale)
+9. [How does Kadena deal with congestion?](faq.md#how-does-kadena-deal-with-congestion)
+10. [What does it mean to “braid multiple chains”?](faq.md#what-does-it-mean-to-braid-multiple-chains)
+11. [How are tokens moved between different Kadena chains?](faq.md#how-are-tokens-moved-between-different-kadena-chains)
+12. [How do I run a node?](faq.md#how-do-i-run-a-node)
+13. [How do I become a miner?](faq.md#how-do-i-become-a-miner)
 
 ### **What consensus mechanism does Kadena use?**
 
-Proof of Work
+Proof-of-Work
 
 ### **What hashing algorithm does Kadena use?**
 
-Blake2s_256
+Blake2s\_256
 
 ### **What is the target block time for Kadena?**
 
@@ -28,7 +39,7 @@ Every chain of the 20 braided chains has a new block on average 30 seconds in be
 
 ### **What are the block rewards?**
 
-Block rewards are readjusted against a set schedule every six months, with roughly half of the remaining minable coins issued as block rewards every 20 years. See the complete miner block reward schedule [here](https://github.com/kadena-io/chainweb-node/blob/master/rewards/miner_rewards.csv).
+Block rewards are readjusted against a set schedule every six months, with roughly half of the remaining minable coins issued as block rewards every 20 years. See the complete miner block reward schedule [here](https://github.com/kadena-io/chainweb-node/blob/master/rewards/miner\_rewards.csv).
 
 ### **Does Kadena have a block explorer?**
 
@@ -42,8 +53,8 @@ Yes, the open-source repository for the Kadena public blockchain is [here](https
 
 Kadena uses proof of work for a few key reasons:Evidence: PoW is the only “battle-tested” consensus protocol primitive.
 
-1. Economic incentive alignment: PoW creates an economic incentive for the majority of the hashpower to validate and honestly support the entire network. It is an open research question if a non-PoW approach can reasonably achieve the same.
-2. Regulation: In the eyes of certain financial regulators, proof of work miners are not considered money transmitters, making a probabilistic PoW mining system safer from a US regulatory perspective than a system with more “finality” like PoS.
+1. **Economic incentive alignment:** PoW creates an economic incentive for the majority of the hashpower to validate and honestly support the entire network. It is an open research question if a non-PoW approach can reasonably achieve the same.
+2. **Regulation:** In the eyes of certain financial regulators, proof of work miners are not considered money transmitters, making a probabilistic PoW mining system safer from a US regulatory perspective than a system with more “finality” like PoS.
 
 ### **How does Kadena scale?**
 
@@ -51,20 +62,20 @@ Kadena’s public blockchain scales by providing a mechanism to asynchronously p
 
 ### **How does Kadena deal with congestion?**
 
-Transaction costs will rise as the number of transactions rise on one chain. You can set up an account on a less congested chain, where transaction costs are cheaper, and move your tokens through a simple burn-receipt using on-chain SPV. Miners have economic incentive to cooperate with reconfiguring the network to a larger size when the entire network starts to become congested.\
+Transaction costs will rise as the number of transactions rise on one chain. You can set up an account on a less congested chain, where transaction costs are cheaper, and move your tokens through a simple burn-receipt using on-chain SPV. Miners have economic incentive to cooperate with reconfiguring the network to a larger size when the entire network starts to become congested.\\
 
 ### **What does it mean to “braid multiple chains”?**
 
-Braiding chains together was first proposed for security purposes. In effect, chains are “braided” as each chain’s newly mined block incorporates the Merkle roots of its peer chains. By having multiple mined blocks at the same height each referencing each other’s past, the protocol decreases the duration of time where an attacker could get “lucky” against an honest network. Think of an attacker needing to flip 6 coins and get all heads (mine 6 blocks) vs. needing to flip 12 coins and get all heads (mine 6 blocks from two related chains). The latter is harder. This same intuition applies to Kadena’s multi-chain configuration.\
+Braiding chains together was first proposed for security purposes. In effect, chains are “braided” as each chain’s newly mined block incorporates the Merkle roots of its peer chains. By having multiple mined blocks at the same height each referencing each other’s past, the protocol decreases the duration of time where an attacker could get “lucky” against an honest network. Think of an attacker needing to flip 6 coins and get all heads (mine 6 blocks) vs. needing to flip 12 coins and get all heads (mine 6 blocks from two related chains). The latter is harder. This same intuition applies to Kadena’s multi-chain configuration.\\
 
 ### **How are tokens moved between different Kadena chains?**
 
-Tokens are moved across chains using a Simple Payment Verification (SPV) smart contract.\
+Tokens are moved across chains using a Simple Payment Verification (SPV) smart contract.\\
 
 ### **How do I run a node?**
 
-Official information for running a node is maintained at [this GitHub repository](https://github.com/kadena-io/chainweb-node), and supplementary resources [here](../contribute/node/overview).
+Official information for running a node is maintained at [this GitHub repository](https://github.com/kadena-io/chainweb-node), and supplementary resources here.
 
 ### **How do I become a miner?**
 
-Official information for mining KDA is maintained at [this GitHub repository](https://github.com/kadena-io/chainweb-miner), and supplementary resources [here](../contribute/node/overview).
+Official information for mining KDA is maintained at [this GitHub repository](https://github.com/kadena-io/chainweb-miner), and supplementary resources here.

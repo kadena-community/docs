@@ -73,23 +73,59 @@ const sidebars = {
         { type: "doc", label: "Kuro", id: "basics/whitepapers/kuro-layer-2" },
       ],
     },
-    { type: "doc", label: "FAQ", id: "basics/faq" },
-    // {
-    //   type: "category",
-    //   label: "Resources",
-    //   items: [
-    //     {
-    //       type: "doc",
-    //       label: "Public Chain Resources",
-    //       id: "basics/resources/public-chain-resources",
-    //     },
-    //     {
-    //       type: "doc",
-    //       label: "Private Chain Resources",
-    //       id: "basics/resources/private-chain-resources",
-    //     },
-    //   ],
-    // },
+    {
+      type: "category",
+      label: "Support",
+      items: [
+        { type: "doc", label: "FAQ", id: "basics/faq" },
+        {
+          type: "doc",
+          label: "Developer Program",
+          id: "basics/support/developer-program",
+        },
+        {
+          type: "doc",
+          label: "Grants",
+          id: "basics/support/technical-grants",
+        }
+      ],
+    },
+    {
+      type: "category",
+      label: "Resources",
+      items: [
+        {
+          type: "doc",
+          label: "Official Links",
+          id: "basics/resources/official-links",
+        },
+        {
+          type: "doc",
+          label: "Press Kit",
+          id: "basics/resources/press-kit",
+        },
+        {
+          type: "doc",
+          label: "Glossary",
+          id: "basics/resources/glossary",
+        },
+        {
+          type: "doc",
+          label: "Kadena Content Repository",
+          id: "basics/resources/kadena-content-repository",
+        },
+        // {
+        //       type: "doc",
+        //       label: "Public Chain Resources",
+        //       id: "basics/resources/public-chain-resources",
+        //     },
+        //     {
+        //       type: "doc",
+        //       label: "Private Chain Resources",
+        //       id: "basics/resources/private-chain-resources",
+        //     },
+      ],
+    },
   ],
 
   // ######################################
