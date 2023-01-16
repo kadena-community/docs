@@ -8,7 +8,7 @@ To that end, Kadena intends for our social channels to be a safe and welcoming e
 
 The intention of this document is to set our expectations of community members and to promote consistency in behavior across all levels of the Kadena community. This is a living document that will be used to guide all activities and decision making.
 
-### <mark style="color:green;">Expected Behavior</mark>
+### Expected Behavior
 
 * Avoid using overtly sexual aliases or other nicknames that might detract from a friendly, safe and welcoming environment for all.&#x20;
 * Respect that people have differences of opinion and that every design or implementation choice carries a trade-off and numerous costs. There is seldom a right answer.&#x20;
@@ -17,7 +17,7 @@ The intention of this document is to set our expectations of community members a
 * Private harassment is unacceptable. No matter who you are, if you feel you have been or are being harassed or made uncomfortable by a community member, please contact our Moderation team immediately.&#x20;
 * Use members' preferred pronouns.
 
-### <mark style="color:red;">Unacceptable Behavior</mark>
+### Unacceptable Behavior
 
 * Violence, threats of violence or violent language directed against another person.&#x20;
 * Sexist, racist, homophobic, transphobic, ableist or otherwise discriminatory jokes and language.&#x20;
@@ -44,9 +44,9 @@ _These are the policies for upholding our community’s standards of conduct._
 7. If a moderator bans someone and you think it was unjustified, please take it up with that moderator, or with a different moderator, in private. _Complaints about bans in-channel are not allowed._&#x20;
 8. Moderators are held to a higher standard than other community members. If a moderator creates an inappropriate situation, they should expect less leeway than others.
 
-### <mark style="color:purple;">**Email Moderation Team**</mark>
+### **Email Moderation Team**
 
-<mark style="color:purple;">****</mark>
+****
 
 In the Kadena community we strive to go the extra step to look out for each other. Don’t just aim to be technically unimpeachable, try to be your best self. In particular, avoid flirting with offensive or sensitive issues, particularly if they’re off-topic; this all too often leads to unnecessary fights, hurt feelings, and damaged trust; worse, it can drive people away from the community entirely.
 
