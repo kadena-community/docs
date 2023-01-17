@@ -39,6 +39,7 @@ module.exports = {
       defaultMode: "dark",
     },
     navbar: {
+      style: "dark",
       title: "Kadena Docs",
       logo: {
         alt: "Kadena Logo",

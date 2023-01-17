@@ -73,23 +73,59 @@ const sidebars = {
         { type: "doc", label: "Kuro", id: "basics/whitepapers/kuro-layer-2" },
       ],
     },
-    { type: "doc", label: "FAQ", id: "basics/faq" },
-    // {
-    //   type: "category",
-    //   label: "Resources",
-    //   items: [
-    //     {
-    //       type: "doc",
-    //       label: "Public Chain Resources",
-    //       id: "basics/resources/public-chain-resources",
-    //     },
-    //     {
-    //       type: "doc",
-    //       label: "Private Chain Resources",
-    //       id: "basics/resources/private-chain-resources",
-    //     },
-    //   ],
-    // },
+    {
+      type: "category",
+      label: "Support",
+      items: [
+        { type: "doc", label: "FAQ", id: "basics/faq" },
+        {
+          type: "doc",
+          label: "Developer Program",
+          id: "basics/support/developer-program",
+        },
+        {
+          type: "doc",
+          label: "Grants",
+          id: "basics/support/technical-grants",
+        }
+      ],
+    },
+    {
+      type: "category",
+      label: "Resources",
+      items: [
+        {
+          type: "doc",
+          label: "Official Links",
+          id: "basics/resources/official-links",
+        },
+        {
+          type: "doc",
+          label: "Press Kit",
+          id: "basics/resources/press-kit",
+        },
+        {
+          type: "doc",
+          label: "Glossary",
+          id: "basics/resources/glossary",
+        },
+        {
+          type: "doc",
+          label: "Kadena Content Repository",
+          id: "basics/resources/kadena-content-repository",
+        },
+        // {
+        //       type: "doc",
+        //       label: "Public Chain Resources",
+        //       id: "basics/resources/public-chain-resources",
+        //     },
+        //     {
+        //       type: "doc",
+        //       label: "Private Chain Resources",
+        //       id: "basics/resources/private-chain-resources",
+        //     },
+      ],
+    },
   ],
 
   // ######################################
@@ -137,29 +173,33 @@ const sidebars = {
         {
           type: "doc",
           label: "A Step-By-Step Guide to Writing Pact Smart Contract",
-          id: "build/real-world-pact",
+          id: "build/guides/a-step-by-step-guide-to-writing-pact-smart-contract",
         },
         {
           type: "doc",
           label: "Marmalade Tutorial",
-          id: "build/marmalade-tutorial",
+          id: "build/guides/marmalade-tutorial",
         },
         {
           type: "doc",
           label: "Pact Local API Queries",
-          id: "build/pact-local-api-queries",
+          id: "build/guides/pact-local-api-queries",
         },
         {
           type: "doc",
           label: "Voting dApp Tutorial",
-          id: "build/voting-dapp-tutorial",
+          id: "build/guides/building-a-voting-dapp",
         },
         {
           type: "doc",
           label: "Safe Rotate and Drain",
-          id: "build/safe-rotate-and-drain",
+          id: "build/guides/safe-rotate-and-drain",
         },
-        { type: "doc", label: "Safe Transfer", id: "build/safe-transfer" },
+        {
+          type: "doc",
+          label: "Safe Transfer",
+          id: "build/guides/safe-transfer"
+        },
       ],
     },
     {

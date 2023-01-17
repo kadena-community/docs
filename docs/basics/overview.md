@@ -1,71 +1,28 @@
 ---
-title: Overview of Kadena
 description: Kadena makes blockchain work for everyone.
 ---
 
-import PageRef from '@components/PageRef'
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import YouTube from '@components/YouTube';
-
 # Overview of Kadena
 
-Kadena makes blockchain work for everyone.
+## Why Kadena Matters
 
----
+### Vision
 
-## Why Kadena matters <a href="#components-of-the-kadena-platform" id="components-of-the-kadena-platform"></a>
+[Kadena](https://www.kadena.io) was founded on the idea that blockchain could revolutionize how the world interacts and transacts. But in order to reach mass adoption, chain technology and the ecosystem connecting it to the business world needed to be reimagined from the ground up. Our founders built a proprietary chain architecture and created the tools to make blockchain work for business. Previously thought unachievable, Kadena has been able to become the first and only Layer-1 blockchain that permanently addresses scalability while preserving the power of Proof-of-Work (PoW) security and decentralization.
 
-### **Vision**
+### Behind the tech
 
-Kadena was founded on the idea that blockchain could revolutionize how the world interacts and transacts. But to get to mass adoption, chain technology and the ecosystem connecting it to the business world needed to be reimagined from the ground up. Our founders built a proprietary chain architecture and created the tools to make blockchain work for business – at speed, scale, and energy efficiency previously thought unachievable.
+Prior to the launch of Kadena in 2016, our founders were already leaders in blockchain and cryptocurrency solutions:
 
-### **Behind the tech**
+* Stuart Popejoy led JPMorgan’s Emerging Blockchain group.
+* Will Martino was recruited from his role as the Tech Lead for the SEC’s Cryptocurrency Steering Committee.
+* Together, Stuart and Will built JPMorgan’s first blockchain, now known as JPM Coin.
 
-Prior to the launch of Kadena in 2016, our founders were already leaders in blockchain and crytocurrency solutions:
-
-- Stuart Popejoy led JPMorgan’s Emerging Blockchain group.
-- Will Martino was recruited from his role as the Tech Lead for the SEC’s Cryptocurrency Steering Committee.
-- Together, Stuart and Will built JPMorgan’s first blockchain, now known as JPM Coin.
+<figure><img src="/img/image (3).png" alt=""></img><figcaption><p>Will Martino, left, and co-founder Stuart Popejoy created Kadena to answer a range of problems that no one else had addressed.</p></figcaption></figure>
 
 Kadena’s advisory team consists of experts such as Dr. Stuart Haber, the co-inventor of blockchain and the most cited author in Satoshi Nakamoto’s renowned 2008 Bitcoin white paper.
 
-### **Build without compromise with Kadena**
+<figure><img src="/img/image.png" alt=""></img><figcaption><p>Scott Stornetta, left and partner Dr. Stuart Haber discuss their ‘time-stamp’ for electronic documents, which they developed in the Bellcore Research Laboratory in Morristown, 20 years before Bitcoin was born.</p></figcaption></figure>
 
-Kadena builds technology that makes blockchain work for everyone. Our ecosystem powers real-world use cases for enterprises and entrepreneurs, providing the security of Bitcoin, virtually free gas (transaction fees), unparalleled throughput, as well as Pact – a secure smart contract language with built-in bug detection.
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><h3><strong></strong><span data-gb-custom-inline data-tag="emoji" data-code="1f3d7">🏗</span> <strong>Complete decentralized infrastructure for builders</strong></h3></td><td>Kadena is the only platform offering a complete decentralized infrastructure for builders. Combining a revolutionary chain architecture with the tools needed for widespread adoption, your teams get the full capabilities of blockchain with the ability to go from concept to launch in days vs. months by not having to build from scratch.</td></tr><tr><td><h3><strong></strong><span data-gb-custom-inline data-tag="emoji" data-code="2705">✅</span> <strong>Safer smart contracts</strong></h3></td><td>Pact makes designing safer smart contracts effortless, whether you’re writing your first contract or launching your fiftieth dApp. It’s fundamentally different from other contract languages. It’s readable by non-developers. It automatically detects bugs, freeing you from the exploits you’ll face on Ethereum and other less safe platforms. And it has been battle-tested in production applications for over two years.</td></tr><tr><td><h3><strong></strong><span data-gb-custom-inline data-tag="emoji" data-code="270d">✍</span> <strong>Write the future on Pact</strong></h3></td><td>Pact is the first truly human readable smart contract language. It lets anyone write clearly, directly and safely onto a blockchain—a true advance for automated contracts. Pact automatically detects bugs and keeps the purpose of code clear. With other contract languages, finding bugs and making sense of fine print can be nearly impossible. Pact’s Formal Verification lets you test your contracts to make sure they do what’s intended. Additionally, when you reference code from other contracts, you stay in control of what happens with your transactions, even if they change their code.</td></tr><tr><td><h3><strong></strong><span data-gb-custom-inline data-tag="emoji" data-code="2696">⚖</span> <strong>Industrial scalability</strong></h3></td><td>Unlike other platforms, Kadena is designed to power global financial systems. Our protocol continually scales to higher TPS (Transactions Per Second) as more chains are added to the network. With its revolutionary multi-chain architecture, Kadena is the only scalable layer-1 Proof of Work (PoW) platform capable of scaling to settle the 9+ million trades executed on the NYSE each day.</td></tr><tr><td><h3><strong></strong><span data-gb-custom-inline data-tag="emoji" data-code="1f510">🔐</span> <strong>Proven security</strong></h3></td><td>Our founders' experience at JPMorgan revealed the potential for – and limitations of – existing blockchain solutions. In order to solve for the security and throughput demands of financial services clients, Kadena’s protocol runs on the Proof of Work (PoW) consensus mechanism found in Bitcoin, rather than Proof of Stake (PoS). To achieve Kadena’s breakthrough scalability, we braid together multiple Bitcoin-like chains, improving both throughput and scalability while maintaining the security and integrity found in Bitcoin.</td></tr><tr><td><h3><strong></strong><span data-gb-custom-inline data-tag="emoji" data-code="1f343">🍃</span> <strong>Energy efficient at scale</strong></h3></td><td>As network demand increases, Kadena’s energy use remains constant. Its unique multi-chain architecture makes it the only platform that can deliver increased energy efficiency as TPS (Transactions Per Second) scales.</td></tr><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="26d4">⛔</span> No-cost transactions</h3></td><td>While we offer marginal transaction fees for consumers, we’ve gone a step further in introducing the first Crypto Gas Stations to allow businesses to eliminate all transaction fees for their customers, thus removing a key barrier to mass adoption of dApps.</td></tr><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f310">🌐</span> The ideal ecosystem</h3></td><td>Kadena works with your preferred services, so you can build how you want and where you want. Empowered with our ecosystem of product and service integrations across enterprises, mining, DeFi, oracles, interoperability, smart contracts, wallets and exchanges, our passionate community of builders, miners, and partners is changing how the world interacts and transacts.</td></tr></tbody></table>
 
-### **Complete decentralized infrastructure for builders**
-
-Kadena is the only platform offering a complete decentralized infrastructure for builders. Combining a revolutionary chain architecture with the tools needed for widespread adoption, your teams get the full capabilities of blockchain with the ability to go from concept to launch in days vs. months by not having to build from scratch.
-
-### **Innovation that works**
-
-Kadena was founded on the idea that blockchain could revolutionize how the world interacts and transacts. But to get to mass adoption, blockchain technology and the ecosystem connecting it to the business world needed to be reimagined from the ground up. Our founders built a proprietary multi-chain architecture and the tools to make blockchain work for everyone – at speed, scale, and with energy efficiency previously thought unachievable.
-
-### **Safer smart contracts**
-
-Pact makes designing safer smart contracts effortless, whether you’re writing your first contract or launching your fiftieth dApp. It’s fundamentally different from other contract languages. It’s readable by non-developers. It automatically detects bugs, freeing you from the exploits you’ll face on Ethereum and other less safe platforms. And it has been battle-tested in production applications for over two years.
-
-### **Write the future on Pact**
-
-Pact is the first truly human readable smart contract language. It lets anyone write clearly, directly and safely onto a blockchain—a true advance for automated contracts. Pact automatically detects bugs and keeps the purpose of code clear. With other contract languages, finding bugs and making sense of fine print can be nearly impossible. Pact’s Formal Verification lets you test your contracts to make sure they do what’s intended. Additionally, when you reference code from other contracts, you stay in control of what happens with your transactions, even if they change their code.
-
-### **Industrial scalability**
-
-Unlike other platforms, Kadena is designed to power global financial systems. Our protocol continually scales to higher TPS (Transactions Per Second) as more chains are added to the network. With its revolutionary multi-chain architecture, Kadena is the only scalable layer-1 Proof of Work (PoW) platform capable of scaling to settle the 9+ million trades executed on the NYSE each day.
-
-### **Proven security**
-
-Our founders' experience at JPMorgan revealed the potential for – and limitations of – existing blockchain solutions. In order to solve for the security and throughput demands of financial services clients, Kadena’s protocol runs on the Proof of Work (PoW) consensus mechanism found in Bitcoin, rather than Proof of Stake (PoS). To achieve Kadena’s breakthrough scalability, we braid together multiple Bitcoin-like chains, improving both throughput and scalability while maintaining the security and integrity found in Bitcoin.
-
-### **Energy efficient at scale**
-
-As network demand increases, Kadena’s energy use remains constant. Its unique multi-chain architecture makes it the only platform that can deliver increased energy efficiency as TPS (Transactions Per Second) scales.
-
-### **No-cost transactions**
-
-While we offer marginal transaction fees for consumers, we’ve gone a step further in introducing the first Crypto Gas Stations to allow businesses to eliminate all transaction fees for their customers, thus removing a key barrier to mass adoption of dApps.
-
-### **The ideal ecosystem**
-
-Kadena works with your preferred services, so you can build how you want and where you want. Empowered with our ecosystem of product and service integrations across enterprises, mining, DeFi, oracles, interop, smart contracts, wallets and exchanges, our passionate community of builders, miners, and partners is changing how the world interacts and transacts.
