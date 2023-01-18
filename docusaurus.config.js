@@ -8,7 +8,7 @@ const DefaultLocale = "en";
 module.exports = {
   title: "Kadena Docs",
   tagline: "Explore the latest documentation, tutorials, code, and updates.",
-  url: "https://docs.kadena.io"
+  url: "https://docs.kadena.io",
   baseUrl: "/",
   trailingSlash: false,
   onBrokenLinks: "throw",
