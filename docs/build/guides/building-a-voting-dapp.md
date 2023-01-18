@@ -8,7 +8,7 @@ Along the way, we'll learn how to write and test smart contracts in Pact, the ba
 
 Elections are a necessary part of democracies and democratic organizations. The voting systems used to administer elections must ensure a fair process and trustworthy result — easier said than done! Election security is a deep, fascinating topic, especially when it comes to online voting.
 
-Blockchain technologies are well-suited to help secure online elections. A public blockchain gives participants a single view of all transactions, which makes it easy to verify votes without trusting a central election authority to tally and report the results. Kadena's rapid transaction speeds (480,000 per second, when using 20 chains) scale voting to even large elections.
+Blockchain technologies are well-suited to help secure online elections. A public blockchain gives participants a single view of all transactions, which makes it easy to verify votes without trusting a central election authority to tally and report the results.
 
 Blockchain technologies don't solve all election security issues, but they're a strong foundation and [researchers have proposed fully-secure online voting systems based on them](https://eprint.iacr.org/2019/1406.pdf). They've also seen success in the real world: Thailand's Democrat party held an election in which [more than 120,000 registered Democrats voted via blockchain](https://bitcoinmagazine.com/culture/thailand-uses-blockchain-supported-electronic-voting-system-primaries).
 
