@@ -8,13 +8,13 @@ const DefaultLocale = "en";
 module.exports = {
   title: "Kadena Docs",
   tagline: "Explore the latest documentation, tutorials, code, and updates.",
-  url: "https://docs.kadena.dev",
+  url: "https://docs.kadena.io"
   baseUrl: "/",
   trailingSlash: false,
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/color-favicon.png",
-  organizationName: "kadena", // Usually your GitHub org/user name.
+  organizationName: "kadena-community", // Usually your GitHub org/user name.
   projectName: "docs", // Usually your repo name.
   i18n: {
     defaultLocale: "en",
