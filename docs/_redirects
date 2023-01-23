@@ -1,0 +1,6 @@
+# redirects for doc pages that were moved with legacy links
+/exchanges  /basics/exchanges
+/kadena-wallets/overview  /basics/wallets
+/kda/what-is-kda  /basics/kda/what-is-kda
+/faq/faq  /basics/faq
+/whitepapers/overview   /basics/whitepapers/overview
