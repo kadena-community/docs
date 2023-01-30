@@ -22,11 +22,11 @@ The desktop edition has a signing API to interact with dApps on Kadena Chainweb.
 
 [Web beta](https://chainweaver.kadena.network)
 
-[MacOS](https://chainweaver-builds.s3.amazonaws.com/2.2.2/kadena-chainweaver-mac-2.2.2.0.zip)
+[MacOS](https://github.com/kadena-io/chainweaver/releases/download/v2.2.3/kadena-chainweaver-mac-2.2.3.0.zip)
 
-[Linux](https://chainweaver-builds.s3.amazonaws.com/2.2.2/kadena-chainweaver-linux-2.2.2.0.deb)
+[Linux](https://github.com/kadena-io/chainweaver/releases/download/v2.2.3/kadena-chainweaver-linux-2.2.3.0.deb)
 
-[Windows (Virtual Machine)](https://chainweaver-builds.s3.amazonaws.com/2.2.2/kadena-chainweaver-vm-2.2.2.0.ova)
+[Windows (Virtual Machine)](https://github.com/kadena-io/chainweaver/releases/download/v2.2.3/kadena-chainweaver-vm.2.2.3.0.ova)
 
 ### Koala Wallet
 
