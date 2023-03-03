@@ -519,6 +519,7 @@ Let's recap what we've learned in this section:
 * we can test Pact smart-contracts using `.repl` scripts that simulate blockchain environment through a set of REPL-only functions
 * before writing tests we need to make sure all required modules are loaded as well as KDA accounts are created if we need them
 * we can test functions returned values, emitted events, failure scenarios (and much more that we couldn't cover)
+:::  
 
 ### Implementing the Gas Station
 
