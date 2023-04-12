@@ -102,7 +102,7 @@ Create a keyset named **loans-admin-keyset** and a module named **loans** that s
 
 :::info
 
-If you’re unfamiliar with modules and keyset, our <a href="https://pactlang.org/beginner/pact-modules/" target="_blank">Pact Modules Tutorial</a> is a great place to get started.
+If you’re unfamiliar with modules and keyset, our <a href="https://docs.kadena.io/learn-pact/beginner/modules" target="_blank">Pact Modules Tutorial</a> is a great place to get started.
 
 :::
 
@@ -118,7 +118,7 @@ For this challenge, you’ll see each table presented as fields and types. Your 
 
 :::info
 
-Schema definitions are introduced in the <a href="https://pactlang.org/beginner/pact-schemas-and-tables/#define-schemas" target="_blank">Pact Schemas and Tables Tutorial</a>.
+Schema definitions are introduced in the <a href="https://docs.kadena.io/learn-pact/beginner/schemas-and-tables#define-schemas" target="_blank">Pact Schemas and Tables Tutorial</a>.
 
 :::
 
@@ -200,7 +200,7 @@ Take some time now to define each of the tables for the loans smart contract.
 
 :::info
 
-Table definitions are covered in the <a href="https://pactlang.org/beginner/pact-schemas-and-tables/#define-tables" target="_blank">Pact Schemas and Tables Tutorial</a>.
+Table definitions are covered in the <a href="https://docs.kadena.io/learn-pact/beginner/schemas-and-tables#define-tables" target="_blank">Pact Schemas and Tables Tutorial</a>.
 
 :::
 
@@ -240,7 +240,7 @@ The functions you’ll create in the loans smart contract will use combinations 
 
 :::info
 
-You can review each of these function types in the <a href="https://pactlang.org/beginner/pact-schemas-and-tables/#table-built-in-functions" target="_blank">Pact Schemas and Tables Tutorial</a>.
+You can review each of these function types in the <a href="https://docs.kadena.io/learn-pact/beginner/schemas-and-tables#table-built-in-functions" target="_blank">Pact Schemas and Tables Tutorial</a>.
 
 :::
 
@@ -456,7 +456,7 @@ Take some time now to create each of the tables for the loans smart contract.
 
 :::info
 
-Table creation is covered in the [Tables and Schemas Tutorial](https://pactlang.org/beginner/pact-schemas-and-tables/#create-tables).
+Table creation is covered in the [Tables and Schemas Tutorial](https://docs.kadena.io/learn-pact/beginner/schemas-and-tables#create-tables).
 
 :::
 
@@ -468,8 +468,8 @@ If you’d like, you can try deploying this smart contract. You can deploy this 
 
 For help getting started and deploying in each of these environments, try the following tutorials.
 
-- [Pact Online Editor](https://pactlang.org/beginner/online-editor/)
-- [Pact Development on Atom SDK Tutorial](https://pactlang.org/beginner/pact-on-atom-sdk/)
+- [Pact Online Editor](https://docs.kadena.io/learn-pact/beginner/web-editor/)
+- [Pact Development on Atom SDK Tutorial](https://docs.kadena.io/learn-pact/beginner/atom-sdk)
 
 ## Review
 

@@ -44,7 +44,7 @@ To get started, navigate to the Pact online editor at <a href="http://pact.kaden
 
 :::info
 
-If you’re not familiar with the module explorer, you can learn more <a href="http://pactlang.org/beginner/pact-online-editor/#module-explorer" target="_blank">here</a>.
+If you’re not familiar with the module explorer, you can learn more <a href="https://docs.kadena.io/learn-pact/beginner/web-editor#module-explorer" target="_blank">here</a>.
 
 :::
 

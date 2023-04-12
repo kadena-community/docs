@@ -480,7 +480,7 @@ In my-coin.repl file, you can check that the failing cases of **debit-if** and *
 
 :::info Note
 
-For more information on running .repl files from Atom, see the tutorial [Contract Interaction > Run REPL File](https://pactlang.org/beginner/contract-interaction/#4-run-repl-file).
+For more information on running .repl files from Atom, see the tutorial [Contract Interaction > Run REPL File](https://docs.kadena.io/learn-pact/beginner/test-in-the-sdk#run-repl-file).
 
 :::
 

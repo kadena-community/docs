@@ -47,7 +47,7 @@ brew install kadena-io/pact/pact
 
 :::info
 
-For more information on installing Pact, you can view the [Pact GitHub page](https://github.com/kadena-io/pact). You can also view [Atom SDK](https://pactlang.org/beginner/pact-on-atom-sdk/) from the Pact Beginner tutorial series for more information.
+For more information on installing Pact, you can view the [Pact GitHub page](https://github.com/kadena-io/pact). You can also view [Atom SDK](https://docs.kadena.io/learn-pact/beginner/atom-sdk) from the Pact Beginner tutorial series for more information.
 
 :::
 

@@ -95,7 +95,7 @@ Links to the Pact tutorials, developer documentation and Kadena homepage can als
 |                                                                                             |                                                                                            |
 | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | <a href="https://pact-language.readthedocs.io/en/latest/" target="_blank">Documentation</a> | Provides an in-depth look at the Pact programming language.                                |
-| <a href="https://pactlang.org/" target="_blank">Tutorials</a>                               | Learn more about Pact by completing tutorials like this.                                   |
+| <a href="https://docs.kadena.io/learn-pact/intro" target="_blank">Tutorials</a>                               | Learn more about Pact by completing tutorials like this.                                   |
 | <a href="https://kadena.io/" target="_blank">Kadena</a>                                     | Explore the Kadena blockchain, which is the enterprise-grade blockchain that Pact runs on. |
 
 :::info Join the Newsletter
