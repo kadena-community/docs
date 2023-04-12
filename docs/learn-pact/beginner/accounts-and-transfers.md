@@ -96,7 +96,7 @@ Define and read the admin-keyset, create the payments module, and give the admin
 
 :::info
 
-If you’re unfamiliar with modules and keyset, our <a href="https://docs.kadena.io/learn-pact/beginner/modules" target="_blank">Pact Modules Tutorial</a> is a great place to get started.
+If you’re unfamiliar with modules and keyset, our <a href="/learn-pact/beginner/modules" target="_blank">Pact Modules Tutorial</a> is a great place to get started.
 
 :::
 
@@ -124,7 +124,7 @@ Define a schema and table with columns **balance** and **keyset**.
 
 :::info
 
-Schema definitions are introduced in the <a href="https://docs.kadena.io/learn-pact/beginner/schemas-and-tables#define-schemas" target="_blank">Pact Schemas and Tables Tutorial</a>.
+Schema definitions are introduced in the <a href="/learn-pact/beginner/schemas-and-tables#define-schemas" target="_blank">Pact Schemas and Tables Tutorial</a>.
 
 :::
 
@@ -134,7 +134,7 @@ This smart contract will contain 3 functions create-account, get-balance, and pa
 
 :::info
 
-You can review each of the function types in the <a href="https://docs.kadena.io/learn-pact/beginner/schemas-and-tables#table-built-in-functions" target="_blank">Schemas and Tables Tutorial</a> as well as the <a href="https://docs.kadena.io/learn-pact/beginner/language-basics#built-in-functions" target="_blank">Pact Language Basics Tutorial</a>.
+You can review each of the function types in the <a href="/learn-pact/beginner/schemas-and-tables#table-built-in-functions" target="_blank">Schemas and Tables Tutorial</a> as well as the <a href="/learn-pact/beginner/language-basics#built-in-functions" target="_blank">Pact Language Basics Tutorial</a>.
 
 :::
 
@@ -243,8 +243,8 @@ If you’d like, you can try deploying this smart contract. You can deploy this 
 
 For help getting started and deploying in each of these environments, try the following tutorials.
 
-- <a href="https://docs.kadena.io/learn-pact/beginner/web-editor" target="_blank">Pact Online Editor</a>
-- <a href="https://docs.kadena.io/learn-pact/beginner/atom-sdk" target="_blank">Pact Development on Atom SDK Tutorial</a>
+- <a href="/learn-pact/beginner/web-editor" target="_blank">Pact Online Editor</a>
+- <a href="/learn-pact/beginner/atom-sdk" target="_blank">Pact Development on Atom SDK Tutorial</a>
 
 ## Review
 

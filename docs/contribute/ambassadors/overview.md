@@ -95,4 +95,4 @@ Yes. You would need to be separately selected for each by Kadena and if so selec
 
 **Does Kadena’s Code of Conduct Apply to me?**
 
-Yes. We encourage thoughtful, respectful and accurate dialogue about Kadena and we published a Kadena [Code of Conduct](https://docs.kadena.io/contribute/code-of-conduct) applicable to our social media communities. We expect you to abide that Code of Conduct while acting as an Ambassador and if you a Moderator or Community Channel Leader enforce that Code of Conduct in the social media channel that you moderate and/or monitor.
+Yes. We encourage thoughtful, respectful and accurate dialogue about Kadena and we published a Kadena [Code of Conduct](/contribute/code-of-conduct) applicable to our social media communities. We expect you to abide that Code of Conduct while acting as an Ambassador and if you a Moderator or Community Channel Leader enforce that Code of Conduct in the social media channel that you moderate and/or monitor.

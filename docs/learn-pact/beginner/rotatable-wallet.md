@@ -280,9 +280,9 @@ Your Rotatable Wallet smart contract is complete! If you’d like, you can deplo
 
 For more information on deploying this smart contract, view the following tutorials.
 
-- <a href="https://docs.kadena.io/learn-pact/beginner/hello-world" target="_blank">Hello World with Pact</a>
-- <a href="https://docs.kadena.io/learn-pact/beginner/web-editor" target="_blank">Pact Online Editor</a>
-- <a href="https://docs.kadena.io/learn-pact/beginner/atom-sdk" target="_blank">Pact Development on Atom SDK</a>
+- <a href="/learn-pact/beginner/hello-world" target="_blank">Hello World with Pact</a>
+- <a href="/learn-pact/beginner/web-editor" target="_blank">Pact Online Editor</a>
+- <a href="/learn-pact/beginner/atom-sdk" target="_blank">Pact Development on Atom SDK</a>
 
 ## Review
 

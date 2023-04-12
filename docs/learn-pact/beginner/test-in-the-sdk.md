@@ -44,9 +44,9 @@ Subscribe to our <a href="https://www.youtube.com/channel/UCB6-MaxD2hlcGLL70ukHo
 
 Before starting this tutorial, it helps to have completed the following pre-requisites.
 
-- <a href="https://docs.kadena.io/learn-pact/beginner/atom-sdk" target="_blank">Pact Development on Atom SDK</a>: The SDK is required for testing in the SDK. You can get up and running with the SDK using this tutorial.
+- <a href="/learn-pact/beginner/atom-sdk" target="_blank">Pact Development on Atom SDK</a>: The SDK is required for testing in the SDK. You can get up and running with the SDK using this tutorial.
 
-- <a href="https://docs.kadena.io/learn-pact/beginner/loans/" target="_blank">Project: Loans</a>: You will be building a REPL file for the Loans project covered in a separate tutorial. This isn’t required but is a helpful way to better understand the smart contract used throughout this tutorial.
+- <a href="/learn-pact/beginner/loans/" target="_blank">Project: Loans</a>: You will be building a REPL file for the Loans project covered in a separate tutorial. This isn’t required but is a helpful way to better understand the smart contract used throughout this tutorial.
 
 ## REPL Overview
 
@@ -266,9 +266,9 @@ For this code challenge, you will need to make calls to a few functions from the
 
 | function                                                                                                  | purpose                                                             |
 | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| <a href="https://docs.kadena.io/learn-pact/beginner/loans/#52-create-a-loan" target="_blank">create-a-loan</a> | Accepts parameters to add the appropriate information to each table |
-| <a href="https://docs.kadena.io/learn-pact/beginner/loans/#53-assign-a-loan" target="_blank">assign-a-loan</a> | Assigns a loan to an entity.                                        |
-| <a href="https://docs.kadena.io/learn-pact/beginner/loans/#54-sell-a-loan" target="_blank">sell-a-loan</a>     | Sell a loan and log details in the loan history table.              |
+| <a href="/learn-pact/beginner/loans/#52-create-a-loan" target="_blank">create-a-loan</a> | Accepts parameters to add the appropriate information to each table |
+| <a href="/learn-pact/beginner/loans/#53-assign-a-loan" target="_blank">assign-a-loan</a> | Assigns a loan to an entity.                                        |
+| <a href="/learn-pact/beginner/loans/#54-sell-a-loan" target="_blank">sell-a-loan</a>     | Sell a loan and log details in the loan history table.              |
 
 Follow the links provided or view the loans.pact file for more details.
 
@@ -283,7 +283,7 @@ Call the **create-a-loan**, **assign-a-loan**, and **sell-a-loan** functions fro
 
 :::info
 
-If you have not already completed the <a href="https://docs.kadena.io/learn-pact/beginner/loans/" target="_blank">Project: Loans tutorial</a>, try working through this tutorial to build the entire Loans smart contract for yourself!
+If you have not already completed the <a href="/learn-pact/beginner/loans/" target="_blank">Project: Loans tutorial</a>, try working through this tutorial to build the entire Loans smart contract for yourself!
 
 :::
 
@@ -295,8 +295,8 @@ Here is a brief overview of the functions you will call in this challenge.
 
 | function                                                                                                                     | purpose                                      |
 | ---------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| <a href="https://docs.kadena.io/learn-pact/beginner/loans/#59-read-loan-inventory" target="_blank">read-loan-inventory</a>        | Reads all loans in the loan inventory table. |
-| <a href="https://docs.kadena.io/learn-pact/beginner/loans/#510-read-loans-with-status" target="_blank">read-loans-with-status</a> | Reads all loans with a specific status.      |
+| <a href="/learn-pact/beginner/loans/#59-read-loan-inventory" target="_blank">read-loan-inventory</a>        | Reads all loans in the loan inventory table. |
+| <a href="/learn-pact/beginner/loans/#510-read-loans-with-status" target="_blank">read-loans-with-status</a> | Reads all loans with a specific status.      |
 
 :::caution Code Challenge
 

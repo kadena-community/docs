@@ -458,7 +458,7 @@ If you have a request key from a previously submitted transaction, you can also 
 
 The ability to write, deploy, and call smart contracts from within Chainweaver makes it one of the most comprehensive workbench tools for blockchain. Navigate to the Contracts section and utilize the integrated development environment (IDE) for developing and testing Pact smart contracts.
 
-Pact is the safe and simple smart contract language used for interacting with the Kadena blockchain. Visit [learn pact](https://docs.kadena.io/learn-pact/intro) for developer tutorials covering key concepts and real projects you can deploy yourself.
+Pact is the safe and simple smart contract language used for interacting with the Kadena blockchain. Visit [learn pact](/learn-pact/intro) for developer tutorials covering key concepts and real projects you can deploy yourself.
 
 ## Deploy your own smart contract <a href="#deploy-your-own-smart-contract" id="deploy-your-own-smart-contract"></a>
 

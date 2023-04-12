@@ -388,7 +388,7 @@ Investigate the smart contract to try and determine why you are getting the resp
 
 ### Deploy the Contract
 
-You are now ready to deploy the **Simple Payments** smart contract. For information on deploying a smart contract, view <a href="https://docs.kadena.io/learn-pact/beginner/hello-world/#deploy-to-the-testnet" target="_blank">Deploy to the Testnet</a> from the Hello World with Pact tutorial.
+You are now ready to deploy the **Simple Payments** smart contract. For information on deploying a smart contract, view <a href="/learn-pact/beginner/hello-world/#deploy-to-the-testnet" target="_blank">Deploy to the Testnet</a> from the Hello World with Pact tutorial.
 
 ### **Deployed Payments Contract Function Call**
 

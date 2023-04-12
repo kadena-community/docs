@@ -4,7 +4,7 @@ Chainweb supports the use of the Pact smart contract language, including the `lo
 
 ### **Setup** <a href="#setup" id="setup"></a>
 
-Follow the instructions at the [Welcome to Pact](https://docs.kadena.io/learn-pact/beginner/welcome-to-pact) section to get started with Pact learning the basics. For a more straightforward and technical introduction, just [readthedocs](https://pact-language.readthedocs.io).
+Follow the instructions at the [Welcome to Pact](/learn-pact/beginner/welcome-to-pact) section to get started with Pact learning the basics. For a more straightforward and technical introduction, just [readthedocs](https://pact-language.readthedocs.io).
 
 In particular, for any script going on Chainweb, you'll need to understand the [API request format](https://pact-language.readthedocs.io/en/stable/pact-reference.html#api-request-formatter).
 
