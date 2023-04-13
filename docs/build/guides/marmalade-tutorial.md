@@ -190,7 +190,7 @@ A tutorial on minting a PFT with limited supply, fixed quote, and royalty.
 
 marmalade-tutorial.art Token
 
-If you haven’t already, you will need to make a Chainweaver wallet. Go to [this tutorial](https://docs.kadena.io/basics/chainweaver/chainweaver-user-guide) if you need help building one.
+If you haven’t already, you will need to make a Chainweaver wallet. Go to [this tutorial](/basics/chainweaver/chainweaver-user-guide) if you need help building one.
 
 ### Interplanetary Storage Saving
 
@@ -211,7 +211,7 @@ Although storing data on-chain is possible, and recommended for certain use case
 And once done, your file is pinned on the decentralized IPFS!
 
 1. Finally, take note of the CID from the uploaded picture and save the link with the format https://gateway.pinata.cloud/ipfs/{YourPicture’sCID}
-2. We’re now one step closer to minting the Token on-chain! Next, If you have a private public key pair, we’ll go straight to creating and minting the token. If not follow [this guide](https://docs.kadena.io/basics/chainweaver/chainweaver-user-guide#keys-accounts-and-ownership-) to make the private/public keychain and account.
+2. We’re now one step closer to minting the Token on-chain! Next, If you have a private public key pair, we’ll go straight to creating and minting the token. If not follow [this guide](/basics/chainweaver/chainweaver-user-guide#keys-accounts-and-ownership-) to make the private/public keychain and account.
 
 ### Nothing as Cold as a Mint
 

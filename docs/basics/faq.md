@@ -78,4 +78,4 @@ Official information for running a node is maintained at [this GitHub repository
 
 ### **How do I become a miner?**
 
-Official information for mining KDA is maintained at [this GitHub repository](https://github.com/kadena-io/chainweb-miner), and supplementary resources here.
+Official information for mining KDA is maintained at [this GitHub repository](https://github.com/kadena-io/chainweb-mining-client), and supplementary resources here.

@@ -18,7 +18,7 @@ KDA custody tools for desktop and mobile, with support guides to get you started
 Official Kadena wallet for advanced blockchain usage and smart contract development.
 The desktop edition has a signing API to interact with dApps on Kadena Chainweb.
 
-[User Guide](https://docs.kadena.io/basics/chainweaver/chainweaver-user-guide)
+[User Guide](/basics/chainweaver/chainweaver-user-guide)
 
 [Web beta](https://chainweaver.kadena.network)
 

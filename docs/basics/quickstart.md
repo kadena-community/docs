@@ -155,4 +155,4 @@ Learn Pact, Kadena’s human-readable smart contract language
 
 Already have a dApp idea? Apply to our Developer Program to get technical and marketing support from Kadena.
 
-- [Go to Developer Program](https://kadena.io/developerprogram)
+- [Go to Developer Program](/basics/support/developer-program)

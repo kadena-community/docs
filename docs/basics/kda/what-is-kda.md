@@ -37,4 +37,4 @@ Current circulating supply can be found on the [Kadena Block Explorer](https://e
 
 ## How do I get KDA?
 
-Resources and guides for securing, managing and moving KDA are available [here](https://docs.kadena.io/basics/kda/manage-kda).
+Resources and guides for securing, managing and moving KDA are available [here](/basics/kda/manage-kda).

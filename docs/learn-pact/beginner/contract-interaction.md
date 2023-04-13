@@ -92,8 +92,8 @@ Each number in the image corresponds to one of the files you will work with.
 
 Both auth.pact and payments.pact are smart contracts that you have worked with in previous tutorials. If you would like to learn more about these smart contracts, feel free to view each of their tutorials.
 
-* **Auth Module:** <a href="https://pactlang.org/beginner/project-rotatable-wallet/" target="_blank">Project: Rotatable Wallet</a>
-* **Payments Module:** <a href="https://pactlang.org/beginner/pact-accounts-and-transfers/" target="_blank">Accounts and Transfers</a>
+* **Auth Module:** <a href="/learn-pact/beginner/rotatable-wallet/" target="_blank">Project: Rotatable Wallet</a>
+* **Payments Module:** <a href="/learn-pact/beginner/accounts-and-transfers/" target="_blank">Accounts and Transfers</a>
 
 :::
 
@@ -157,7 +157,7 @@ Define a function enforce-user-auth that you can use to verify user authorizatio
 
 :::info
 
-A function similar to this is covered in Challenge <a href="https://pactlang.org/beginner/project-rotatable-wallet/#42-enforce-user" target="_blank">4.2 in Project Rotatable Wallet</a>. You can look back to this challenge for more information to help get you started.
+A function similar to this is covered in Challenge <a href="/learn-pact/beginner/rotatable-wallet/#42-enforce-user" target="_blank">4.2 in Project Rotatable Wallet</a>. You can look back to this challenge for more information to help get you started.
 
 :::
 
@@ -282,7 +282,7 @@ Load the **auth** module into the **payments.repl** file.
 
 :::info
 
-Transactions and loading are covered in more detail in <a href="https://pactlang.org/beginner/testing-pact-code-in-the-sdk/" target="_blank">Testing Pact Code in the SDK</a>.
+Transactions and loading are covered in more detail in <a href="/learn-pact/beginner/test-in-the-sdk/" target="_blank">Testing Pact Code in the SDK</a>.
 
 :::
 
@@ -367,7 +367,7 @@ The output to your terminal should look similar to the image shown below.
 
 :::info
 
-For more information on running files from the terminal, view <a href="https://pactlang.org/beginner/testing-pact-code-in-the-sdk/#run-repl-file" target="_blank">Testing Pact Code in the SDK</a>.
+For more information on running files from the terminal, view <a href="/learn-pact/beginner/test-in-the-sdk/#run-repl-file" target="_blank">Testing Pact Code in the SDK</a>.
 
 :::
 
