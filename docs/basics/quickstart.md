@@ -19,7 +19,7 @@ Building useful applications on a blockchain doesn’t have to be hard or expens
 
 ## Sign the Memory Wall
 
-Engrave your name on the Kadena “Memory Wall” smart contract.
+Engrave your name with the Kadena “Memory Wall” smart contract.
 
 **What you will accomplish**
 
@@ -29,7 +29,7 @@ Engrave your name on the Kadena “Memory Wall” smart contract.
 ### Step-by-step instructions
 
 1. Go to [hello.chainweb.com](https://hello.chainweb.com)
-2. Type your name, then submit
+2. Type your name and then submit
 3. Wait for the transaction to be mined in a block
 4. Upon success, click the Block Explorer link or go to explorer.chainweb.com to find your transaction under “Recent Transactions”
 
@@ -42,7 +42,7 @@ Something hidden just allowed you to instantly interact with a real blockchain, 
 ### Additional Resources
 
 - Read more about gas stations [here](https://medium.com/kadena-io/the-first-crypto-gas-station-is-now-on-kadenas-blockchain-6dc43b4b3836).
-- [See the Smart Contract Code For Memory Wall](https://github.com/kadena-io/developer-scripts/tree/master/pact/dapp-contracts/memory-wall)
+- [See the Smart Contract Code for Memory Wall](https://github.com/kadena-io/developer-scripts/tree/master/pact/dapp-contracts/memory-wall)
 
 ## Setup Chainweaver
 
@@ -67,7 +67,7 @@ To download Chainweaver and find detailed instructions on Chainweaver usage go h
 
 ## Testnet Account Setup
 
-Create and fund a Testnet account using the “Coin Faucet” smart contract
+Create and fund a Testnet account on chain 1 using the “Coin Faucet” smart contract.
 
 ### What you will accomplish
 
@@ -76,45 +76,45 @@ Create and fund a Testnet account using the “Coin Faucet” smart contract
 
 ### Step-by-step instructions
 
-1. In the Keys section of Chainweaver, copy your public key
+1. In the Keys section of Chainweaver and copy your public key
 2. Go to [faucet.testnet.chainweb.com](https://faucet.testnet.chainweb.com/)
 3. Select “Create and fund new account”
-4. In the “Public Key” field, enter your public key
-5. In the “Account Name” field, enter some unique name
+4. Enter your public key in the “Public Key” field
+5. Enter some unique name in the “Account Name” field
 6. Select “Create and fund new account”
 7. Wait about 30 seconds, then select “Check Request Status” to see the transaction confirmation message
-8. Go back to Chainweaver, in the account section click on "+ Watch Account"
+8. Go back to Chainweaver and in the account section click on "+ Watch Account"
 9. Type the account name you have chosen for yourself and click "Add"
 10. You should see all 20 tokens you have received from the Testnet faucet!
 
 ### Additional Resources
 
-- [See The Smart Contract Code For Coin Faucet](https://github.com/kadena-io/developer-scripts/tree/master/pact/dapp-contracts/faucet)
+- [See the Smart Contract Code for Coin Faucet](https://github.com/kadena-io/developer-scripts/tree/master/pact/dapp-contracts/faucet)
 
 ## Pacty Parrots
 
-Play “Pacty Parrots” game to see how dApps and wallets interact.
+Play the “Pacty Parrots” game to see how dApps and wallets interact.
 
 ### What you will accomplish
 
 - Sign a transaction
 - See how dApps interact with wallets
-- Win some coins! (maybe)
+- Win some coins! (Maybe)
 
 ### Step-by-step instructions
 
 1. Make sure Chainweaver is still open on your computer
 2. Go to [pactyparrots.testnet.chainweb.com](http://pactyparrots.testnet.chainweb.com/)
-3. Skim through the game rules, then enter the account name you recently created
+3. Skim through the game rules and then enter the account name you recently created
 4. Select “Start new round” to begin the game
 5. When Chainweaver pops up you will be prompted with a signing request which has 3 parts:
 
 - Configuration: View transaction info and adjust settings if desired
-- Sign: Select your account name in each of the 3 “Grant Capabilities” fields
-- Preview: You should see a Raw Response of “Write succeeded!” If so, select “Submit”
+- Sign: Select your public key in each of the 3 “Grant Capabilities” fields
+- Preview: You should see a Raw Response of “Write succeeded!” and if so select “Submit”
 
-6. Watch the parrots dance and wait for your result.
-7. Choose to “Spin again” or “Cash out” which will prompt another transaction to sign via Chainweaver.
+6. Watch the parrots dance and wait for your result
+7. Choose to “Spin again” or “Cash out” which will prompt another transaction to sign via Chainweaver
 
 :::note Key Takeaways
 
@@ -128,8 +128,8 @@ As a developer on Kadena, when your dApp needs to send a signed transaction, sim
 
 ### Additional Resources
 
-- [See The Smart Contract Code for Pacty Parrots](https://github.com/kadena-io/developer-scripts/tree/master/pact/dapp-contracts/pacty-parrot)
-- [See The Documentation For Implementing Signing API](https://kadena-io.github.io/signing-api/)
+- [See the Smart Contract Code for Pacty Parrots](https://github.com/kadena-io/developer-scripts/tree/master/pact/dapp-contracts/pacty-parrot)
+- [See the Documentation for Implementing the Signing API](https://kadena-io.github.io/signing-api/)
 
 ## Apply your knowledge to build a brand new dApp
 
@@ -143,13 +143,13 @@ As a developer on Kadena, when your dApp needs to send a signed transaction, sim
 
 ## What’s Next?
 
-You are now familiar with the core concepts and tools for developing powerful and user-friendly applications with Kadena. Take you learning to the next level with any of these paths:
+You are now familiar with the core concepts and tools for developing powerful and user-friendly applications with Kadena. Take your learning to the next level with any of these paths:
 
 Follow a guided template to create a complete dApp with a React frontend.
 
 - [Go to create-pact-app](https://github.com/kadena-io/create-pact-app)
 
-Learn Pact, Kadena’s human-readable smart contract language
+Learn Pact, Kadena’s human-readable smart contract language.
 
 - [Go to Pact Developer Tutorials](/learn-pact/intro)
 
