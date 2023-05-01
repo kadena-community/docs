@@ -1,0 +1,18 @@
+{
+  "ignorePatterns": [],
+  "replacementPatterns": [
+    {
+      "pattern": "^\\.(.+/)+([^\\.#]+)(#.*)?$",
+      "replacement": ".$1$2.md"
+    },
+    {
+      "pattern": "^/(.+/)+([^\\.#]+)(#.*)?$",
+      "replacement": "{{BASEURL}}/docs/$1$2.md"
+    },
+    {
+      "pattern": "^/(img/.*)",
+      "replacement": "{{BASEURL}}/static/$1"
+    }
+  ],
+  "aliveStatusCodes": [0, 429, 200, 203]
+}
