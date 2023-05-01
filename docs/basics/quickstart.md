@@ -63,7 +63,7 @@ Setup Chainweaver, Kadena’s official wallet and developer workbench.
 - Record recovery phrase
 - Verify recovery phrase
 
-To download Chainweaver and find detailed instructions on Chainweaver usage go here [Chainweaver User Guide](chainweaver/chainweaver-user-guide).
+To download Chainweaver and find detailed instructions on Chainweaver usage go here [Chainweaver User Guide](./chainweaver/chainweaver-user-guide).
 
 ## Testnet Account Setup
 

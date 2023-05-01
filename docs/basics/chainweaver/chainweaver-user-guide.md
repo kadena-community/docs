@@ -64,7 +64,7 @@ With this icon
 
 :::note Help
 
-See the [Chainweaver Troubleshoot](chainweaver-troubleshooting.md) page if you encountered issues installing the .deb
+See the [Chainweaver Troubleshoot](./chainweaver-troubleshooting.md) page if you encountered issues installing the .deb
 
 :::
 
@@ -100,7 +100,7 @@ Upgrade to the latest version of Chainweaver by double-clicking the “Upgrade K
 
 :::note Help
 
-See the [Chainweaver Troubleshoot ](chainweaver-troubleshooting.md)page if you encountered issues installing the .ova
+See the [Chainweaver Troubleshoot ](./chainweaver-troubleshooting.md)page if you encountered issues installing the .ova
 
 :::
 
