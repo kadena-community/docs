@@ -22,7 +22,7 @@ In 2020, Kadena's public blockchain performed a live network expansion from 10 c
 **Informational Resources**
 
 - Article: [Kadena’s Public Blockchain 101](https://medium.com/kadena-io/all-about-chainweb-101-and-faqs-6bd88c325b45)
-- Whitepapers: [Chainweb layer 1](chainweb-layer-1.md)
+- Whitepapers: [Chainweb layer 1](./chainweb-layer-1.md)
 - Article: [How to scale a Proof of Work Blockchain](https://medium.com/kadena-io/how-to-scale-a-proof-of-work-blockchain-9233e5b4b62)&#x20;
 
 :::note
@@ -38,7 +38,7 @@ Pact is a human readable and Turing Incomplete smart contract language purpose-b
 #### **Informational Resources**
 
 - Article: [Safer, Smarter Contracts with Pact](https://medium.com/kadena-io/safer-smarter-contracts-with-pact-e86b9ccaca9f)
-- Whitepaper: [Pact Smart Contract Language](pact-smart-contract-language.md)
+- Whitepaper: [Pact Smart Contract Language](./pact-smart-contract-language.md)
 - Documentation: [Pact GitHub](https://github.com/kadena-io/pact)
 - Documentation: [Pact Language Reference](https://pact-language.readthedocs.io/en/latest/pact-reference.html)
 
@@ -55,7 +55,7 @@ Kuro has been proven to support up to 8,000 transactions per second across 500 n
 **Informational Resources**
 
 - Article: [Kadena's layer 2 blockchain 101](https://medium.com/kadena-io/scalablebft-kadenas-private-blockchain-101-c99895c0fd50)
-- Whitepaper: [Kuro layer 2](kuro-layer-2.md)
+- Whitepaper: [Kuro layer 2](./kuro-layer-2.md)
 
 :::note
 
@@ -73,7 +73,7 @@ With 20 chains, the Kadena blockchain platform achieves an industry-leading 480,
 
 - Article: [Kadena completes blockchain scaling to 480,000 TPS on 20 Chains](https://medium.com/kadena-io/kadena-completes-hybrid-blockchain-scaling-to-480-000-transactions-per-second-on-20-chains-5a652295533c)
 - Article: [Kadena's layer 2 blockchain 101](https://medium.com/kadena-io/scalablebft-kadenas-private-blockchain-101-c99895c0fd50)
-- Whitepaper: [Kuro layer 2](kuro-layer-2.md)
+- Whitepaper: [Kuro layer 2](./kuro-layer-2.md)
 
 :::note
 

@@ -24,7 +24,7 @@ Kadena's Developer Program is designed to help committed developers build high-i
 
 ### Apply today!
 
-Contact Jeffrey on Discord (Jef\_f#2495) or Telegram (@SpaceJeff) to start your enrolment.
+Contact Jeffrey on Discord (Jef\_f#2495) or Telegram (@SpaceJeff) to start your enrollment.
 
 ### FAQ
 

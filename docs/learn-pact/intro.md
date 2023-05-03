@@ -20,7 +20,7 @@ Pact Developer Tutorials offer the training needed to learn the Pact programming
 These free tutorials have no prerequisites. Learn whenever and however you want using the documentation and complimentary videos for each lesson.
 ## Get Started
 
-Start with our [Beginner Tutorial Series](beginner/welcome-to-pact) which covers Pact’s fundamental concepts, followed by real smart contract projects you can deploy to our Testnet.
+Start with our [Beginner Tutorial Series](./beginner/welcome-to-pact) which covers Pact’s fundamental concepts, followed by real smart contract projects you can deploy to our Testnet.
 ## Connect with our community
 
 - Join the [Discord Channel](https://discord.gg/Z2fq23YJgg) for community discussion

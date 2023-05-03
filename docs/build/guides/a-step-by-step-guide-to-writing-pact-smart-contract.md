@@ -6,14 +6,14 @@ Goliath Faucet Contract Goliath Wallet UI with TypeScript + React frontend The p
 
 ### Content
 
-1. [Overview](a-step-by-step-guide-to-writing-pact-smart-contract.md#overview)
-2. [Introduction](a-step-by-step-guide-to-writing-pact-smart-contract.md#introduction)
-3. [Namespaces](a-step-by-step-guide-to-writing-pact-smart-contract.md#namespaces)
-4. [Keysets](a-step-by-step-guide-to-writing-pact-smart-contract.md#keysets)
-5. [Interfaces & Modules](a-step-by-step-guide-to-writing-pact-smart-contract.md#interfaces-and-modules)
-6. [Constants](a-step-by-step-guide-to-writing-pact-smart-contract.md#constants)
-7. [Capabilities](a-step-by-step-guide-to-writing-pact-smart-contract.md#capabilities)
-8. [Functions](a-step-by-step-guide-to-writing-pact-smart-contract.md#functions)
+1. [Overview](./a-step-by-step-guide-to-writing-pact-smart-contract.md#overview)
+2. [Introduction](./a-step-by-step-guide-to-writing-pact-smart-contract.md#introduction)
+3. [Namespaces](./a-step-by-step-guide-to-writing-pact-smart-contract.md#namespaces)
+4. [Keysets](./a-step-by-step-guide-to-writing-pact-smart-contract.md#keysets)
+5. [Interfaces & Modules](./a-step-by-step-guide-to-writing-pact-smart-contract.md#interfaces-and-modules)
+6. [Constants](./a-step-by-step-guide-to-writing-pact-smart-contract.md#constants)
+7. [Capabilities](./a-step-by-step-guide-to-writing-pact-smart-contract.md#capabilities)
+8. [Functions](./a-step-by-step-guide-to-writing-pact-smart-contract.md#functions)
 
 {% hint style="info" %}
 **Tip**
