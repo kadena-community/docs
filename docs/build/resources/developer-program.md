@@ -33,17 +33,17 @@ Kadena's Developer Program is designed to help committed developers build high-i
 
 ## Apply today!
 
-Contact Jeffrey on Discord (Jef_f#2495) or Telegram (@SpaceJeff) to start your enrolment.&#x20;
+Contact Jeffrey on Discord (Jef_f#2495) or Telegram (@SpaceJeff) to start your enrollment.
 
 ## FAQ
 
-### **Who can enrol in this program?**
+### **Who can enroll in this program?**
 
 The program is for developers who intend to launch applications on Kadena. It is open to professional developers and organizations, as well as enthusiast developers and students.
 
-### **When will my enrolment become activated?**
+### **When will my enrollment become activated?**
 
-Kadena will respond to your enrolment request within a week of submission. Anticipate receiving an email to the address provided in the request form.
+Kadena will respond to your enrollment request within a week of submission. Anticipate receiving an email to the address provided in the request form.
 
 ### **Does Kadena endorse any specific development areas or use cases?**
 
