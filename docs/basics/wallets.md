@@ -52,11 +52,10 @@ Zelcore has a signing API to interact with dApps on Kadena Chainweb.
 
 [Zelcore.io](https://zelcore.io)
 
-### X-Wallet
+### eckoWallet
 
-Early v1 web extension wallet.
-X-Wallet does not have a signing API that interacts with current dApps.
-Within X-Wallet users will be able to send and receive assets, execute cross-chain transfers, view transactions, interact with dApps, and more.
+Web extension wallet. does have a signing API that interacts with current dApps.
+Within eckoWallet are able to send and receive assets, execute cross-chain transfers, view transactions, interact with dApps, and more.
 
-[Chrome Web Store](https://chrome.google.com/webstore/detail/x-wallet/bofddndhbegljegmpmnlbhcejofmjgbn?hl=en&authuser=1)
+[Chrome Web Store](https://chrome.google.com/webstore/detail/eckowallet/bofddndhbegljegmpmnlbhcejofmjgbn)
 
