@@ -7,7 +7,7 @@ Along the way, we'll learn how to write and test smart contracts in Pact, the ba
 ### **Voting on the Blockchain**
 
 :::info
-The complete code of this tutorial can also be found in the [github repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp). 
+The complete code of this tutorial can also be found in the [github repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp).
 :::
 
 Elections are a necessary part of democracies and democratic organizations. The voting systems used to administer elections must ensure a fair process and trustworthy result — easier said than done! Election security is a deep, fascinating topic, especially when it comes to online voting.
@@ -42,8 +42,8 @@ mkdir front-end
 
 We've got the `election-dapp` directory and two additional sub-directories:
 
-* `pact`, which holds the smart contracts
-* `front-end`, which holds the front-end part of our application
+- `pact`, which holds the smart contracts
+- `front-end`, which holds the front-end part of our application
 
 ### Implementing the Voting Smart Contract
 
@@ -59,19 +59,19 @@ In this section we will focus on steps 1 to 3. Later, we'll deploy our smart con
 
 In your project directory, let's create two files:
 
-* `pact/election.pact`, which will hold the source code for our smart contract
-* `pact/election.repl`, which will hold our tests
+- `pact/election.pact`, which will hold the source code for our smart contract
+- `pact/election.repl`, which will hold our tests
 
-:::info 
-What is Pact REPL? The Pact REPL is an environment where we can load our Pact source code and work with it interactively. It's a best practice to include a `.repl` file next to your source code which imports your contract, calls functions from it, and inspects its current state to ensure everything is correct. 
+:::info
+What is Pact REPL? The Pact REPL is an environment where we can load our Pact source code and work with it interactively. It's a best practice to include a `.repl` file next to your source code which imports your contract, calls functions from it, and inspects its current state to ensure everything is correct.
 :::
 
-We also have to import some dependencies to our project but first let's provide some context to better understand why we need them. In introduction we explained that our voting smart contract allows anyone with a wallet address to vote for a candidate. Kadena uses an account model so creating a wallet means creating an account for the native coin, KDA, which is a smart contract deployed on Kadena blockchain. The name of this contract is intuitively `coin`.
+We also have to import some dependencies to our project but first let's provide some context to better understand why we need them. In the introduction we explained that our voting smart contract allows anyone with a wallet address to vote for a candidate. Kadena uses an account model, so creating a wallet means creating an account for the native coin, KDA, which is a smart contract deployed on Kadena blockchain. The name of this contract is intuitively `coin`.
 
 The `coin` contract itself has two additional dependencies:
 
-* `fungible-v2`, an interface that each fungible token deployed on Kadena should implement
-* `fungible-xchain-v1`, an interface that provides standard capability for cross-chain transfers.
+- `fungible-v2`, an interface that each fungible token deployed on Kadena should implement
+- `fungible-xchain-v1`, an interface that provides standard capability for cross-chain transfers.
 
 To be able to properly test our voting contract we will need to invoke functions defined in the `coin` contract so we have to include it in our project together with its dependencies, the `fungible-v2` and `fungible-xchain-v1` interfaces.
 
@@ -108,7 +108,7 @@ Let's copy the following code in the `election.pact` file:
 
 The `GOVERNANCE` keyword on the module definition line is the _module governance capability_ and it references the capability defined right below using the `defcap` construct. It's purpose is to restrict access to the module upgrade and administration operations, for example later on we'll add an `insert-candidate` function that only administrators should be able to call and we'll use the GOVERNANCE capability to guard it. The implementation can be as simple as in our example, enforcing a keyset or more complex like tallying a stakeholder vote on an upgrade hash.
 
-:::note 
+:::note
 Module names and keyset definitions are required to be unique. We will mention this again when we get to deploy our contract to Testnet, but you should keep this in mind when you think about choosing a name for your modules and keysets.
 :::
 
@@ -185,14 +185,14 @@ Pact smart contracts store data in tables and each table has its own schema. For
 
 To summarize, we created a table to store candidates and their associated vote counts and one for storing what accounts have already voted to prevent double-voting.
 
-:::info 
-To find out about all Pact's supported types you can check the [Data Types](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=types#data-types) section in the Pact official documentation. 
+:::info
+To find out about all Pact's supported types you can check the [Data Types](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=types#data-types) section in the Pact official documentation.
 :::
 
-:::note 
+:::note
 Pact implements a key-row model which means a row is accessed by a single key. The key is implicitly present in the schema but it is our responsibility as developers to design the schema in a way that we can retrieve the information that we need using a single row query. Multiple row queries are very expensive and should not be used.
 
-The row key is always a simple string, to not be confused with the cryptographic keys used for signing transaction. 
+The row key is always a simple string, to not be confused with the cryptographic keys used for signing transaction.
 :::
 
 #### Functionality
@@ -331,8 +331,8 @@ When a module is deployed, the tables that it defines need to be created. This i
 )
 ```
 
-:::info 
-Code outside the module will be called when the module is loaded the first time, when its deployed or upgraded. In the snippet above we are checking if the `upgrade` key that comes from transaction data is `true` and only execute the `create-table` calls if it's not since we cannot recreate tables when upgrading a module. 
+:::info
+Code outside the module will be called when the module is loaded the first time, when its deployed or upgraded. In the snippet above we are checking if the `upgrade` key that comes from transaction data is `true` and only execute the `create-table` calls if it's not since we cannot recreate tables when upgrading a module.
 :::
 
 You can find the complete source code of the `election.pact` contract [here](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp/pact).
@@ -349,8 +349,8 @@ These are general concepts that you should keep in mind when you develop Pact sm
 
 We wrote quite a bit of code but at this point we don't know if it's working correctly. A critical step in smart-contract development process is writing a proper set of tests which is what we're going to focus on now.
 
-:::tip 
-We separated writing functionality and writing tests to make it easier to follow this tutorial but in a real-world scenario you should work on these in parallel. 
+:::tip
+We separated writing functionality and writing tests to make it easier to follow this tutorial but in a real-world scenario you should work on these in parallel.
 :::
 
 We're going to start by setting up the environment data that we need for our tests, load the required modules, i.e. `coin` module and of our `election` module and create some KDA accounts that we will use to vote later on.
@@ -438,8 +438,8 @@ Now that this initial setup is done, we can go on and write some tests. Notice t
 
 In the snippet above we've learned that we can use `expect-failure` to test that an expression will fail and that we can configure the keys and capabilities signing a transaction using `env-sigs`.
 
-:::note 
-REPL-Only Functions `expect-failure` and `env-sigs` are two of the many REPL-only functions that we can use in `.repl` files to test Pact smart-contracts by simulating blockchain environment. You can check the [complete list of REPL-only functions](https://pact-language.readthedocs.io/en/latest/pact-functions.html#repl-only-functions) in the Pact official documentation. 
+:::note
+REPL-Only Functions `expect-failure` and `env-sigs` are two of the many REPL-only functions that we can use in `.repl` files to test Pact smart-contracts by simulating blockchain environment. You can check the [complete list of REPL-only functions](https://pact-language.readthedocs.io/en/latest/pact-functions.html#repl-only-functions) in the Pact official documentation.
 :::
 
 Next we're going to add some candidates and check if their number of votes is correctly initialized.
@@ -519,10 +519,10 @@ Moving on, we want to validate that votes are correctly recorded, the `VOTED` ev
 
 Notice the `let` construct that we used above, it is helpful when you need to bind some variables to be in the same scope as other logic that uses them. In our case we first loaded the number of votes and binded the result to `count` variable which we compared with the new count after submitting a vote. Feel free to read more about [`let` and `let*`](https://pact-language.readthedocs.io/en/latest/pact-reference.html#let) in Pact official documentation.
 
-:::info 
+:::info
 Write a test Can you think of some cases that we didn't cover? Hint: ACCOUNT-OWNER.
 
-Try to write a test that validates that only the correct owner of an account can vote. 
+Try to write a test that validates that only the correct owner of an account can vote.
 :::
 
 The only thing left is to run these tests and confirm everything is working:
@@ -532,38 +532,36 @@ $ pact
 pact> (load "election.repl")
 ```
 
-:::tip 
-The REPL preserves state between subsequent runs unless the optional parameter `reset` is set to true `(load "election.repl" true)`. 
+:::tip
+The REPL preserves state between subsequent runs unless the optional parameter `reset` is set to true `(load "election.repl" true)`.
 :::
 
 Let's recap what we've learned in this section:
 
-* we can test Pact smart-contracts using `.repl` scripts that simulate blockchain environment through a set of REPL-only functions
-* before writing tests we need to make sure all required modules are loaded as well as KDA accounts are created if we need them
-* we can test functions returned values, emitted events, failure scenarios (and much more that we couldn't cover)
-:::  
+- we can test Pact smart-contracts using `.repl` scripts that simulate blockchain environment through a set of REPL-only functions
+- before writing tests we need to make sure all required modules are loaded as well as KDA accounts are created if we need them
+- we can test functions returned values, emitted events, failure scenarios (and much more that we couldn't cover)
+  :::
 
 ### Implementing the Gas Station
 
 A unique feature of Kadena is the ability to allow gas to be paid by a different entity than the one who initiated the transaction. This entity is what we call a _gas station_.
 
-:::info 
+:::info
 **Gas** is the cost necessary to perform a transaction on the network. Gas is paid to miners and its price varies based on supply and demand. It's a critical piece of the puzzle, but at the same time it brings up a UX problem. Every user needs to be aware of what gas is as well as how much gas they need to pay for their transaction. This causes significant friction and a less than ideal experience.
 
 To help mitigate this problem Kadena brings an innovation to the game. Hello [gas stations](https://medium.com/kadena-io/the-first-crypto-gas-station-is-now-on-kadenas-blockchain-6dc43b4b3836)!
 
-Gas stations are a way for dApps to subsidize gas costs for their users. This means that your user doesn't need to know what gas is or how much the gas price is, which translates into a smooth experience when interacting with your dApp. 
+Gas stations are a way for dApps to subsidize gas costs for their users. This means that your user doesn't need to know what gas is or how much the gas price is, which translates into a smooth experience when interacting with your dApp.
 
 In our voting app this will allow users to submit votes without paying for gas, instead gas will be subsidized by the gas station. In short, this means that miners will still be paid, but our users can vote for free.
 
-The standard for gas station implementation is defined by the `gas-payer-v1` interface. The `gas-payer-v1` interface is deployed to all chains on `testnet` and `mainnet` so you can directly use it in your contract. We can specify that a module implements an interface using the `(implements INTERFACE)` construct. 
+The standard for gas station implementation is defined by the `gas-payer-v1` interface. The `gas-payer-v1` interface is deployed to all chains on `testnet` and `mainnet` so you can directly use it in your contract. We can specify that a module implements an interface using the `(implements INTERFACE)` construct.
 :::
 
-  
-:::info  
+:::info
 Pact interfaces are similar to Java's interfaces, Scala's traits, Haskell's typeclasses or Solidity's interfaces. If you're not familiar with this concept you can [read more about it](https://pact-language.readthedocs.io/en/latest/pact-reference.html#interfaces) in Pact reference.
-:::  
-
+:::
 
 ```clojure
 (interface gas-payer-v1
@@ -607,8 +605,8 @@ Pact interfaces are similar to Java's interfaces, Scala's traits, Haskell's type
 
 Our module needs to implement all the functions and capabilities defined by the `gas-payer-v1` interface:
 
-* `GAS_PAYER` capability
-* `create-gas-payer-guard` function
+- `GAS_PAYER` capability
+- `create-gas-payer-guard` function
 
 A gas station allows someone to debit from a coin account that they do not own, gas station account, to pay the gas fee for a transaction under certain conditions. How exactly that happens, let's see below.
 
@@ -708,8 +706,8 @@ To recap, the `GAS_PAYER` capability implementation performs a few checks and co
 
 First we define the `ALLOW_GAS` capability which is brought in scope by the `GAS_PAYER` capability through `compose-capability` function.
 
-:::note 
-Composing capabilities allows for modular factoring of guard code, e.g. an "outer" capability could be composed out of multiple "inner" capabilities. Also composed capabilities are only in scope when their parent capability is granted. 
+:::note
+Composing capabilities allows for modular factoring of guard code, e.g. an "outer" capability could be composed out of multiple "inner" capabilities. Also composed capabilities are only in scope when their parent capability is granted.
 :::
 
 Then we implement the `gas-payer-guard` function which tests if `GAS` (magic capability defined in coin contract) and `ALLOW_GAS` capabilities have been granted which are needed to be able to pay for gas fees. By composing `ALLOW_GAS` in `GAS_PAYER` we hide the implementation details of `GAS_PAYER` that `gas-payer-guard` function does not need to know about. This is then used in `create-gas-payer-guard` to create a special guard for the coin contract account from where the gas fees are paid.
@@ -718,8 +716,8 @@ Last thing we need is to create an account where the funds will be stored which 
 
 To summarize, a gas station is a coin account with a special guard that's valid if both `GAS` and `ALLOW_GAS` capabilities are granted. If you're wondering how `GAS_PAYER` is granted, the answer is [signature capabilities](https://pact-language.readthedocs.io/en/latest/pact-reference.html#signature-capabilities). We will see how this works in the frontend section of this tutorial where we interact with the smart contracts.
 
-:::info 
-Guards and capabilities are an entire topic that we cannot cover in detail in this tutorial. To learn more check the [Guards, Capabilities and Events](https://pact-language.readthedocs.io/en/latest/pact-reference.html#guards-capabilities-and-events) section of the Pact documentation. 
+:::info
+Guards and capabilities are an entire topic that we cannot cover in detail in this tutorial. To learn more check the [Guards, Capabilities and Events](https://pact-language.readthedocs.io/en/latest/pact-reference.html#guards-capabilities-and-events) section of the Pact documentation.
 :::
 
 ### Deploying to Chainweb
@@ -742,10 +740,10 @@ To set the namespace of a module we have to use the `namespace` function. Insert
 
 Within the same namespace, each module name needs to be unique, similar requirement for defined keysets.
 
-Also when accessing a module's function we have to use the fully qualified name {namespace}.{module-name}.{function-name}, e.g. `free.election.vote`. You can \[read more about namespaces] [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=namespace#namespace-declaration). 
+Also when accessing a module's function we have to use the fully qualified name {namespace}.{module-name}.{function-name}, e.g. `free.election.vote`. You can \[read more about namespaces] [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=namespace#namespace-declaration).
 :::
 
-:::tip 
+:::tip
 Here's a snippet that you can use to list all deployed modules by using the top-level `list-modules` built-in function:
 
 ```javascript
@@ -760,7 +758,12 @@ listModules();
 
 async function listModules() {
   const pactCommand = new PactCommand();
-  const publicMeta = { chainId: CHAIN_ID, gasLimit: 6000, gasPrice: 0.001, ttl: 600 };
+  const publicMeta = {
+    chainId: CHAIN_ID,
+    gasLimit: 6000,
+    gasPrice: 0.001,
+    ttl: 600,
+  };
   pactCommand.code = createExp('list-modules');
   pactCommand.setMeta(publicMeta, NETWORK_ID);
 
@@ -779,13 +782,16 @@ npm install @kadena/chainweb-node-client
 ```
 
 ```js
-const { PactCommand, signWithChainweaver } = require('@kadena/client');
+const {
+  PactCommand,
+  signWithChainweaver,
+} = require('@kadena/client');
 const fs = require('fs');
 
 const NETWORK_ID = 'testnet04';
 const CHAIN_ID = '0';
 const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
-const CONTRACT_PATH = '../pact/election.pact'; 
+const CONTRACT_PATH = '../pact/election.pact';
 const ACCOUNT_NAME = 'some-account-name';
 const PUBLIC_KEY = 'some-public-key';
 
@@ -799,14 +805,14 @@ async function deployContract(pactCode) {
     gasLimit: 100000,
     chainId: CHAIN_ID,
     gasPrice: 0.000001,
-    sender: ACCOUNT_NAME // the account paying for gas
+    sender: ACCOUNT_NAME, // the account paying for gas
   };
   const pactCommand = new PactCommand()
     .setMeta(publicMeta, NETWORK_ID)
     .addCap('coin.GAS', PUBLIC_KEY)
-    .addData( {
-      'election-admin-keyset': [ PUBLIC_KEY ],
-      'upgrade': false
+    .addData({
+      'election-admin-keyset': [PUBLIC_KEY],
+      upgrade: false,
     });
   pactCommand.code = pactCode;
 
@@ -818,7 +824,10 @@ async function deployContract(pactCode) {
 ```
 
 ```js
-const { PactCommand, signWithChainweaver } = require('@kadena/client');
+const {
+  PactCommand,
+  signWithChainweaver,
+} = require('@kadena/client');
 const fs = require('fs');
 
 const NETWORK_ID = 'mainnet01';
@@ -856,7 +865,7 @@ async function deployContract(pactCode) {
 }
 ```
 
-:::info 
+:::info
 In order to pay transaction fees on `mainnet` you will have to fund your account with real KDA. :::
 
 The above snippets can also be found in the [tutorial repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp).
@@ -883,6 +892,7 @@ npm install @kadena/pactjs-cli -g
 ```
 
 create a file in the root of the front-end folder called 'tsconfig.json' and paste in the following JSON
+
 ```js
 {
   "compilerOptions": {
@@ -908,8 +918,8 @@ The log shows what has happened. Inside the `node_modules` directory, a new pack
 
 ### Our implementation
 
-:::note 
-In this tutorial we're using [ReactJS](https://reactjs.org) but you are free to use any framework that you are comfortable with. The main focus will be on blockchain and wallet interaction. 
+:::note
+In this tutorial we're using [ReactJS](https://reactjs.org) but you are free to use any framework that you are comfortable with. The main focus will be on blockchain and wallet interaction.
 :::
 
 There are a few key aspects concerning a frontend implementation of a blockchain application:
@@ -957,8 +967,8 @@ export const getVotes = async (candidateId: string): Promise<number> => {
 
 We're sending a command to the `/local` endpoint where the `pactCode` attribute is a call to our module function which returns the number of votes for the given candidate.
 
-:::note 
-Remember to always use the fully qualified name, _namespace.module.function_. 
+:::note
+Remember to always use the fully qualified name, _namespace.module.function_.
 :::
 
 Here's a screenshot from our demo app where we display the candidates and the number of votes received by each candidate:
@@ -974,8 +984,8 @@ The next step is to allow users to vote for a candidate. When it comes to updati
 3. Send transaction
 4. Notify when transaction is mined
 
-:::info 
-In this tutorial we are using Chainweaver wallet to sign transactions, other wallets might have a different API but the steps mentioned above are similar. There might be the case where a wallet takes care of more than signing a transaction (e.g. it also sends it to the network) and you will have to adapt your implementation accordingly. 
+:::info
+In this tutorial we are using Chainweaver wallet to sign transactions, other wallets might have a different API but the steps mentioned above are similar. There might be the case where a wallet takes care of more than signing a transaction (e.g. it also sends it to the network) and you will have to adapt your implementation accordingly.
 :::
 
 **@kadena/client** provides a couple of useful methods here: `signWithChainweaver` to interact with the Chainweaver signing API and `send` on the `ICommandBuilder` to submit the signed transaction to the network.
@@ -992,11 +1002,18 @@ In the snippet below we are constructing a transaction that calls the `free.elec
  * @param candidateId - The candidateId that is being voted for
  * @return
  */
-export const vote = async (account: string, candidateId: string): Promise<void> => {
+export const vote = async (
+  account: string,
+  candidateId: string
+): Promise<void> => {
   const transactionBuilder = Pact.modules['free.election']
     .vote(account, candidateId)
     .addCap('coin.GAS', accountKey(account))
-    .addCap('free.election.ACCOUNT-OWNER', accountKey(account), account)
+    .addCap(
+      'free.election.ACCOUNT-OWNER',
+      accountKey(account),
+      account
+    )
     .setMeta(
       {
         ttl: 28000,
@@ -1008,7 +1025,9 @@ export const vote = async (account: string, candidateId: string): Promise<void> 
       NETWORK_ID
     );
 
-  const signedTransaction = await signWithChainweaver(transactionBuilder);
+  const signedTransaction = await signWithChainweaver(
+    transactionBuilder
+  );
 
   console.log(`Sending transaction: ${signedTransaction[0].code}`);
   const response = await signedTransaction[0].send(API_HOST);
@@ -1021,14 +1040,13 @@ export const vote = async (account: string, candidateId: string): Promise<void> 
 
 Notice the `addCap` function where we define the capabilities that the user's keyset will have to sign. In this case we have two:
 
-
 - `coin.GAS` -> enables the payment of gas fees
 - `free.election.ACCOUNT-OWNER` -> checks if the user is the owner of the KDA account
 
-:::note 
+:::note
 Scoping signatures Keep in mind, for security reasons a keyset should only sign specific capabilities and using a keyset in "unrestricted mode" is not recommended. Scoping the signature allows the signer to safely call untrusted code which is an important security feature of Pact and Kadena.
 
-"Unrestricted mode" means that we do not define any capabilities when creating a transaction. 
+"Unrestricted mode" means that we do not define any capabilities when creating a transaction.
 :::
 
 Since this is a transaction that requires gas fees, we now set `sender` (account paying for gas) to the name of the KDA account of the user. If we would want to utilize the gas station we deployed we would set the sender to the account owned by our gas station `election-gas-station` and use the `free.election-gas-station.GAS_PAYER` capability instead of `coin.GAS`.
@@ -1047,7 +1065,7 @@ The request key together with the transaction result are displayed in the browse
 
 _Note: Since mining is an external process, while waiting for our transaction to be included in the blockchain, the user should be able to keep using the application freely._
 
-:::info 
+:::info
 As an extra excercise; modify the code to utilize the gasstation instead of having the user pay for gas fees.
 :::
 
