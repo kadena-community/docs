@@ -339,9 +339,9 @@ You can find the complete source code of the `election.pact` contract [here](htt
 
 It's time to summarize what we've learned so far:
 
-- we can use Pact capabilities to protect certain features of our smart contract
-- dynamic data is stored in tables, it's accessed using a key and we should design our tables in such way that we can retrieve the information using a single row query.
-- we can validate the owner of an account by executing its guard
+- We can use Pact capabilities to protect certain features of our smart contract.
+- Dynamic data is stored in tables; it's accessed using a key and we should design our tables in such way that we can retrieve the information using a single row query.
+- We can validate the owner of an account by executing its guard.
 
 These are general concepts that you should keep in mind when you develop Pact smart contracts.
 
