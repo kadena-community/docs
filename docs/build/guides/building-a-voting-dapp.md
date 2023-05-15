@@ -140,7 +140,7 @@ Our module already defines one capability, the module governance capability. In 
   )
 ```
 
-The user submitting the vote is identified by the `account` parameter that we will pass to the `vote` function that we'll implement later on. This parameter can take any value which is why we need to make sure the value provided is the correct one, in our case it should be the KDA account controlled by the tx initiator. Every KDA account has a _guard_ which controls access to it and we're using the `coin.details` function that returns an object of type `fungible-v2.account-details` to retrieve this guard for the provided account. Finally we execute the guard using the built-in Pact function `enforce-guard`.
+The user submitting the vote is identified by the `account` parameter that we will pass to the `vote` function that we'll implement later on. This parameter can take any value which is why we need to make sure the value provided is the correct one, in our case it should be the KDA account controlled by the tx initiator. Every KDA account has a _guard_ which controls access to it and we're using the `coin.details` function that returns an object of type `fungible-v2.account-details` to retrieve this guard for the provided account. Finally, we execute the guard using the built-in Pact function `enforce-guard`.
 
 Don't forget to add the snippet above in the `election` module body.
 
