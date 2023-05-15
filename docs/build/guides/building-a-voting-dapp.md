@@ -332,7 +332,7 @@ When a module is deployed, the tables that it defines need to be created. This i
 ```
 
 :::info
-Code outside the module will be called when the module is loaded the first time, when its deployed or upgraded. In the snippet above we are checking if the `upgrade` key that comes from transaction data is `true` and only execute the `create-table` calls if it's not since we cannot recreate tables when upgrading a module.
+Code outside the module will be called when the module is loaded the first time, when it's deployed or upgraded. In the snippet above we are checking if the `upgrade` key that comes from transaction data is `true` and only execute the `create-table` calls if it's not since we cannot recreate tables when upgrading a module.
 :::
 
 You can find the complete source code of the `election.pact` contract [here](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp/pact).
