@@ -192,7 +192,7 @@ To find out about all Pact's supported types you can check the [Data Types](http
 :::note
 Pact implements a key-row model which means a row is accessed by a single key. The key is implicitly present in the schema but it is our responsibility as developers to design the schema in a way that we can retrieve the information that we need using a single row query. Multiple row queries are very expensive and should not be used.
 
-The row key is always a simple string, to not be confused with the cryptographic keys used for signing transaction.
+The row key is always a simple string, not to be confused with the cryptographic keys used for signing transaction.
 :::
 
 #### Functionality
