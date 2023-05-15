@@ -468,7 +468,7 @@ If you’d like, you can try deploying this smart contract. You can deploy this 
 
 For help getting started and deploying in each of these environments, try the following tutorials.
 
-- [Pact Online Editor](/learn-pact/beginner/web-editor/)
+- [Pact Online Editor](/learn-pact/beginner/web-editor)
 - [Pact Development on Atom SDK Tutorial](/learn-pact/beginner/atom-sdk)
 
 ## Review

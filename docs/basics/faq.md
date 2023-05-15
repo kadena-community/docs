@@ -11,19 +11,19 @@ import YouTube from '@components/YouTube';
 
 ### **Table of Contents**
 
-1. [What consensus mechanism does Kadena use?](faq.md#what-consensus-mechanism-does-kadena-use)
-2. [What hashing algorithm does Kadena use?](faq.md#what-hashing-algorithm-does-kadena-use)
-3. [What is the target block time for Kadena?](faq.md#what-is-the-target-block-time-for-kadena)
-4. [What are the block rewards?](faq.md#what-are-the-block-rewards)
-5. [Does Kadena have a block explorer?](faq.md#does-kadena-have-a-block-explorer)
-6. [Is Kadena open source?](faq.md#is-kadena-open-source)
-7. [Why does Kadena’s public blockchain use proof of work?](faq.md#why-does-kadenas-public-blockchain-use-proof-of-work)
-8. [How does Kadena scale?](faq.md#how-does-kadena-scale)
-9. [How does Kadena deal with congestion?](faq.md#how-does-kadena-deal-with-congestion)
-10. [What does it mean to “braid multiple chains”?](faq.md#what-does-it-mean-to-braid-multiple-chains)
-11. [How are tokens moved between different Kadena chains?](faq.md#how-are-tokens-moved-between-different-kadena-chains)
-12. [How do I run a node?](faq.md#how-do-i-run-a-node)
-13. [How do I become a miner?](faq.md#how-do-i-become-a-miner)
+1. [What consensus mechanism does Kadena use?](./faq.md#what-consensus-mechanism-does-kadena-use)
+2. [What hashing algorithm does Kadena use?](./faq.md#what-hashing-algorithm-does-kadena-use)
+3. [What is the target block time for Kadena?](./faq.md#what-is-the-target-block-time-for-kadena)
+4. [What are the block rewards?](./faq.md#what-are-the-block-rewards)
+5. [Does Kadena have a block explorer?](./faq.md#does-kadena-have-a-block-explorer)
+6. [Is Kadena open source?](./faq.md#is-kadena-open-source)
+7. [Why does Kadena’s public blockchain use proof of work?](./faq.md#why-does-kadenas-public-blockchain-use-proof-of-work)
+8. [How does Kadena scale?](./faq.md#how-does-kadena-scale)
+9. [How does Kadena deal with congestion?](./faq.md#how-does-kadena-deal-with-congestion)
+10. [What does it mean to “braid multiple chains”?](./faq.md#what-does-it-mean-to-braid-multiple-chains)
+11. [How are tokens moved between different Kadena chains?](./faq.md#how-are-tokens-moved-between-different-kadena-chains)
+12. [How do I run a node?](./faq.md#how-do-i-run-a-node)
+13. [How do I become a miner?](./faq.md#how-do-i-become-a-miner)
 
 ### **What consensus mechanism does Kadena use?**
 
