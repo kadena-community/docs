@@ -152,7 +152,7 @@ To learn more about guards and capabilities, please visit the [Guards, Capabilit
 
 ### Tables and data storage
 
-So far we've defined a module and implemented some capabilities. Now we're going to talk about storing data. We have to store who the candidates are so you can vote for them and as well as who voted already so we can prevent double-voting.
+So far we've defined a module and implemented some capabilities. Now we're going to talk about storing data. We have to store who the candidates are, so that you can vote for them, as well as who voted already so we can prevent double-voting.
 
 Pact smart contracts store data in tables and each table has its own schema. For our voting contract we need 2 tables: `candidates` and `votes`.
 
