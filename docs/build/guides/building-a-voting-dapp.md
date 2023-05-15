@@ -197,7 +197,7 @@ The row key is always a simple string, not to be confused with the cryptographic
 
 #### Functionality
 
-We've defined our data storage so now we can add functions to read and write data, i.e. candidates and votes. One of the core features of our voting contract is to allow users to vote for a candidate while preventing double-voting so let's implement it:
+Now that we've defined our data storage, we can add functions to read and write data: i.e. candidates and votes. One of the core features of our voting contract is to allow users to vote for a candidate while preventing double-voting so let's implement it:
 
 ```clojure
   ;; election.pact
