@@ -106,7 +106,7 @@ Let's copy the following code in the `election.pact` file:
 )
 ```
 
-The `GOVERNANCE` keyword on the module definition line is the _module governance capability_ and it references the capability defined right below using the `defcap` construct. It's purpose is to restrict access to the module upgrade and administration operations, for example later on we'll add an `insert-candidate` function that only administrators should be able to call and we'll use the GOVERNANCE capability to guard it. The implementation can be as simple as in our example, enforcing a keyset or more complex like tallying a stakeholder vote on an upgrade hash.
+The `GOVERNANCE` keyword on the module definition line is the _module governance capability_ and it references the capability defined right below using the `defcap` construct. Its purpose is to restrict access to the module upgrade and administration operations, for example later on we'll add an `insert-candidate` function that only administrators should be able to call and we'll use the GOVERNANCE capability to guard it. The implementation can be as simple as in our example, enforcing a keyset or more complex like tallying a stakeholder vote on an upgrade hash.
 
 :::note
 Module names and keyset definitions are required to be unique. We will mention this again when we get to deploy our contract to Testnet, but you should keep this in mind when you think about choosing a name for your modules and keysets.
