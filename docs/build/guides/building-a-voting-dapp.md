@@ -713,7 +713,7 @@ Then we implement the `gas-payer-guard` function which tests if `GAS` (magic cap
 
 Last thing we need is to create an account where the funds will be stored which is what happens in the `init` function. As you can see, the guard of that account is the guard returned by `create-gas-payer-guard`, essentially allowing access to the account as long as `GAS` and `ALLOW_GAS` capabilities have already been granted.
 
-To summarize, a gas station is a coin account with a special guard that's valid if both `GAS` and `ALLOW_GAS` capabilities are granted. If you're wondering how `GAS_PAYER` is granted, the answer is [signature capabilities](https://pact-language.readthedocs.io/en/latest/pact-reference.html#signature-capabilities). We will see how this works in the frontend section of this tutorial where we interact with the smart contracts.
+To summarize: a gas station is a coin account with a special guard that's valid if both `GAS` and `ALLOW_GAS` capabilities are granted. If you're wondering how `GAS_PAYER` is granted, the answer is [signature capabilities](https://pact-language.readthedocs.io/en/latest/pact-reference.html#signature-capabilities). We will see how this works in the frontend section of this tutorial where we interact with the smart contracts.
 
 :::info
 Guards and capabilities are an entire topic that we cannot cover in detail in this tutorial. To learn more check the [Guards, Capabilities and Events](https://pact-language.readthedocs.io/en/latest/pact-reference.html#guards-capabilities-and-events) section of the Pact documentation.
