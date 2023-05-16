@@ -628,7 +628,7 @@ Create a new file `election-gas-station.pact` and paste the following snippet:
 )
 ```
 
-Next we will implement the `gas-payer-v1` interface. We don't want to let users abuse our gas station so we'll have to add a limit for the maximum gas price we're willing to pay or make sure it can only be used to pay for transactions that are calling the `election` module. Let's get to it:
+Next we will implement the `gas-payer-v1` interface. We don't want to let users abuse our gas station so we'll have to add a limit for the maximum gas price we're willing to pay and make sure it can only be used to pay for transactions that are calling the `election` module. Let's get to it:
 
 ```clojure
 ;; election-gas-station.pact
