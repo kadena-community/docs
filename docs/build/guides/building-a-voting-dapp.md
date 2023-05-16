@@ -607,7 +607,7 @@ Our module needs to implement all the functions and capabilities defined by the 
 - `GAS_PAYER` capability
 - `create-gas-payer-guard` function
 
-A gas station allows someone to debit from a coin account that they do not own, gas station account, to pay the gas fee for a transaction under certain conditions. How exactly that happens, let's see below.
+A gas station allows someone to debit from a coin account that they do not own, a gas station account, to pay the gas fee for a transaction under certain conditions. How exactly that happens, let's see below.
 
 Create a new file `election-gas-station.pact` and paste the following snippet:
 
