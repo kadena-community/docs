@@ -553,7 +553,7 @@ To help mitigate this problem Kadena brings an innovation to the game. Hello [ga
 
 Gas stations are a way for dApps to subsidize gas costs for their users. This means that your user doesn't need to know what gas is or how much the gas price is, which translates into a smooth experience when interacting with your dApp.
 
-In our voting app this will allow users to submit votes without paying for gas, instead gas will be subsidized by the gas station. In short, this means that miners will still be paid, but our users can vote for free.
+In our voting app this will allow users to submit votes without paying for gas, instead gas will be subsidized by the gas station. In short, this means that miners will still be paid but our users can vote for free.
 
 The standard for gas station implementation is defined by the `gas-payer-v1` interface. The `gas-payer-v1` interface is deployed to all chains on `testnet` and `mainnet` so you can directly use it in your contract. We can specify that a module implements an interface using the `(implements INTERFACE)` construct.
 :::
