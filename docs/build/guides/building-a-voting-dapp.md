@@ -703,7 +703,7 @@ To recap, the `GAS_PAYER` capability implementation performs a few checks and co
 )
 ```
 
-First we define the `ALLOW_GAS` capability which is brought in scope by the `GAS_PAYER` capability through `compose-capability` function.
+First we define the `ALLOW_GAS` capability which is brought in scope by the `GAS_PAYER` capability through the `compose-capability` function.
 
 :::note
 Composing capabilities allows for modular factoring of guard code, e.g. an "outer" capability could be composed out of multiple "inner" capabilities. Also composed capabilities are only in scope when their parent capability is granted.
