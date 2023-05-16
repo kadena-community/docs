@@ -353,7 +353,7 @@ We wrote quite a bit of code but at this point we don't know if it's working cor
 We separated writing functionality and writing tests to make it easier to follow this tutorial but in a real-world scenario you should work on these in parallel.
 :::
 
-We're going to start by setting up the environment data that we need for our tests, load the required modules, i.e. `coin` module and of our `election` module and create some KDA accounts that we will use to vote later on.
+We're going to start by setting up the environment data that we need for our tests, load the required modules, i.e. the `coin` module and our `election` module, and create some KDA accounts that we will use to vote later on.
 
 Open the `election.repl` file and copy the snippet below:
 
