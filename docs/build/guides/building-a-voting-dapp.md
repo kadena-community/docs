@@ -706,7 +706,7 @@ To recap, the `GAS_PAYER` capability implementation performs a few checks and co
 First we define the `ALLOW_GAS` capability which is brought in scope by the `GAS_PAYER` capability through the `compose-capability` function.
 
 :::note
-Composing capabilities allows for modular factoring of guard code, e.g. an "outer" capability could be composed out of multiple "inner" capabilities. Also composed capabilities are only in scope when their parent capability is granted.
+Composing capabilities allows for modular factoring of guard code, e.g. an "outer" capability could be composed out of multiple "inner" capabilities. Also, composed capabilities are only in scope when their parent capability is granted.
 :::
 
 Then we implement the `gas-payer-guard` function which tests if `GAS` (magic capability defined in coin contract) and `ALLOW_GAS` capabilities have been granted which are needed to be able to pay for gas fees. By composing `ALLOW_GAS` in `GAS_PAYER` we hide the implementation details of `GAS_PAYER` that `gas-payer-guard` function does not need to know about. This is then used in `create-gas-payer-guard` to create a special guard for the coin contract account from where the gas fees are paid.
