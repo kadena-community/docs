@@ -520,7 +520,7 @@ Moving on, we want to validate that votes are correctly recorded, the `VOTED` ev
 Notice the `let` construct that we used above, it is helpful when you need to bind some variables to be in the same scope as other logic that uses them. In our case we first loaded the number of votes and binded the result to the `count` variable which we compared with the new count after submitting a vote. Feel free to read more about [`let` and `let*`](https://pact-language.readthedocs.io/en/latest/pact-reference.html#let) in Pact official documentation.
 
 :::info
-Write a test Can you think of some cases that we didn't cover? Hint: ACCOUNT-OWNER.
+Can you think of some cases that we didn't cover? Hint: ACCOUNT-OWNER.
 
 Try to write a test that validates that only the correct owner of an account can vote.
 :::
