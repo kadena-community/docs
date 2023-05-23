@@ -289,33 +289,33 @@ A quick recap: we implemented a `vote` function that allows to vote for a candid
 Now that we can vote, we also need a function to read the number of votes a candidate received:
 
 ```clojure
-(defun get-votes:integer (cid:string)
-  "Get the votes count by cid"
+  (defun get-votes:integer (cid:string)
+    "Get the votes count by cid"
 
-  ;; Read the row using cid as key and select only the `votes` column
-  (at 'votes (read candidates cid ['votes]))
-)
+    ;; Read the row using cid as key and select only the `votes` column
+    (at 'votes (read candidates cid ["votes"]))
+  )
 ```
 
 Last thing on the list is adding candidates:
 
 ```clojure
-(defun insert-candidate (candidate)
-  "Insert a new candidate, admin operation"
+  (defun insert-candidate (candidate)
+    "Insert a new candidate, admin operation"
 
-  ;; Try to acquire the GOVERNANCE capability
-  (with-capability (GOVERNANCE)
-    ;; While GOVERNANCE capability is in scope, insert the candidate
-    (let ((name (at 'name candidate)))
-      ;; The key has to be unique, otherwise this operation will fail
-      (insert candidates (at 'key candidate) { "name": (at 'name candidate), "votes": 0 })))
-)
+    ;; Try to acquire the GOVERNANCE capability
+    (with-capability (GOVERNANCE)
+      ;; While GOVERNANCE capability is in scope, insert the candidate
+      (let ((name (at 'name candidate)))
+        ;; The key has to be unique, otherwise this operation will fail
+        (insert candidates (at 'key candidate) { "name": (at 'name candidate), "votes": 0 })))
+  )
 
-(defun insert-candidates (candidates:list)
-  "Insert a list of candidates"
-  ;; Using the above defined `insert-candidate` to bulk-insert a list of candidates
-  (map (insert-candidate) candidates)
-)
+  (defun insert-candidates (candidates:list)
+    "Insert a list of candidates"
+    ;; Using the above defined `insert-candidate` to bulk-insert a list of candidates
+    (map (insert-candidate) candidates)
+  )
 ```
 
 Inserting a new candidate is an "admin-only" operation and we reused the already defined `GOVERNANCE` capability to guard it.
@@ -555,8 +555,9 @@ $ pact
 pact> (load "election.repl")
 ```
 
-:::tip 
-The REPL preserves state between subsequent runs unless the optional parameter `reset` is set to true `(load "election.repl" true)`. 
+:::tip
+The REPL preserves state between subsequent runs unless the optional parameter `reset` is set to true:
+(load "election.repl" true)
 :::
 
 Let's recap what we've learned in this section:
@@ -660,44 +661,44 @@ Next we will implement the `gas-payer-v1` interface. We don't want to let users 
 ```clojure
 ;; election-gas-station.pact
 
-(defun chain-gas-price ()
-  "Return gas price from chain-data"
-  ; chain-data is a built-in function that returns tx public metadata
-  ; we are using it to retrieve the tx gas price
-  (at 'gas-price (chain-data)))
+  (defun chain-gas-price ()
+    "Return gas price from chain-data"
+    ; chain-data is a built-in function that returns tx public metadata
+    ; we are using it to retrieve the tx gas price
+    (at 'gas-price (chain-data)))
 
-(defun enforce-below-or-at-gas-price:bool (gasPrice:decimal)
-  (enforce (<= (chain-gas-price) gasPrice)
-    (format "Gas Price must be smaller than or equal to {}" [gasPrice])))
+  (defun enforce-below-or-at-gas-price:bool (gasPrice:decimal)
+    (enforce (<= (chain-gas-price) gasPrice)
+      (format "Gas Price must be smaller than or equal to {}" [gasPrice])))
 
-(defcap GAS_PAYER:bool
-  ( user:string
-    limit:integer
-    price:decimal
+  (defcap GAS_PAYER:bool
+    ( user:string
+      limit:integer
+      price:decimal
+    )
+
+    ; There are 2 types of Pact transactions: exec and cont
+    ; `cont` is used for multi-step pacts, `exec` is for regular transactions.
+    ; In our case transaction has to be of type `exec`.
+    (enforce (= "exec" (at "tx-type" (read-msg))) "Inside an exec")
+
+    ; A Pact transaction can have multiple function calls, but we only want to allow one
+    (enforce (= 1 (length (at "exec-code" (read-msg)))) "Tx of only one pact function")
+
+    ; Gas station can only be used to pay for gas consumed by functions defined in `free-election` module
+    (enforce
+      ; We take the first 15 characters and compare it with `(free.election`
+      ; to make sure a function from our module is called.
+      ; `free` is the namespace where our module will be deployed.
+      (= "(free.election." (take 15 (at 0 (at "exec-code" (read-msg)))))
+      "Only election module calls allowed")
+
+    ;; Limit the gas price that the gas station can pay
+    (enforce-below-or-at-gas-price 0.000001)
+
+    ; Import the `ALLOW_GAS` capability
+    (compose-capability (ALLOW_GAS))
   )
-
-  ; There are 2 types of Pact transactions: exec and cont
-  ; `cont` is used for multi-step pacts, `exec` is for regular transactions.
-  ; In our case transaction has to be of type `exec`.
-  (enforce (= "exec" (at "tx-type" (read-msg))) "Inside an exec")
-
-  ; A Pact transaction can have multiple function calls, but we only want to allow one
-  (enforce (= 1 (length (at "exec-code" (read-msg)))) "Tx of only one pact function")
-
-  ; Gas station can only be used to pay for gas consumed by functions defined in `free-election` module
-  (enforce
-    ; We take the first 15 characters and compare it with `(free.election`
-    ; to make sure a function from our module is called.
-    ; `free` is the namespace where our module will be deployed.
-    (= "(free.election." (take 15 (at 0 (at "exec-code" (read-msg)))))
-    "Only election module calls allowed")
-
-  ;; Limit the gas price that the gas station can pay
-  (enforce-below-or-at-gas-price 0.000001)
-
-  ; Import the `ALLOW_GAS` capability
-  (compose-capability (ALLOW_GAS))
-)
 ```
 
 To recap, the `GAS_PAYER` capability implementation performs a few checks and composes the `ALLOW_GAS` capability that we will define next. `chain-gas-price` and `enforce-below-or-at-gas-price` are helper functions to limit the gas price that our gas station is willing to pay.
@@ -720,8 +721,12 @@ To recap, the `GAS_PAYER` capability implementation performs a few checks and co
   (defun init ()
     (coin.create-account GAS_STATION (create-gas-payer-guard))
   )
-)
+```
 
+Then we can wrap it up and make sure the `init` function is called when we're deploying the module:
+
+```clojure
+;; election-gas-station.pact
 (if (read-msg 'upgrade)
   ["upgrade"]
   [
