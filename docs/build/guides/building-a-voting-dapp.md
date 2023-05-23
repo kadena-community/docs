@@ -75,7 +75,13 @@ The `coin` contract itself has two additional dependencies:
 
 To be able to properly test our voting contract we will need to invoke functions defined in the `coin` contract so we have to include it in our project together with its dependencies, the `fungible-v2` and `fungible-xchain-v1` interfaces.
 
-You can get the latest version of the `coin` module [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v4/coin-v4.pact), the `fungible-v2` interface [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v2/fungible-v2.pact) and the `fungible-xchain-v1` interface [here](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v4/fungible-xchain-v1.pact). Make sure to add these files to your project in the `pact/root/` directory. You should have 3 new files: `coin-v4.pact`, `fungible-v2.pact`, `fungible-xchain-v1.pact`.
+Please find the latest versions of those modules here:
+
+- [coin-v4.pact](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v4/coin-v4.pact)
+- [fungible-v2.pact](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v2/fungible-v2.pact)
+- [fungible-xchain-v1.pact](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v4/fungible-xchain-v1.pact)
+
+Make sure to add these files to your project in the `pact/root/` directory. You should have 3 new files: `coin-v4.pact`, `fungible-v2.pact`, `fungible-xchain-v1.pact`.
 
 Before we begin writing code, let's recap the features of our voting contract:
 
@@ -335,7 +341,7 @@ When a module is deployed, the tables that it defines need to be created. This i
 Code outside the module will be called when the module is loaded the first time, when its deployed or upgraded. In the snippet above we are checking if the `upgrade` key that comes from transaction data is `true` and only execute the `create-table` calls if it's not since we cannot recreate tables when upgrading a module. 
 :::
 
-You can find the complete source code of the `election.pact` contract [here](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp/pact).
+You can find the complete source code of the `election.pact` contract [in the GitHub repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp/pact).
 
 It's time to summarize what we've learned so far:
 
