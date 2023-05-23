@@ -759,7 +759,7 @@ Guards and capabilities are an entire topic that we cannot cover in detail in th
 
 ### Deploying to Chainweb
 
-In order to deploy our contracts to the real blockchain network, whether it's Testnet or Mainnet we need to pay for the transaction using gas fees.
+To deploy our contracts to the real blockchain network, we'll need to pay for the transaction using gas fees (whether it's Testnet or Mainnet).
 
 In this tutorial we are using Chainweaver wallet to create accounts and sign transactions. Head over to Chainweaver and create an account on `testnet`.
 
@@ -788,14 +788,19 @@ async function listModules() {
   console.log(response.result.data);
 }
 ```
-
 :::
 
-You can use the snippets below to deploy your contract to **chain 0** on `testnet` and `mainnet`:
+The snippets can also be found in the [tutorial repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp).
+
+You can use the snippet below to deploy your contract to **chain 0** on `testnet`. To do this, it's required to run Chainweaver
+locally to sign for the transaction. Please see the [Chainweaver User
+Guide](https://docs.kadena.io/basics/chainweaver/chainweaver-user-guide) for downloads and instructions.
+
+Now we can install the dependencies and deploy the contract:
 
 ```bash
-npm install @kadena/client
-npm install @kadena/chainweb-node-client
+npm init -y
+npm install @kadena/client @kadena/chainweb-node-client --save
 ```
 
 ```js
@@ -836,12 +841,6 @@ async function deployContract(pactCode) {
   console.log(response);
 }
 ```
-
-:::info
-In order to pay transaction fees on `mainnet` you will have to fund your account with real KDA.
-
-The above snippets can also be found in the [tutorial repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp).
-:::
 
 ### Frontend
 
@@ -1006,8 +1005,8 @@ Notice the `addCap` function where we define the capabilities that the user's ke
 - `coin.GAS` -> enables the payment of gas fees
 - `free.election.ACCOUNT-OWNER` -> checks if the user is the owner of the KDA account
 
-:::note
-Scoping signatures Keep in mind, for security reasons a keyset should only sign specific capabilities and using a keyset in "unrestricted mode" is not recommended. Scoping the signature allows the signer to safely call untrusted code which is an important security feature of Pact and Kadena.
+:::note Scoping signatures
+Keep in mind, for security reasons a keyset should only sign specific capabilities and using a keyset in "unrestricted mode" is not recommended. Scoping the signature allows the signer to safely call untrusted code which is an important security feature of Pact and Kadena.
 
 "Unrestricted mode" means that we do not define any capabilities when creating a transaction.
 :::
