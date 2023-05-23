@@ -97,6 +97,8 @@ Let's copy the following code in the `election.pact` file:
 ```clojure
 ;; election.pact
 
+(namespace 'free)
+
 ;; Define a keyset with name `election-admin-keyset`.
 ;; Keysets cannot be created in code, thus we read them in from the load message data.
 (define-keyset "free.election-admin-keyset" (read-keyset 'election-admin-keyset))
@@ -350,6 +352,21 @@ It's time to summarize what we've learned so far:
 - we can validate the owner of an account by executing its guard
 
 These are general concepts that you should keep in mind when you develop Pact smart contracts.
+
+### Namespaces
+
+Each module or interface needs to be part of a namespace. To set the namespace of a module we have to use the `namespace` function. Ensure the following line is at the beginning of your `.pact` files:
+
+```clojure
+(namespace 'free)
+```
+
+Within the same namespace, each module name needs to be unique, similar requirement for defined keysets.
+
+Access a module's function using the fully qualified name
+`{namespace}.{module-name}.{function-name}`, e.g. `free.election.vote`. See the Pact documentation to [read more about namespaces](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=namespace#namespace-declaration).
+
+The `free` namespace is available to use on both `mainnet` and `testnet`.
 
 ### Testing the contract
 
@@ -736,22 +753,7 @@ In this tutorial we are using Chainweaver wallet to create accounts and sign tra
 
 Next step is to fund your `testnet` account using this [faucet](http://faucet.testnet.chainweb.com). You will receive 20 Testnet KDA.
 
-:::note Namespaces & Modules Names
-
-Each module or interface needs to be part of a namespace. The `free` namespace is available to use on both `mainnet` and `testnet`.
-
-To set the namespace of a module we have to use the `namespace` function. Insert the following line at the beginning of `election.pact` and `election-gas-station.pact` files:
-
-```clojure
-(namespace 'free)
-```
-
-Within the same namespace, each module name needs to be unique, similar requirement for defined keysets.
-
-Also when accessing a module's function we have to use the fully qualified name {namespace}.{module-name}.{function-name}, e.g. `free.election.vote`. You can \[read more about namespaces] [here](https://pact-language.readthedocs.io/en/latest/pact-reference.html?highlight=namespace#namespace-declaration). 
-:::
-
-:::tip 
+:::tip
 Here's a snippet that you can use to list all deployed modules by using the top-level `list-modules` built-in function:
 
 ```javascript
