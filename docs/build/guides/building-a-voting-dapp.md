@@ -86,7 +86,7 @@ Make sure to add these files to your project in the `pact/root/` directory. You 
 Before we begin writing code, let's recap the features of our voting contract:
 
 1. Voters can record 1 vote for a candidate of their choice from the list of options. In response to voting, we'll return confirmation of their vote by returning their vote back to them.
-2. Election administrators can add candidates (so the "add candidate" functionality should be guarded to only allow access to keys belonging to the election administrator accounts).
+2. Election administrators can add candidates. The "add candidate" functionality should be guarded to only allow access to keys belonging to the election administrator accounts.
 
 #### Election module
 
@@ -200,7 +200,7 @@ To find out about all Pact's supported types you can check the [Data Types](http
 :::note 
 Pact implements a key-row model which means a row is accessed by a single key. The key is implicitly present in the schema but it is our responsibility as developers to design the schema in a way that we can retrieve the information that we need using a single row query. Multiple row queries are very expensive and should not be used.
 
-The row key is always a simple string, to not be confused with the cryptographic keys used for signing transaction. 
+The row key is always a simple string, not to be confused with the cryptographic keys used for signing transactions.
 :::
 
 #### Functionality
@@ -348,10 +348,10 @@ You can find the complete source code of the `election.pact` contract [in the Gi
 It's time to summarize what we've learned so far:
 
 - we can use Pact capabilities to protect certain features of our smart contract
-- dynamic data is stored in tables, it's accessed using a key and we should design our tables in such way that we can retrieve the information using a single row query.
+- we should design our tables in such a way that we can retrieve the information using a single row query
 - we can validate the owner of an account by executing its guard
 
-These are general concepts that you should keep in mind when you develop Pact smart contracts.
+These are general concepts to keep in mind when developing Pact smart contracts.
 
 ### Namespaces
 
@@ -587,6 +587,7 @@ The standard for gas station implementation is defined by the `gas-payer-v1` int
 Pact interfaces are similar to Java's interfaces, Scala's traits, Haskell's typeclasses or Solidity's interfaces. If you're not familiar with this concept you can [read more about it](https://pact-language.readthedocs.io/en/latest/pact-reference.html#interfaces) in Pact reference.
 :::  
 
+Let's take a look at the `gas-payer-v1` interface defining a capability and a function:
 
 ```clojure
 (interface gas-payer-v1
