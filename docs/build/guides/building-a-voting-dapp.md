@@ -454,7 +454,7 @@ Now that this initial setup is done, we can go on and write some tests. Notice t
 ;; can be used to sign anything, it's not restricted to a specific set of capabilities
 (env-sigs [{ "key": "alice-key", "caps": []}])
 ;; this test passes because the election.vote call fails
-(expect-failure "Can't vote for a non-existing candidate" (election.vote "alice" "5"))
+(expect-failure "Can't vote for a non-existing candidate" (free.election.vote "alice" "5"))
 
 (commit-tx)
 ```
