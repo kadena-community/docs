@@ -842,9 +842,18 @@ async function deployContract(pactCode) {
 }
 ```
 
+Make sure to replace `ACCOUNT_NAME` and the `PUBLIC_KEY` with the ones in your local chainweaver. Also ensure the
+`CHAIN_ID` matches the one having `KDA` available. When everything goes according to plan, you should see something like this:
+
+```shell
+$ node ./deploy-testnet.js
+{ requestKeys: [ 'SufG_mxEf3GZcbgxtjLbfMPgBuShuk3MMK_T5uoB0QM' ] }
+```
+
 ### Frontend
 
-If you made it until here, congrats! We wrote, tested and deployed our smart contract but we're still missing a key component, a UI for users to interact with our dApp, so let's get this done.
+If you made it until here, congrats! We wrote, tested and deployed our smart contract.
+But we're still missing a key component: a UI for users to interact with our dApp, so let's get this done.
 
 Start by adding the required libraries from [Kadena.js](https://github.com/kadena-community/kadena.js) as a dependency to your project either via a package manager or add it to your asset pipeline similar to any other JavaScript library.
 
@@ -862,7 +871,8 @@ npm install typescript @kadena/types --save-dev
 npm install @kadena/pactjs-cli -g
 ```
 
-create a file in the root of the front-end folder called 'tsconfig.json' and paste in the following JSON
+Create a `tsconfig.json` file in the root of the front-end folder and paste in the following JSON:
+
 ```js
 {
   "compilerOptions": {
@@ -878,10 +888,14 @@ create a file in the root of the front-end folder called 'tsconfig.json' and pas
 }
 ```
 
-From the root of the front-end folder, use the following command to generate type for our `election`, `election-gas-station` and `coin` contract. Generating types for the `coin` contract is necessary because when paying for gas we use the capability `coin.GAS` from the coin contract so we also need those types generated.
+From the root of the front-end folder, use the following commands to generate types for our `election`,
+`election-gas-station` and `coin` contracts. Generating types for the `coin` contract is necessary, because when paying
+for gas we use the `coin.GAS` capability from the coin contract.
 
 ```bash
-pactjs contract-generate --file ../pact/election.pact; pactjs contract-generate --file ../pact/election-gas-station.pact; pactjs contract-generate --file ../pact/root/coin-v4.pact
+pactjs contract-generate --file ../pact/election.pact;
+pactjs contract-generate --file ../pact/election-gas-station.pact;
+pactjs contract-generate --file ../pact/root/coin-v4.pact
 ```
 
 The log shows what has happened. Inside the `node_modules` directory, a new package has been created: `.kadena/pactjs-generated`. This package is extending the @kadena/client types to give you type information. Make sure to add `"types": [".kadena/pactjs-generated"]` to your tsconfig.json.
@@ -889,7 +903,7 @@ The log shows what has happened. Inside the `node_modules` directory, a new pack
 ### Our implementation
 
 :::note
-In this tutorial we're using [React](https://reactjs.org) but you are free to use any framework that you are comfortable with. The main focus will be on blockchain and wallet interaction.
+Our example uses [React](https://reactjs.org), but you are free to use any framework that you are comfortable with. The main focus will be on blockchain and wallet interaction.
 :::
 
 There are a few key aspects concerning a frontend implementation of a blockchain application:
@@ -898,7 +912,7 @@ There are a few key aspects concerning a frontend implementation of a blockchain
 - allowing users to sign and submit transactions
 - notify users when various actions take place like a transaction being mined or a smart contract event was emitted
 
-The complete code of this tutorial can also be found in front-end folder in the [tutorial repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp/front-end). For demonstration purposes the election smart contracts have been deployed to **_testnet chain 0_**
+The code of this tutorial can be found in the front-end folder in the [tutorial repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp/front-end). For demonstration purposes the election smart contracts have been deployed to **_testnet chain 0_**
 
 #### Read Data
 
@@ -1019,7 +1033,7 @@ Going back to the UI, we implemented this signing flow using a modal window wher
 
 Below is the first step of the Chainweaver request signing wizard:
 
-![alt text](https://github.com/kadena-community/kadena.js/blob/master/packages/tutorials/election-dapp/front-end/screens/quicksign.png?raw=true)
+![Screenshot of Chainweaver request signing wizard](https://github.com/kadena-community/kadena.js/blob/master/packages/tutorials/election-dapp/front-end/screens/quicksign.png?raw=true)
 
 Once the transaction is signed, our dApp modal will automatically submit it to the network.
 
