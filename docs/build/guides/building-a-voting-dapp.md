@@ -80,11 +80,11 @@ To be able to properly test our voting contract we will need to invoke functions
 
 Please find the latest versions of those modules here:
 
-- [coin-v4.pact](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v4/coin-v4.pact)
+- [coin-v5.pact](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v5/coin-v5.pact)
 - [fungible-v2.pact](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v2/fungible-v2.pact)
 - [fungible-xchain-v1.pact](https://github.com/kadena-io/chainweb-node/blob/master/pact/coin-contract/v4/fungible-xchain-v1.pact)
 
-Make sure to add these files to your project in the `pact/root/` directory. You should have 3 new files: `coin-v4.pact`, `fungible-v2.pact`, `fungible-xchain-v1.pact`.
+Make sure to add these files to your project in the `pact/root/` directory. You should have 3 new files: `coin-v5.pact`, `fungible-v2.pact`, `fungible-xchain-v1.pact`.
 
 Before we begin writing code, let's recap the features of our voting contract:
 
@@ -423,7 +423,7 @@ Open the `election.repl` file and copy the snippet below:
 (load "root/fungible-xchain-v1.pact")
 
 ;; load coin module
-(load "root/coin-v4.pact")
+(load "root/coin-v5.pact")
 
 ;; create coin module tables
 (create-table coin.coin-table)
@@ -895,7 +895,7 @@ for gas we use the `coin.GAS` capability from the coin contract.
 ```bash
 pactjs contract-generate --file ../pact/election.pact;
 pactjs contract-generate --file ../pact/election-gas-station.pact;
-pactjs contract-generate --file ../pact/root/coin-v4.pact
+pactjs contract-generate --file ../pact/root/coin-v5.pact
 ```
 
 The log shows what has happened. Inside the `node_modules` directory, a new package has been created: `.kadena/pactjs-generated`. This package is extending the @kadena/client types to give you type information. Make sure to add `"types": [".kadena/pactjs-generated"]` to your tsconfig.json.
