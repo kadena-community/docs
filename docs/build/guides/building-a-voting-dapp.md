@@ -773,7 +773,7 @@ const { PactCommand } = require('@kadena/client');
 const { createExp } = require('@kadena/pactjs');
 
 const NETWORK_ID = 'testnet04';
-const CHAIN_ID = '0';
+const CHAIN_ID = '1';
 const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
 
 listModules();
@@ -808,7 +808,7 @@ const { PactCommand, signWithChainweaver } = require('@kadena/client');
 const fs = require('fs');
 
 const NETWORK_ID = 'testnet04';
-const CHAIN_ID = '0';
+const CHAIN_ID = '1';
 const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
 const CONTRACT_PATH = '../pact/election.pact';
 const ACCOUNT_NAME = 'some-account-name';
@@ -925,7 +925,7 @@ import { Pact, signWithChainweaver } from '@kadena/client'
 import { pollTransactions } from './utils'
 
 const NETWORK_ID = 'testnet04'
-const CHAIN_ID = '0'
+const CHAIN_ID = '1'
 const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`
 
 const accountKey = (account: string): string => account.split(':')[1]
