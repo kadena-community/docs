@@ -7,7 +7,7 @@ Along the way, we'll learn how to write and test smart contracts in Pact, the ba
 ### **Voting on the Blockchain**
 
 :::info
-The complete code of this tutorial can also be found in the [github repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp).
+The complete code of this tutorial can also be found in the [voting dApp repository](https://github.com/kadena-community/voting-dapp).
 :::
 
 Elections are a necessary part of democracies and democratic organizations. The voting systems used to administer elections must ensure a fair process and trustworthy result — easier said than done! Election security is a deep, fascinating topic, especially when it comes to online voting.
@@ -37,13 +37,13 @@ Let's start by creating a basic project structure. Open your terminal and run th
 ```bash
 mkdir election-dapp && cd election-dapp
 mkdir pact
-mkdir front-end
+mkdir frontend
 ```
 
 We've got the `election-dapp` directory and two additional sub-directories:
 
 * `pact`, which holds the smart contracts
-* `front-end`, which holds the front-end part of our application
+* `frontend`, which holds the frontend part of our application
 
 ### Implementing the Voting Smart Contract
 
@@ -257,7 +257,7 @@ We've defined our data storage so now we can add functions to read and write dat
       ;; Record the vote in the `votes` table (prevent double-voting)
       (insert votes account { "cid": candidateId })
 
-      ;; Emit an event that can be used by the front-end component to update the number of
+      ;; Emit an event that can be used by the frontend component to update the number of
       ;; votes displayed for a candidate
       (emit-event (VOTED candidateId))
     )
@@ -346,7 +346,7 @@ When a module is deployed, the tables that it defines need to be created. This i
 Code outside the module will be called when the module is loaded the first time, when its deployed or upgraded. In the snippet above we are checking if the `upgrade` key that comes from transaction data is `true` and only execute the `create-table` calls if it's not since we cannot recreate tables when upgrading a module.
 :::
 
-You can find the complete source code of the `election.pact` contract [in the GitHub repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp/pact).
+You can find the complete source code of the `election.pact` contract in the [voting dApp repository](https://github.com/kadena-community/voting-dapp).
 
 It's time to summarize what we've learned so far:
 
@@ -790,7 +790,7 @@ async function listModules() {
 ```
 :::
 
-The snippets can also be found in the [tutorial repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp).
+The snippets can also be found in the [tutorial repository](https://github.com/kadena-community/voting-dapp).
 
 You can use the snippet below to deploy your contract to **chain 0** on `testnet`. To do this, it's required to run Chainweaver
 locally to sign for the transaction. Please see the [Chainweaver User
@@ -871,7 +871,7 @@ npm install typescript @kadena/types --save-dev
 npm install @kadena/pactjs-cli -g
 ```
 
-Create a `tsconfig.json` file in the root of the front-end folder and paste in the following JSON:
+Create a `tsconfig.json` file in the root of the frontend folder and paste in the following JSON:
 
 ```js
 {
@@ -888,7 +888,7 @@ Create a `tsconfig.json` file in the root of the front-end folder and paste in t
 }
 ```
 
-From the root of the front-end folder, use the following commands to generate types for our `election`,
+From the root of the frontend folder, use the following commands to generate types for our `election`,
 `election-gas-station` and `coin` contracts. Generating types for the `coin` contract is necessary, because when paying
 for gas we use the `coin.GAS` capability from the coin contract.
 
@@ -912,7 +912,7 @@ There are a few key aspects concerning a frontend implementation of a blockchain
 - allowing users to sign and submit transactions
 - notify users when various actions take place like a transaction being mined or a smart contract event was emitted
 
-The code of this tutorial can be found in the front-end folder in the [tutorial repo](https://github.com/kadena-community/kadena.js/tree/master/packages/tutorials/election-dapp/front-end). For demonstration purposes the election smart contracts have been deployed to **_testnet chain 0_**
+The code of this tutorial can be found in the frontend folder in the [tutorial repository](https://github.com/kadena-community/voting-dapp). For demonstration purposes the election smart contracts have been deployed to **_testnet chain 0_**
 
 #### Read Data
 
@@ -957,7 +957,7 @@ Remember to always use the fully qualified name, _namespace.module.function_.
 
 Here's a screenshot from our demo app where we display the candidates and the number of votes received by each candidate:
 
-![alt text](https://github.com/kadena-community/kadena.js/blob/master/packages/tutorials/election-dapp/front-end/screens/main.png?raw=true)
+![Screenshot of the voting dApp](https://github.com/kadena-community/voting-dapp/blob/main/frontend/screens/main.png?raw=true)
 
 #### Sign & Send Transaction
 
@@ -1033,7 +1033,7 @@ Going back to the UI, we implemented this signing flow using a modal window wher
 
 Below is the first step of the Chainweaver request signing wizard:
 
-![Screenshot of Chainweaver request signing wizard](https://github.com/kadena-community/kadena.js/blob/master/packages/tutorials/election-dapp/front-end/screens/quicksign.png?raw=true)
+![Screenshot of Chainweaver request signing wizard](https://github.com/kadena-community/voting-dapp/blob/main/frontend/screens/quicksign.png?raw=true)
 
 Once the transaction is signed, our dApp modal will automatically submit it to the network.
 
