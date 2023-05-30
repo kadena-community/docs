@@ -113,7 +113,8 @@ Let's copy the following code in the `election.pact` file:
   (defcap GOVERNANCE ()
     "Module governance capability that only allows the admin to update this module"
     ;; Check if the tx was signed with the provided keyset, fail if not
-    (enforce-keyset "free.election-admin-keyset"))
+    (enforce-keyset "free.election-admin-keyset")
+  )
 )
 ```
 
@@ -296,7 +297,7 @@ Now that we can vote, we also need a function to read the number of votes a cand
     "Get the votes count by cid"
 
     ;; Read the row using cid as key and select only the `votes` column
-    (at 'votes (read candidates cid ["votes"]))
+    (at 'votes (read candidates cid ['votes]))
   )
 ```
 
@@ -381,7 +382,7 @@ We separated writing functionality and writing tests to make it easier to follow
 
 We're going to start by setting up the environment data that we need for our tests, load the required modules, i.e. `coin` module and of our `election` module and create some KDA accounts that we will use to vote later on.
 
-Open the `election.repl` file and copy the snippet below:
+Create the `election.repl` file and copy the snippet below:
 
 ```clojure
 ;; election.repl
@@ -663,7 +664,7 @@ Create a new file `election-gas-station.pact` and paste the following snippet:
 Next we will implement the `gas-payer-v1` interface. We don't want to let users abuse our gas station so we'll have to add a limit for the maximum gas price we're willing to pay or make sure it can only be used to pay for transactions that are calling the `election` module. Let's get to it:
 
 ```clojure
-;; election-gas-station.pact
+  ;; election-gas-station.pact
 
   (defun chain-gas-price ()
     "Return gas price from chain-data"
@@ -708,7 +709,7 @@ Next we will implement the `gas-payer-v1` interface. We don't want to let users 
 To recap, the `GAS_PAYER` capability implementation performs a few checks and composes the `ALLOW_GAS` capability that we will define next. `chain-gas-price` and `enforce-below-or-at-gas-price` are helper functions to limit the gas price that our gas station is willing to pay.
 
 ```clojure
-;; election-gas-station.pact
+  ;; election-gas-station.pact
   (defcap ALLOW_GAS () true)
 
   (defun create-gas-payer-guard:guard ()
@@ -792,7 +793,7 @@ async function listModules() {
 
 The snippets can also be found in the [tutorial repository](https://github.com/kadena-community/voting-dapp).
 
-You can use the snippet below to deploy your contract to **chain 0** on `testnet`. To do this, it's required to run Chainweaver
+You can use the snippet below to deploy your contract to **chain 1** on `testnet`. To do this, it's required to run Chainweaver
 locally to sign for the transaction. Please see the [Chainweaver User
 Guide](https://docs.kadena.io/basics/chainweaver/chainweaver-user-guide) for downloads and instructions.
 
@@ -893,9 +894,9 @@ From the root of the frontend folder, use the following commands to generate typ
 for gas we use the `coin.GAS` capability from the coin contract.
 
 ```bash
-pactjs contract-generate --file ../pact/election.pact;
-pactjs contract-generate --file ../pact/election-gas-station.pact;
-pactjs contract-generate --file ../pact/root/coin-v5.pact
+npx pactjs contract-generate --file ../pact/election.pact;
+npx pactjs contract-generate --file ../pact/election-gas-station.pact;
+npx pactjs contract-generate --file ../pact/root/coin-v5.pact
 ```
 
 The log shows what has happened. Inside the `node_modules` directory, a new package has been created: `.kadena/pactjs-generated`. This package is extending the @kadena/client types to give you type information. Make sure to add `"types": [".kadena/pactjs-generated"]` to your tsconfig.json.
@@ -912,7 +913,9 @@ There are a few key aspects concerning a frontend implementation of a blockchain
 - allowing users to sign and submit transactions
 - notify users when various actions take place like a transaction being mined or a smart contract event was emitted
 
-The code of this tutorial can be found in the frontend folder in the [tutorial repository](https://github.com/kadena-community/voting-dapp). For demonstration purposes the election smart contracts have been deployed to **_testnet chain 0_**
+The code of this tutorial can be found in the frontend folder in the [tutorial
+repository](https://github.com/kadena-community/voting-dapp). For demonstration purposes the election smart contracts
+have been deployed to **_testnet chain 0_** and **_testnet chain 1_**.
 
 #### Read Data
 
@@ -1015,7 +1018,6 @@ export const vote = async (account: string, candidateId: string): Promise<void> 
 
 Notice the `addCap` function where we define the capabilities that the user's keyset will have to sign. In this case we have two:
 
-
 - `coin.GAS` -> enables the payment of gas fees
 - `free.election.ACCOUNT-OWNER` -> checks if the user is the owner of the KDA account
 
@@ -1028,6 +1030,12 @@ Keep in mind, for security reasons a keyset should only sign specific capabiliti
 Since this is a transaction that requires gas fees, we now set `sender` (account paying for gas) to the name of the KDA account of the user. If we would want to utilize the gas station we deployed we would set the sender to the account owned by our gas station `election-gas-station` and use the `free.election-gas-station.GAS_PAYER` capability instead of `coin.GAS`.
 
 Lastly, to get the result of a transaction we are using the `pollTransactions` helper method which can be found in the project repository.
+
+To run the frontend dApp, go to the frontend folder and run:
+
+```shell
+npm run start
+```
 
 Going back to the UI, we implemented this signing flow using a modal window where users have to enter their KDA account. Once the account is entered and the user hasn't voted yet the **Vote Now** button will become available. Clicking on the **Vote Now** button will automatically open the Chainweaver signing wizard.
 
