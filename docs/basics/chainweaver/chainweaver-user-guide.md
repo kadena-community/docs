@@ -116,7 +116,7 @@ Three main steps; (1) set password, (2) record recovery phrase, (3) verify recov
 2. Record recovery phrase: Mouse over each of the 12 words to view and record your recovery phrase. See the Basic Safety Tips section for suggestions on securing your recovery phrase.
 3. Verify recovery phrase: Enter each word in the correct order to verify that you have correctly recorded your recovery phrase.
 
-After creating the wallet you might want to continue [creating the account](create-an-account) on the blockchain.
+After creating the wallet you might want to continue [creating the account](#create-an-account) on the blockchain.
 
 **Restore existing wallet from recovery phrase**
 
