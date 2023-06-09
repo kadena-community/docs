@@ -254,7 +254,7 @@ To create, and effectively own, an account name on Kadena, there must be a recor
 
 Before transferring to any account, first check to see whether the account name already exists. Do this by selecting the “Add Account” button and entering the desired account’s name. If the account does not exist, then you will see “Does not exist” as the balance for the corresponding Chain ID row.
 
-![create-account](../../static/img/docs/chainweaver-kaccount.PNG)
+![create-account](/docs/static/img/docs/chainweaver-kaccount.PNG)
 
 There are two ways to perform the “transfer & create” operation.
 
