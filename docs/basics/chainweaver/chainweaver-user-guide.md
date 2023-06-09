@@ -116,6 +116,8 @@ Three main steps; (1) set password, (2) record recovery phrase, (3) verify recov
 2. Record recovery phrase: Mouse over each of the 12 words to view and record your recovery phrase. See the Basic Safety Tips section for suggestions on securing your recovery phrase.
 3. Verify recovery phrase: Enter each word in the correct order to verify that you have correctly recorded your recovery phrase.
 
+After creating the wallet you might want to continue ![creating the account](create-an-account-) on the blockchain.
+
 **Restore existing wallet from recovery phrase**
 
 Three main steps; (1) enter recovery phrase, (2) set new password, (3) re-generate keys
@@ -246,7 +248,7 @@ Select “+ Add Account” to view existing accounts or create a new account.
 
 Optionally, you can add personal notes beside any account. This field is never seen by the blockchain, and only serves as a personal reference to organize a user’s wallet.
 
-## Create an account[¶](https://kadena-io.github.io/kadena-docs/Chainweaver-Support.html#create-an-account) <a href="#create-an-account" id="create-an-account"></a>
+## Create an account <a href="#create-an-account" id="create-an-account"></a>
 
 To create, and effectively own, an account name on Kadena, there must be a record of it on the blockchain. The recommended method for creating an account is to simply transfer some funds to it. In doing so, you transfer to and create the account in a single transaction.
 
