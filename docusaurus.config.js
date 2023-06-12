@@ -30,10 +30,17 @@ module.exports = {
   plugins: [
     require.resolve("docusaurus-plugin-fathom"),
     path.resolve(__dirname, "src/plugins/aliases.ts"),
+    [
+      "@docusaurus/plugin-google-gtag",
+      {
+        trackingID: "G-9FMNEWKR35",
+        anonymizeIP: true,
+      },
+    ],
   ],
   themeConfig: {
     prism: {
-      additionalLanguages: ['clojure'],
+      additionalLanguages: ["clojure"],
     },
     colorMode: {
       defaultMode: "dark",
@@ -219,20 +226,17 @@ module.exports = {
             return `https://github.com/kadena-community/docs/edit/master/docs/${docPath}`;
           },
           routeBasePath: "/",
-          remarkPlugins: [
-            math,
-            [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
-          ],
+          remarkPlugins: [math, [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }]],
           rehypePlugins: [katex],
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
         sitemap: {
-          changefreq: 'weekly',
+          changefreq: "weekly",
           priority: 0.5,
-          ignorePatterns: ['/tags/**'],
-          filename: 'sitemap.xml',
+          ignorePatterns: ["/tags/**"],
+          filename: "sitemap.xml",
         },
         blog: {
           blogTitle: "Kadena Blog",
@@ -254,8 +258,7 @@ module.exports = {
   stylesheets: [
     {
       href: "https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css",
-      integrity:
-        "sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc",
+      integrity: "sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc",
       crossorigin: "anonymous",
     },
   ],

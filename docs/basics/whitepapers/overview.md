@@ -48,10 +48,6 @@ Resources for using Pact are available at the [Public chain interaction](https:/
 
 :::
 
-### **3. Kuro, Kadena’s layer 2 blockchain** <a href="#2-kuro-kadenas-private-blockchain" id="2-kuro-kadenas-private-blockchain"></a>
-
-Kuro has been proven to support up to 8,000 transactions per second across 500 nodes, and is available for evaluation on [AWS](https://aws.amazon.com/marketplace/pp/Kadena-LLC-Kadena-Blockchain-for-Enterprise-Commun/B07MKMKP4F) and [Azure](https://azuremarketplace.microsoft.com/en-ca/marketplace/apps/kadenallc.scalablebft?tab=Overview).
-
 **Informational Resources**
 
 - Article: [Kadena's layer 2 blockchain 101](https://medium.com/kadena-io/scalablebft-kadenas-private-blockchain-101-c99895c0fd50)
