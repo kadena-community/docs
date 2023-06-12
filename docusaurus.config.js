@@ -1,56 +1,56 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
-const path = require('path');
-const math = require('remark-math');
-const katex = require('rehype-katex');
-const { docs, developers } = require('./sidebars');
-const DefaultLocale = 'en';
+const path = require("path");
+const math = require("remark-math");
+const katex = require("rehype-katex");
+const { docs, developers } = require("./sidebars");
+const DefaultLocale = "en";
 
 module.exports = {
-  title: 'Kadena Docs',
-  tagline: 'Explore the latest documentation, tutorials, code, and updates.',
-  url: 'https://docs.kadena.io',
-  baseUrl: '/',
+  title: "Kadena Docs",
+  tagline: "Explore the latest documentation, tutorials, code, and updates.",
+  url: "https://docs.kadena.io",
+  baseUrl: "/",
   trailingSlash: false,
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/color-favicon.png',
-  organizationName: 'kadena-community', // Usually your GitHub org/user name.
-  projectName: 'docs', // Usually your repo name.
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
+  favicon: "img/color-favicon.png",
+  organizationName: "kadena-community", // Usually your GitHub org/user name.
+  projectName: "docs", // Usually your repo name.
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'es'],
+    defaultLocale: "en",
+    locales: ["en", "es"],
   },
-  themes: ['@docusaurus/theme-live-codeblock'],
+  themes: ["@docusaurus/theme-live-codeblock"],
   scripts: [
     {
-      src: 'https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.0/web3.min.js',
+      src: "https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.0/web3.min.js",
       async: true,
     },
   ],
   plugins: [
-    require.resolve('docusaurus-plugin-fathom'),
-    path.resolve(__dirname, 'src/plugins/aliases.ts'),
+    require.resolve("docusaurus-plugin-fathom"),
+    path.resolve(__dirname, "src/plugins/aliases.ts"),
     [
-      '@docusaurus/plugin-google-gtag',
+      "@docusaurus/plugin-google-gtag",
       {
-        trackingID: 'G-9FMNEWKR35',
+        trackingID: "G-9FMNEWKR35",
         anonymizeIP: true,
       },
     ],
   ],
   themeConfig: {
     prism: {
-      additionalLanguages: ['clojure'],
+      additionalLanguages: ["clojure"],
     },
     colorMode: {
-      defaultMode: 'dark',
+      defaultMode: "dark",
     },
     navbar: {
-      style: 'dark',
-      title: 'Kadena Docs',
+      style: "dark",
+      title: "Kadena Docs",
       logo: {
-        alt: 'Kadena Logo',
-        src: 'img/color-logo.png',
+        alt: "Kadena Logo",
+        src: "img/color-logo.png",
       },
       items: [
         // {
@@ -59,24 +59,24 @@ module.exports = {
         //     "position": "left"
         // },
         {
-          to: 'build/introduction',
-          label: 'Build',
-          position: 'left',
+          to: "build/introduction",
+          label: "Build",
+          position: "left",
         },
         {
-          to: 'contribute/introduction',
-          label: 'Contribute',
-          position: 'left',
+          to: "contribute/introduction",
+          label: "Contribute",
+          position: "left",
         },
         {
-          to: 'learn-pact/intro',
-          label: 'Learn Pact',
-          position: 'left',
+          to: "learn-pact/intro",
+          label: "Learn Pact",
+          position: "left",
         },
         {
-          href: 'https://medium.com/kadena-io',
-          position: 'right',
-          label: 'Blog',
+          href: "https://medium.com/kadena-io",
+          position: "right",
+          label: "Blog",
         },
         // {
         //   href: "https://github.com/kadena-community/docs/issues/new",
@@ -94,29 +94,29 @@ module.exports = {
         //   label: "Discord",
         // },
         {
-          type: 'dropdown',
-          label: 'Support',
-          position: 'right',
+          type: "dropdown",
+          label: "Support",
+          position: "right",
           items: [
             {
-              to: 'https://github.com/kadena-community/docs/discussions',
-              label: 'Discussions',
+              to: "https://github.com/kadena-community/docs/discussions",
+              label: "Discussions",
             },
             {
-              to: 'https://github.com/kadena-community/docs/issues/new',
-              label: 'Feedback',
+              to: "https://github.com/kadena-community/docs/issues/new",
+              label: "Feedback",
             },
             {
-              to: 'https://discord.com/channels/502858632178958377/502858632178958380',
-              label: 'Discord',
+              to: "https://discord.com/channels/502858632178958377/502858632178958380",
+              label: "Discord",
             },
           ],
         },
         {
-          href: 'https://github.com/kadena-io',
-          position: 'right',
-          className: 'header-github-link',
-          'aria-label': 'GitHub repository',
+          href: "https://github.com/kadena-io",
+          position: "right",
+          className: "header-github-link",
+          "aria-label": "GitHub repository",
         },
       ],
     },
@@ -134,31 +134,31 @@ module.exports = {
     //     debug: false
     // },
     footer: {
-      style: 'dark',
+      style: "dark",
       links: [
         {
-          title: 'Docs',
+          title: "Docs",
           items: [
             {
-              label: 'Home',
-              to: '/',
+              label: "Home",
+              to: "/",
             },
             {
-              label: 'Blog',
-              href: 'https://medium.com/kadena-io',
+              label: "Blog",
+              href: "https://medium.com/kadena-io",
             },
             // {
             //     href: "https://kadena.crowdin.com/kadena-docs",
             //     label: "Help translate"
             // },
             {
-              label: 'GitHub',
-              href: 'https://github.com/kadena-io',
+              label: "GitHub",
+              href: "https://github.com/kadena-io",
             },
           ],
         },
         {
-          title: 'Community',
+          title: "Community",
           items: [
             // {
             //     href: "/contribute/introduction",
@@ -169,54 +169,54 @@ module.exports = {
             //     href: "https://forum.kadena.org/",
             // },
             {
-              label: 'Discord',
-              href: 'https://discord.com/invite/bsUcWmX',
+              label: "Discord",
+              href: "https://discord.com/invite/bsUcWmX",
             },
             {
-              label: 'Twitter',
-              href: 'https://twitter.com/kadena_io',
+              label: "Twitter",
+              href: "https://twitter.com/kadena_io",
             },
             {
-              label: 'YouTube',
-              href: 'https://www.youtube.com/c/KadenaBlockchain',
+              label: "YouTube",
+              href: "https://www.youtube.com/c/KadenaBlockchain",
             },
           ],
         },
         {
-          title: 'Website',
+          title: "Website",
           items: [
             {
-              label: 'About',
-              href: 'https://kadena.io/about/',
+              label: "About",
+              href: "https://kadena.io/about/",
             },
             {
-              label: 'Contact',
-              href: 'https://kadena.io/contact/',
+              label: "Contact",
+              href: "https://kadena.io/contact/",
             },
             {
-              label: 'Build',
-              href: 'https://kadena.io/build/',
+              label: "Build",
+              href: "https://kadena.io/build/",
             },
             {
-              label: 'Community',
-              href: 'https://kadena.io/community/',
+              label: "Community",
+              href: "https://kadena.io/community/",
             },
           ],
         },
       ],
     },
     fathomAnalytics: {
-      siteId: 'YHVNQZAL',
+      siteId: "YHVNQZAL",
     },
   },
   presets: [
     [
-      '@docusaurus/preset-classic',
+      "@docusaurus/preset-classic",
       {
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: 'https://github.com/kadena-community/docs/edit/master/',
+          editUrl: "https://github.com/kadena-community/docs/edit/master/",
           editUrl: ({ locale, versionDocsDirPath, docPath }) => {
             // Link to Crowdin for French docs
             if (locale !== DefaultLocale) {
@@ -225,23 +225,23 @@ module.exports = {
             // Link to Github for English docs
             return `https://github.com/kadena-community/docs/edit/master/docs/${docPath}`;
           },
-          routeBasePath: '/',
-          remarkPlugins: [math, [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]],
+          routeBasePath: "/",
+          remarkPlugins: [math, [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }]],
           rehypePlugins: [katex],
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve("./src/css/custom.css"),
         },
         sitemap: {
-          changefreq: 'weekly',
+          changefreq: "weekly",
           priority: 0.5,
-          ignorePatterns: ['/tags/**'],
-          filename: 'sitemap.xml',
+          ignorePatterns: ["/tags/**"],
+          filename: "sitemap.xml",
         },
         blog: {
-          blogTitle: 'Kadena Blog',
-          blogSidebarTitle: 'All posts',
-          blogSidebarCount: 'ALL',
+          blogTitle: "Kadena Blog",
+          blogSidebarTitle: "All posts",
+          blogSidebarCount: "ALL",
           showReadingTime: true,
           readingTime: ({ content, frontMatter, defaultReadingTime }) =>
             // allows per post reading time override in frontmatter
@@ -257,9 +257,9 @@ module.exports = {
   ],
   stylesheets: [
     {
-      href: 'https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css',
-      integrity: 'sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc',
-      crossorigin: 'anonymous',
+      href: "https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css",
+      integrity: "sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc",
+      crossorigin: "anonymous",
     },
   ],
 };
