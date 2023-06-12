@@ -45,14 +45,15 @@ Marmalade is a protocol composed of an ecosystem of modules/smart contracts that
 
 The workflow of the Marmalade ecosystem can be broken down to three main steps that each include few sub steps:
 
-****
+---
 
 **Manifest Creation**\
-****
+
+---
 
 <figure><img src="../../../kadena-docs/docs/docs/assets/image (1).png" alt=""></img></figure>
 
-****
+---
 
 **Token Creation and Minting**
 
@@ -74,7 +75,7 @@ This is what creating the URI of a JPEG image would look like:
 ;; Create the parameters for the uri function
 "uri": {
     "data": "/9j/4AAQSkZJRgABAQAAAQABAAD/4gIoSUNDX1BST0ZJTEUAAQEAAAIYAAAAAAQwAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAAHRyWFlaAAABZAAAABRnWFlaAAABeAAAABRiWFlaAAABjAAAABRyVFJDAAABoAAAAChnVFJDAAABoAAAAChiVFJDAAABoAAAACh3dHB0AAAByAAAABRjcHJ0AAAB3AAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAFgAAAAcAHMAUgBHAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA..."
-   "scheme":"image/jpeg;base64" 
+   "scheme":"image/jpeg;base64"
 }
 
 (uri uri) ;; this is the function call
@@ -102,7 +103,7 @@ Creating datum can look as follows:
                     Authenticity"
   }
 }
- 
+
 (create-datum uri datum) ;; function call
 ```
 
@@ -118,7 +119,7 @@ Creating datum can look as follows:
 
 To create a token, the user must deploy their own policy onto the blockchain or use a policy that has already been deployed to the Chainweb (examples of these policies below).
 
-Some policies that have already been deployed as part of the Marmalade Ecosystem are the [guard policy](https://github.com/kadena-io/marmalade/blob/main/pact/policy.pact), the [fixed quote policy](https://github.com/kadena-io/marmalade/blob/main/pact/fixed-quote-policy.pact), and the [fixed quote with royalty policy](https://github.com/kadena-io/marmalade/blob/main/pact/fixed-quote-royalty-policy.pact). All policies, whether they are custom made or already deployed by marmalade, must conform to a standard interface called kip.token-policy-v1, which can be viewed [here](https://github.com/kadena-io/marmalade/blob/main/pact/kip/token-policy-v1.pact).
+Some policies that have already been deployed as part of the Marmalade Ecosystem are the [guard policy](https://github.com/kadena-io/marmalade/blob/main/pact/policies/guard-policy/guard-policy.pact), the [fixed quote policy](https://github.com/kadena-io/marmalade/blob/main/pact/policies/fixed-quote-policy/fixed-quote-policy.pact), and the [fixed quote with royalty policy](https://github.com/kadena-io/marmalade/blob/main/pact/policies/fixed-quote-royalty-policy/fixed-quote-royalty-policy.pact). All policies, whether they are custom made or already deployed by marmalade, must conform to a standard interface called kip.token-policy-v1, which can be viewed [here](https://github.com/kadena-io/marmalade/blob/main/pact/kip/token-policy-v1.pact).
 
 **Creating a Token**: Creating a token in Marmalade is relatively simple. All the token creator has to do is call the `create-token` function, which has parameters of `id` (this is the name of the token), `precision` (this is how you want to fractionalize your token), `manifest` (the token manifest that we created earlier), and `policy` (in the form of a module that follows the kip.token-policy-v1) format.
 
@@ -148,12 +149,12 @@ Here is an example of the creation of a fixed quote policy token:
 "Min-amount":"0.0"
 },
 
-//This is the pact function call code; 
+//This is the pact function call code;
 //read-msg finds the data with appropriate variable name from environment data
 "code":"(marmalade.ledger.create-token "MKOCOIN" 12 (read-msg 'manifest) marmalade.fixed-quote-policy)"}}}",
     "sigs": {
         "e6ee763bd659fb2bb4e1f402f338e4bb374b91434f34d5fd49d85e99a00df9e2": null
-    } 
+    }
 }
 ```
 
@@ -210,7 +211,7 @@ Although storing data on-chain is possible, and recommended for certain use case
 
 And once done, your file is pinned on the decentralized IPFS!
 
-1. Finally, take note of the CID from the uploaded picture and save the link with the format https://gateway.pinata.cloud/ipfs/{YourPicture’sCID}
+1. Finally, take note of the CID from the uploaded picture and save the link with the format `https://gateway.pinata.cloud/ipfs/{YourPicture’sCID}`
 2. We’re now one step closer to minting the Token on-chain! Next, If you have a private public key pair, we’ll go straight to creating and minting the token. If not follow [this guide](/basics/chainweaver/chainweaver-user-guide#keys-accounts-and-ownership-) to make the private/public keychain and account.
 
 ### Nothing as Cold as a Mint
@@ -227,7 +228,7 @@ To use the already created kip.token-manifest contract, all you have to do is re
 
 ```js
 const createUri = async (scheme:Object, data:Object):Promise<Uri> => {
- 
+
 const res = await Pact.fetch.local(
   {
     pactCode: `(${contractAddress}.uri (read-string 'scheme) (read-string 'data))`,
@@ -335,55 +336,56 @@ export const createToken = async (
     }
 ```
 
-
-
 ### Mint Token
 
 The mint function allows the NFT creator (or someone else) to mint the token that they just created. All it needs is the token name, amount to mint, the receiver’s account, the receiver’s keyset, and the signer’s private key.
 
 ```js
-  export const mintToken = async (
-        tokenId, // Token name
-        amount,
-        receiverAccount,
-        receiverKeyset,
-        signerAccountPrivKey,
-      ) => {
-          const newKs = typeof(receiverKeyset) === "object"?receiverKeyset:JSON.parse(receiverKeyset)
-          const accountPubKey =  Pact.crypto.restoreKeyPairFromSecretKey(signerAccountPrivKey).publicKey
-          const mint = await Pact.fetch.send(
+export const mintToken = async (
+  tokenId, // Token name
+  amount,
+  receiverAccount,
+  receiverKeyset,
+  signerAccountPrivKey
+) => {
+  const newKs = typeof receiverKeyset === 'object' ? receiverKeyset : JSON.parse(receiverKeyset);
+  const accountPubKey = Pact.crypto.restoreKeyPairFromSecretKey(signerAccountPrivKey).publicKey;
+  const mint = await Pact.fetch.send(
+    {
+      pactCode: `(${hftAPI.contractAddress}.mint "${tokenId}" "${receiverAccount}" (read-keyset 'ks) (read-decimal 'amount))`,
+      networkId: 'testnet04',
+      keyPairs: [
+        {
+          // EXCHANGE ACCOUNT KEYS
+          //  PLEASE KEEP SAFE
+          publicKey: accountPubKey, //Signing PubK
+          secretKey: signerAccountPrivKey, //signing secret key
+          clist: [
+            //capability to transfer crosschain
+            //capability for gas
             {
-              pactCode:  `(${hftAPI.contractAddress}.mint "${tokenId}" "${receiverAccount}" (read-keyset 'ks) (read-decimal 'amount))`,
-              networkId: 'testnet04',
-              keyPairs: [{
-                // EXCHANGE ACCOUNT KEYS
-                //  PLEASE KEEP SAFE
-                publicKey: accountPubKey, //Signing PubK
-                secretKey: signerAccountPrivKey,//signing secret key
-                clist: [
-                  //capability to transfer crosschain
-                   //capability for gas
-                  {
-                    name: `coin.GAS`,
-                    args: []
-                  },
-                  {
-                    name:`${hftAPI.contractAddress}.MINT`,
-                    args: [tokenId, receiverAccount, Number.parseFloat(amount)]
-                  }
-                ]
-              }],
-       //pact-lang-api function to construct transaction metadata
-              meta: Pact.lang.mkMeta('marmalade.tester', '1' , 0.000001, 100000, creationTime(), 28800),
-              envData: {
-                ks: newKs, amount
-              },
+              name: `coin.GAS`,
+              args: [],
             },
-            `https://api.testnet.chainweb.com/chainweb/0.0/testnet04/chain/1/pact`
-          )
-          const reqKey = mint
-          console.log(reqKey)
-        }
+            {
+              name: `${hftAPI.contractAddress}.MINT`,
+              args: [tokenId, receiverAccount, Number.parseFloat(amount)],
+            },
+          ],
+        },
+      ],
+      //pact-lang-api function to construct transaction metadata
+      meta: Pact.lang.mkMeta('marmalade.tester', '1', 0.000001, 100000, creationTime(), 28800),
+      envData: {
+        ks: newKs,
+        amount,
+      },
+    },
+    `https://api.testnet.chainweb.com/chainweb/0.0/testnet04/chain/1/pact`
+  );
+  const reqKey = mint;
+  console.log(reqKey);
+};
 ```
 
 Congratulations, you have learned the inner workings of Marmalade and know how to mint an NFT. Now get out there and have fun building!

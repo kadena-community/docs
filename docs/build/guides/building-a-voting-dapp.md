@@ -42,8 +42,8 @@ mkdir frontend
 
 We've got the `election-dapp` directory and two additional sub-directories:
 
-* `pact`, which holds the smart contracts
-* `frontend`, which holds the frontend part of our application
+- `pact`, which holds the smart contracts
+- `frontend`, which holds the frontend part of our application
 
 ### Implementing the Voting Smart Contract
 
@@ -59,8 +59,8 @@ In this section we will focus on steps 1 to 3. Later, we'll deploy our smart con
 
 In your project directory, let's create two files:
 
-* `pact/election.pact`, which will hold the source code for our smart contract
-* `pact/election.repl`, which will hold our tests
+- `pact/election.pact`, which will hold the source code for our smart contract
+- `pact/election.repl`, which will hold our tests
 
 :::info
 What is Pact REPL? The Pact REPL is an environment where we can load our Pact source code and work with it interactively. It's a best practice to include a `.repl` file next to your source code which imports your contract, calls functions from it, and inspects its current state to ensure everything is correct.
@@ -73,8 +73,8 @@ which is a smart contract deployed on Kadena blockchain. The name of this contra
 
 The `coin` contract itself has two additional dependencies:
 
-* `fungible-v2`, an interface that each fungible token deployed on Kadena should implement
-* `fungible-xchain-v1`, an interface that provides standard capability for cross-chain transfers.
+- `fungible-v2`, an interface that each fungible token deployed on Kadena should implement
+- `fungible-xchain-v1`, an interface that provides standard capability for cross-chain transfers.
 
 To be able to properly test our voting contract we will need to invoke functions defined in the `coin` contract so we have to include it in our project together with its dependencies, the `fungible-v2` and `fungible-xchain-v1` interfaces.
 
@@ -565,13 +565,14 @@ The REPL preserves state between subsequent runs unless the optional parameter `
 ```
 (load "election.repl" true)
 ```
+
 :::
 
 Let's recap what we've learned in this section:
 
-* we can test Pact smart-contracts using `.repl` scripts that simulate blockchain environment through a set of REPL-only functions
-* before writing tests we need to make sure all required modules are loaded as well as KDA accounts are created if we need them
-* we can test functions returned values, emitted events, failure scenarios (and much more that we couldn't cover)
+- we can test Pact smart-contracts using `.repl` scripts that simulate blockchain environment through a set of REPL-only functions
+- before writing tests we need to make sure all required modules are loaded as well as KDA accounts are created if we need them
+- we can test functions returned values, emitted events, failure scenarios (and much more that we couldn't cover)
 
 ### Implementing the Gas Station
 
@@ -637,8 +638,8 @@ Let's take a look at the `gas-payer-v1` interface defining a capability and a fu
 
 Our module needs to implement all the functions and capabilities defined by the `gas-payer-v1` interface:
 
-* `GAS_PAYER` capability
-* `create-gas-payer-guard` function
+- `GAS_PAYER` capability
+- `create-gas-payer-guard` function
 
 A gas station allows someone to debit from a coin account that they do not own, gas station account, to pay the gas fee for a transaction under certain conditions. How exactly that happens, let's see below.
 
@@ -789,6 +790,7 @@ async function listModules() {
   console.log(response.result.data);
 }
 ```
+
 :::
 
 The snippets can also be found in the [tutorial repository](https://github.com/kadena-community/voting-dapp).
@@ -825,14 +827,14 @@ async function deployContract(pactCode) {
     gasLimit: 100000,
     chainId: CHAIN_ID,
     gasPrice: 0.000001,
-    sender: ACCOUNT_NAME // the account paying for gas
+    sender: ACCOUNT_NAME, // the account paying for gas
   };
   const pactCommand = new PactCommand()
     .setMeta(publicMeta, NETWORK_ID)
     .addCap('coin.GAS', PUBLIC_KEY)
-    .addData( {
-      'election-admin-keyset': [ PUBLIC_KEY ],
-      'upgrade': false
+    .addData({
+      'election-admin-keyset': [PUBLIC_KEY],
+      upgrade: false,
     });
   pactCommand.code = pactCode;
 

@@ -14,5 +14,5 @@
       "replacement": "{{BASEURL}}/static/$1"
     }
   ],
-  "aliveStatusCodes": [0, 429, 200, 203]
+  "aliveStatusCodes": [0, 429, 200, 203, 403]
 }

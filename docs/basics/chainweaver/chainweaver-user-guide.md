@@ -160,7 +160,7 @@ Importing a wallet file will replace the data within the current wallet.
 
 #### Update to the latest version of Chainweaver <a href="#update-to-the-latest-version-of-chainweaver" id="update-to-the-latest-version-of-chainweaver"></a>
 
-Upgrading Chainweaver is an essential part of keeping your crypto assets safe and enjoying new features for interacting with the Kadena blockchain ecosystem. The latest version of Chainweaver will always be available for download at [https://www.kadena.io/chainweaver](https://kadena-io.github.io/kadena-docs/%E2%80%9Chttps://www.kadena.io/chainweaver%22).
+Upgrading Chainweaver is an essential part of keeping your crypto assets safe and enjoying new features for interacting with the Kadena blockchain ecosystem. The latest version of Chainweaver will always be available for download at [https://www.kadena.io/chainweaver](https://www.kadena.io/chainweaver).
 
 :::note
 
@@ -254,7 +254,7 @@ To create, and effectively own, an account name on Kadena, there must be a recor
 
 Before transferring to any account, first check to see whether the account name already exists. Do this by selecting the “Add Account” button and entering the desired account’s name. If the account does not exist, then you will see “Does not exist” as the balance for the corresponding Chain ID row.
 
-![create-account](/static/img/docs/chainweaver-kaccount.PNG)
+![create-account](/img/docs/chainweaver-kaccount.PNG)
 
 There are two ways to perform the “transfer & create” operation.
 
@@ -279,7 +279,6 @@ For convenience, Chainweaver will automatically define the keyset for accounts t
 :::
 
 Remember that the Kadena public blockchain network is comprised of many chains braided together. In effect, each chain is a standalone blockchain, therefore you will have to create your desired account on each chain for which you want it to exist. Naturally, the same account name will have a different account balance on each chain, and may also have different owners or a different keyset. Always be sure to take note of the chain on which you are transacting.
-
 
 :::note
 
@@ -310,7 +309,6 @@ As a development environment, Chainweaver can:
 • Automate transaction signing between dApps and accounts
 
 :::
-
 
 ## Remove an account <a href="#remove-an-account" id="remove-an-account"></a>
 

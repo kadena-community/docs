@@ -10,30 +10,31 @@ import TabItem from '@theme/TabItem';
 # A Step-By-Step Guide to Writing Pact Smart Contract
 
 > This is a Pact developer tutorial series titled “Real World Pact”, which contains tutorials on:
+>
 > - Goliath Faucet Contract
 > - Goliath Wallet UI with TypeScript + React frontend
 >
 > The purpose of the step-by-step guide is to enable developers and interested individuals to start coding easily. For those interested in exploring the entire repo, please see [Goliath Faucet Contract Overview](https://github.com/thomashoneyman/real-world-pact/tree/main/01-faucet-contract#contract-overview) and [Goliath Faucet Main Contract](https://github.com/thomashoneyman/real-world-pact/blob/main/01-faucet-contract/faucet.pact).
 
-
 ---
 
-| Index                                             | 
-|-----------------------------------------------|  
-| [Overview](#Overview)                         | 
-| [Introduction](#Introduction)                 | 
-| [Namespaces](#Namespaces)                     | 
+| Index                                         |
+| --------------------------------------------- |
+| [Overview](#Overview)                         |
+| [Introduction](#Introduction)                 |
+| [Namespaces](#Namespaces)                     |
 | [Keysets](#Keysets)                           |
-| [Interfaces & Modules](#Interfaces-&-Modules) | 
+| [Interfaces & Modules](#Interfaces-&-Modules) |
 | [Constants](#Constants)                       |
-| [Capabilities](#Capabilities)                 | 
-| [Functions](#Functions)                       | 
+| [Capabilities](#Capabilities)                 |
+| [Functions](#Functions)                       |
 
 :::tip
 For convenience you can find this project in this [repository](https://github.com/thomashoneyman/real-world-pact).
 :::
 
 ## Overview
+
 The Goliath faucet is a simple smart contract that allows users to request KDA. Even though it’s a small contract, we’ll cover the majority of Pact’s features in the process of building it. The faucet contract is intended for use on a test network, so it will allow anyone to request funds.
 
 We’ll implement these features in idiomatic Pact:
@@ -51,19 +52,21 @@ We’ll implement these features in idiomatic Pact:
 After following all the steps, you’ll be able to understand the contract behind the app, Goliath wallet.
 
 ## Introduction
+
 Welcome to the Goliath faucet smart contract!
 
 We’re using the Pact smart contract language. A smart contract can contain a mixture of:
 
-* Top-level Pact code that is executed on-chain when you deploy the contract
+- Top-level Pact code that is executed on-chain when you deploy the contract
 
-* Pact code organized into interfaces and modules, which can be called via other smart contracts or by sending Pact code to a Chainweb node at its Pact endpoint for evaluation.
+- Pact code organized into interfaces and modules, which can be called via other smart contracts or by sending Pact code to a Chainweb node at its Pact endpoint for evaluation.
 
 A typical Pact smart contract executes some top-level setup code by defining one or more keysets and entering a namespaces. Then, it defines a module and/or interface that other modules can reference. Finally, it executes more top-level code to initialize data required by the module, such as creating new tables. Each of these steps introduces critical concepts for Pact development.
 
 We’ll take all these steps in our smart contract. We’ll begin by exploring namespaces, keysets, interfaces, and modules. Then we’ll implement the “goliath-faucet” module and finish up by initializing some data.
 
 ## Namespaces
+
 Our contract begins by entering a namespace.
 
 Modules, interfaces, and keysets in Pact must have unique names within a particular namespace. On a private blockchain you can define your own namespace or use the "root" namespace (ie. no namespace at all). On a public blockchain the root namespace is reserved for built-in contracts (like the coin contract, which we’ll see later), and on Chainweb specifically you can only define a new namespace with the approval of the Kadena team.
@@ -81,6 +84,7 @@ We’ll use the "free" namespace for our contract:
 ```
 
 ## Keysets
+
 Now that we are inside the `"free"` namespace, we can begin defining keysets for use in our module.
 
 Public-key authorization is widely used in smart contracts to ensure that only the holders of specific keys can take certain actions (such as transferring funds from their account). Pact integrates single- and multi-signature public-key authorization into smart contracts directly via the concept of keysets.
@@ -116,7 +120,7 @@ you can look it up by name by sending this code to a Chainweb node:
 (describe-keyset "free.my-keyset")
 ```
 
-Let’s proceed with defining the “free.goliath-faucet-keyset” using the keyset provided via transaction data. You can parse data from the transaction using the (read-*) family of functions:
+Let’s proceed with defining the “free.goliath-faucet-keyset” using the keyset provided via transaction data. You can parse data from the transaction using the (read-\*) family of functions:
 
 - [#read-msg](https://pact-language.readthedocs.io/en/stable/pact-functions.html#read-msg)
 - [#read-keyset](https://pact-language.readthedocs.io/en/stable/pact-functions.html#read-keyset)
@@ -126,15 +130,15 @@ Let’s proceed with defining the “free.goliath-faucet-keyset” using the key
 
 Our deployment transaction will be sent with two pieces of data:
 
-* ‘upgrade’: a boolean indicating whether we intend this as a deployment or as an upgrade to the already-deployed module if we are upgrading then we can skip the keyset definition and initialization steps.
+- ‘upgrade’: a boolean indicating whether we intend this as a deployment or as an upgrade to the already-deployed module if we are upgrading then we can skip the keyset definition and initialization steps.
 
-* ‘goliath-faucet-contract’: a keyset that should be registered as the `“free.goliath-faucet-keyset”` keyset on-chain.
+- ‘goliath-faucet-contract’: a keyset that should be registered as the `“free.goliath-faucet-keyset”` keyset on-chain.
 
 Below, we read the Goliath faucet keyset from the transaction data and register it, but only if we are deploying (not upgrading) this contract. Once the keyset is registered, our Pact module can refer to it when guarding sensitive information. To see how to provide a keyset in transaction data please refer to the [faucet.repl file](https://github.com/thomashoneyman/real-world-pact/blob/main/01-faucet-contract/faucet.repl) and the deploy-faucet-contract.yaml file.
 
 ```clojure
 (if (read-msg “upgrade”)
-  [ (enforce-keyset (read-keyset “goliath-faucet-keyset”)) 
+  [ (enforce-keyset (read-keyset “goliath-faucet-keyset”))
     (define-keyset “free.goliath-faucet-keyset”
     (read-keyset “goliath-faucet-keyset”))
   ]
@@ -151,6 +155,7 @@ First, what if we have a typo in the keyset sent in the transaction data? The ty
 Second, you don’t have to define a keyset inside your smart contract. You may wish to reuse the same keyset reference in multiple contracts, and so you simply reuse the keyset reference in your contract. This can be dangerous, however. If you deploy a contract referring to a keyset but you forgot to register that keyset, then someone else can register the keyset with their keys and gain access to your guarded data. To prevent these risks it’s a best practice to enforce a keyset guard on the transaction that deploys the contract. This guard should ensure that any keysets passed to the contract were also used to sign the transaction that deploys the contract. If the enforcement fails, the deployment is aborted, and you can fix the keyset and try again. [#keyset-ref-guard](https://pact-language.readthedocs.io/en/stable/pact-functions.html#keyset-ref-guard)
 
 ## Interfaces & Modules
+
 So far we’ve been writing code at the top level. Code at the top level is ordinary Pact that Chainweb can execute. However, when you are defining a new smart contract, you need to organize your Pact code into interfaces and/or modules so that it can be referenced later from other contracts or via a Chainweb node’s Pact API. Chainweb will store your interfaces and modules within the namespace you’ve entered.
 
 Interfaces and modules are both units for organizing Pact code, but they serve different purposes. An interface describes the API that a module will implement and can supply constants and models for formal verification to aid in that implementation, but it doesn’t contain any implementations itself and cannot be executed on Chainweb. [#interfaces](https://pact-language.readthedocs.io/en/stable/pact-reference.html#interfaces)
@@ -173,8 +178,8 @@ Governance functions can be a keyset reference, which means that the contract ca
 (module goliath-faucet "free.goliath-faucet-keyset"
   @doc
   "'goliath-faucet' represents the Goliath Faucet Contract. \
-  \ This contract  provides a small number of KDA to any    \  
-  \ Kadena user who needs some. To request funds for        \      
+  \ This contract  provides a small number of KDA to any    \
+  \ Kadena user who needs some. To request funds for        \
   \ yourself (Chain 0 only):                                \
   \                                                         \
   \ > (free.goliath-faucet.request-funds …)                 \
@@ -184,12 +189,13 @@ Governance functions can be a keyset reference, which means that the contract ca
   \                                                         \
   \ To return funds to the faucet account (Chain 0 only):   \
   \ > (free.goliath-faucet.return-funds …)"
-  
+
 ```
 
 Now, let’s implement the body of our module. We’ll begin with the two forms of metadata we can use to annotate our modules, interfaces, functions, table schemas, and other Pact code. The @doc metadata field is for documentation strings, and the @model metadata field is for formal verification. [#docs-and-metadata](https://pact-language.readthedocs.io/en/latest/pact-reference.html#docs-and-metadata)
 
 ## Metadata
+
 It’s a best practice to document interfaces, modules, functions, table schemas, and other Pact code using the `@doc` metadata field. We’ll do that throughout our contract, beginning with the module itself.
 
 The second metadata type is `@model`. It allows us to specify properties that functions must satisfy and invariants that table schemas must satisfy. Pact, via the Z3 theorem prover, can prove that there is no possible set of variable assignments in our code that will violate the given property or invariant. Or, if it does find a violation, it can tell us so we can fix it! [#what-do-properties-and-schema-invariants-look-like](https://pact-language.readthedocs.io/en/stable/pact-properties.html#what-do-properties-and-schema-invariants-look-like)
@@ -200,12 +206,13 @@ We have a few functions that should never succeed unless they were called in a t
 
 ```clojure
 @model
-  [ (defproperty faucet-authorized 
+  [ (defproperty faucet-authorized
       (authorized-by "free.goliath-faucet-keyset"))
   ]
-```  
+```
 
 ## Constants
+
 It’s useful to define constants in your interface for values that will be used in several functions, or values that other modules should be able to refer to.
 
 Our faucet contract has a specific range of values that it will allow the per-request and per-account limits to be set to. It’s useful to capture these values in variables that our tests, module code, and other modules on Chainweb can refer to. To expose a constant value, use (defconst). [#defconst](https://pact-language.readthedocs.io/en/latest/pact-reference.html#defconst)
@@ -220,6 +227,7 @@ Our faucet contract has a specific range of values that it will allow the per-re
 ```
 
 ## Schemas & Tables
+
 When your smart contract needs to persist some data across multiple calls to functions in the contract, it should use a table. Tables in Pact are relational databases and have a key-row structure. Keys are always strings. You can define a table with `deftable`. [#deftable](https://pact-language.readthedocs.io/en/stable/pact-reference.html#deftable)
 
 Our smart contract needs to persist four pieces of data. First, we need to record how much KDA in total each account has requested and returned so that we know when a request would exceed the per-account limit. We also need to record the per-request and per-account limits, as they can be adjusted by the faucet account at any time.
@@ -231,12 +239,12 @@ The schema will be used to verify we are using the right types when reading or w
 By convention, we use the same name for a table and its schema, except we give the schema a -schema suffix.
 
 ```clojure
-(defschema accounts-schema 
+(defschema accounts-schema
    @model
-   [ (invariant (<= (- funds-requested funds-returned) 
+   [ (invariant (<= (- funds-requested funds-returned)
         account-limit))
      (invariant (>= (- funds-requested funds-returned) 0.0))
-   ] 
+   ]
    funds-requested:decimal
    funds-returned:decimal
    request-limit:decimal
@@ -260,6 +268,7 @@ Note that these functions can only be called by functions within the module that
 ```
 
 ## Capabilities
+
 Next, let’s explore a fundamental pair of concepts in Pact: guards and capabilities. A guard in Pact defines a rule that must be satisfied for the transaction to continue.
 
 We’ve seen an example already: keysets are one type of guard. But there are others, such as pact guards (used to guard that transaction is executed within a certain multi-step transactions, such as `(coin.transfer-crosschain)` and user guards (arbitrary user-defined predicate functions).
@@ -275,7 +284,7 @@ For example, an ADMIN capability might ensure that a specific keyset must be sat
 ```clojure
 (defcap ADMIN ()
   (enforce-guard (keyset-ref-guard "free.my-keyset"))
-```  
+```
 
 Capabilities can implement more sophisticated rules, such as orchestrating a vote to determine whether the contract can be upgraded. You can learn more about capabilities in the Pact documentation. [#capabilities](https://pact-language.readthedocs.io/en/latest/pact-reference.html#capabilities)
 
@@ -295,7 +304,7 @@ Managed capabilities must always be scoped; unmanaged capabilities don’t alway
 
 You can see examples of scoping a signature to a capability in the [faucet.repl](https://github.com/thomashoneyman/real-world-pact/blob/main/01-faucet-contract/faucet.repl) file and in the various [‘send’ request files](https://github.com/thomashoneyman/real-world-pact/tree/50ce4cf19e65f4bfb7de90d8ea5f38948afbd4ce/01-faucet-contract/yaml/send).
 
-Our contract will use one capability: `SET_LIMIT`. It ensures that calls to change the per-request and per-account limits for a given account *must* be signed for by the goliath-faucet account.
+Our contract will use one capability: `SET_LIMIT`. It ensures that calls to change the per-request and per-account limits for a given account _must_ be signed for by the goliath-faucet account.
 
 The module’s `SET_LIMIT` capability will be a simple keyset guard. To grant this capability in a function in this module with (with-capability), the transaction that calls that function must be signed by the goliath-faucet private key, scoped to the `SET_LIMIT` capability.
 
@@ -306,6 +315,7 @@ The module’s `SET_LIMIT` capability will be a simple keyset guard. To grant th
 ```
 
 ## Functions
+
 Now for the fun part! It’s time to implement the core logic of our smart contract. Each feature of the contract will be represented by a function.
 
 We’ll implement functions for users to request and return funds and to look up their account limits. We’ll also implement two admin-only functions to adjust an account’s limits. Along the way we’ll see how to grant capabilities, prevent invalid states, read and write tables, format strings, and more.
@@ -318,13 +328,13 @@ Our first function lets users request funds from the faucet. Specifically, we wi
 
 ```clojure
 (defun request-funds:string (
-  receiver:string 
-  receiver-guard:guard 
+  receiver:string
+  receiver-guard:guard
   amount:decimal)
-  @doc 
-     "Request that funds are sent to the account denoted as the \    
-    \'receiver'. If the account does not exist then it will be \   
-    \ created and be guarded by the provided ‘receiver-guard’ 
+  @doc
+     "Request that funds are sent to the account denoted as the \
+    \'receiver'. If the account does not exist then it will be \
+    \ created and be guarded by the provided ‘receiver-guard’
     \ keyset."
 ```
 
@@ -339,7 +349,7 @@ Recall that due to our schema invariants we have some additional checks that ver
   ]
 ```
 
-Pact’s formal verification will check that your implementation satisfies the two properties above, but we still have to write the code that *prevents* the invalid states. To abort a transaction if it fails to meet a condition, use (enforce). [#enforce](https://pact-language.readthedocs.io/en/stable/pact-functions.html#enforce)
+Pact’s formal verification will check that your implementation satisfies the two properties above, but we still have to write the code that _prevents_ the invalid states. To abort a transaction if it fails to meet a condition, use (enforce). [#enforce](https://pact-language.readthedocs.io/en/stable/pact-functions.html#enforce)
 
 To see formal verification in action, comment out this line and re-run the REPL file.
 
@@ -376,7 +386,7 @@ This balance is what should be checked against the account limit. Now, we can fi
 ```clojure
 (let ( (balance (- requested returned)) )
    (enforce (<= amount request-limit)
-   (format "{} exceeds the account’s per-request limit, which is {}"       
+   (format "{} exceeds the account’s per-request limit, which is {}"
      [ amount request-limit ]))
 ```
 
@@ -384,7 +394,7 @@ We can also ensure that transferring the requested amount would not result in ex
 
 ```clojure
 (enforce (<= (+ amount balance) account-limit)
-  (format "{} would exceed the account’s total limit ({} remains of    {} total)" 
+  (format "{} would exceed the account’s total limit ({} remains of    {} total)"
     [ amount (- account-limit balance) account-limit ]))
 ```
 
@@ -429,26 +439,26 @@ The second property test verifies that if this transaction succeeded, then the a
 ```clojure
 @model
  [ (property faucet-authorized)
-   (property (= new-limit (at "request-limit" 
+   (property (= new-limit (at "request-limit"
      (read accounts account   "after"))))
  ]
 ```
 
 The primary way to enforce a condition in a function is the `(enforce)` function. However, we can also put enforcement logic into a capability. A function can only acquire that capability via `(with-capability)` if the enforcement checks in the capability succeed. Capabilities are the best tool to reach for when you want to pass a transaction only if it was signed with particular keys; in our case, we have a (`SET_LIMIT`) capability that enforces that the `"free.goliath-faucet-keyset"` keyset must be satisfied in order for the `SET_LIMIT` capability to be granted.
 
-Since we want the (`set-request-limit`) to be only called by the faucet account, the SET_LIMIT capability is the perfect way to restrict access to this function. To see an example of how to sign a transaction with this capability, please refer to the [faucet.repl](https://github.com/thomashoneyman/real-world-pact/blob/main/01-faucet-contract/faucet.repl) file or the [set-user-request-limit.yaml request file](https://github.com/thomashoneyman/real-world-pact/blob/main/01-faucet-contract/yaml/send/set-user-request-limit.yaml).
+Since we want the (`set-request-limit`) to be only called by the faucet account, the SET_LIMIT capability is the perfect way to restrict access to this function. To see an example of how to sign a transaction with this capability, please refer to the [faucet.repl](https://github.com/thomashoneyman/real-world-pact/blob/main/01-faucet-contract/faucet.repl) file or the [set-user-request-limit.yaml request file](https://github.com/thomashoneyman/real-world-pact/blob/main/01-faucet-contract/request/send/set-user-request-limit.yaml).
 
 We used (with-default-read) before because we wanted to provide a fallback value in case the account had never requested funds before. This function is different: it should not be possible to update the limits for an account that hasn’t yet requested anything. `(with-read)` will fail the transaction if the given account does not exist in the table, and read the row otherwise. [#with-read](https://pact-language.readthedocs.io/en/stable/pact-functions.html#with-read)
 
 Note that when using `(with-read)` it is not necessary to bind variables to every column in the table. You can just use the columns you want.
 
 ```clojure
-(with-capability (SET_LIMIT)      
-  (with-read accounts account { 
-     "account-limit" := old-account-limit }        
-    (enforce (> new-limit old-account-limit)          
-      (format "The new account limit {} must be a value greater than the old limit ({})" 
-        [ new-limit, old-account-limit ]))        
+(with-capability (SET_LIMIT)
+  (with-read accounts account {
+     "account-limit" := old-account-limit }
+    (enforce (> new-limit old-account-limit)
+      (format "The new account limit {} must be a value greater than the old limit ({})"
+        [ new-limit, old-account-limit ]))
     (update accounts account { "account-limit": new-limit }))))
 ```
 
@@ -463,40 +473,40 @@ free.goliath-faucet.set-account-limit
 The `(set-account-limit)` function is almost identical to the `(set-request-limit)` function, just targeting a different field.
 
 ```clojure
-(defun set-account-limit:string (account:string new-limit:decimal)  
-  @doc "Set a new per-account limit for requesting funds from   \      
-  \ the faucet."    
-  @model      
-    [ (property faucet-authorized)        
-      (property (= new-limit 
-        (at "account-limit" (read accounts account "after"))))        
-    ]     
-  (with-capability (SET_LIMIT)      
-    (with-read accounts account { 
-      "account-limit" := old-account-limit 
-    }        
-      (enforce (> new-limit old-account-limit)          
-        (format "The new account limit {} must be a value greater than the old limit ({})" 
-          [ new-limit, old-account-limit ]))  
+(defun set-account-limit:string (account:string new-limit:decimal)
+  @doc "Set a new per-account limit for requesting funds from   \
+  \ the faucet."
+  @model
+    [ (property faucet-authorized)
+      (property (= new-limit
+        (at "account-limit" (read accounts account "after"))))
+    ]
+  (with-capability (SET_LIMIT)
+    (with-read accounts account {
+      "account-limit" := old-account-limit
+    }
+      (enforce (> new-limit old-account-limit)
+        (format "The new account limit {} must be a value greater than the old limit ({})"
+          [ new-limit, old-account-limit ]))
       (update accounts account { "account-limit": new-limit }))))
 ```
 
 Our next function is a little helper that lets users look up their account limits from our table. Remember: tables cannot be accessed outside your module for security reasons. If you want to provide access to specific data, write a function that performs the table read.
 
-```free.goliath-faucet.get-limits```
+`free.goliath-faucet.get-limits`
 
 ```clojure
 (defun get-limits:object (account:string)
   @doc "Read the limits for your account and see how much KDA you can request."
-  (with-read accounts account { 
+  (with-read accounts account {
      "account-limit" := account-limit
    , "request-limit" := request-limit
    , "funds-requested" := requested
    , "funds-returned" := returned
-   } { 
+   } {
      "account-limit": account-limit
    , "request-limit": request-limit
-   , "account-limit-remaining": 
+   , "account-limit-remaining":
        (- account-limit (- requested  returned))
    }
  ))
@@ -504,7 +514,7 @@ Our next function is a little helper that lets users look up their account limit
 
 Our final function allows users to transfer funds back to the faucet account and credit it against their account limit. The property tests, enforcements, table reads and writes, and let bindings should start looking familiar!
 
-```free.goliath-faucet.return-funds```
+`free.goliath-faucet.return-funds`
 
 ```clojure
 (defun return-funds:string (account:string amount:decimal)
@@ -514,11 +524,11 @@ Our final function allows users to transfer funds back to the faucet account and
      (property (= amount (column-delta accounts “funds-returned”)))
    ]
    (enforce (> amount 0.0) “Amount must be greater than 0.0”)
-   (with-read accounts account { 
+   (with-read accounts account {
      “funds-requested” := requested
-   , “funds-returned” := returned 
-   } 
-   (let ((balance (- requested returned )) 
+   , “funds-returned” := returned
+   }
+   (let ((balance (- requested returned ))
          (new-returned (+ returned amount )) )
 ```
 
@@ -530,7 +540,7 @@ We didn’t implement a property for this because our table invariants already v
     [ amount balance ]))
 ```
 
-Next, we transfer from the user account to the faucet account. To transfer funds from the user to the faucet account the user must have signed the transaction and scoped their signature to the (coin.TRANSFER) capability. For examples, please see the [faucet.repl](https://github.com/thomashoneyman/real-world-pact/blob/main/01-faucet-contract/faucet.repl) file and the [return-funds.yaml](https://github.com/thomashoneyman/real-world-pact/blob/main/01-faucet-contract/yaml/send/return-funds.yaml) request file.
+Next, we transfer from the user account to the faucet account. To transfer funds from the user to the faucet account the user must have signed the transaction and scoped their signature to the (coin.TRANSFER) capability. For examples, please see the [faucet.repl](https://github.com/thomashoneyman/real-world-pact/blob/main/01-faucet-contract/faucet.repl) file and the [return-funds.yaml](https://github.com/thomashoneyman/real-world-pact/blob/main/01-faucet-contract/request/send/return-funds.yaml) request file.
 
 ```clojure
 (coin.transfer account FAUCET_ACCOUNT amount)
@@ -539,6 +549,7 @@ Next, we transfer from the user account to the faucet account. To transfer funds
 ```
 
 ## Initialization
+
 At this point we’ve established our smart contract: we entered a namespace, defined a keyset, and implemented a module. Now it’s time to initialize data.
 
 For a typical smart contract, that simply means creating any tables we defined in the contract. However, more complex contracts may perform other steps, such as calling functions from the module.
