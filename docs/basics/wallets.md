@@ -30,14 +30,14 @@ The desktop edition has a signing API to interact with dApps on Kadena Chainweb.
 
 ### Koala Wallet
 
-Your Passport to the Kadena Ecosystem. 
+Your Passport to the Kadena Ecosystem.
 Koala Wallet makes it easier than ever to buy, send, receive, and safely store your Kadena.
 
 [Koalawallet.io](https://koalawallet.io)
 
 [Android and iOS](https://koalawallet.io/download)
 
-[Support](https://support.koalawallet.io/hc/en-us)
+[Support](https://support.koalawallet.io)
 
 [Security](https://koalawallet.io/security)
 
@@ -62,6 +62,3 @@ Within eckoWallet you are able to send and receive assets, execute cross-chain t
 [Android](https://play.google.com/store/apps/details?id=com.xwallet.mobile)
 
 [iOS](https://apps.apple.com/us/app/x-wallet-by-kaddex/id1632056372)
-
-
-

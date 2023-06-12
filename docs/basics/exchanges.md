@@ -25,25 +25,23 @@ When withdrawing from exchanges or transferring KDA, be sure to follow the k:acc
 
 Here is a summary of notable features regarding the exchanges that support KDA, for informational purposes only.
 
-
 ### [Binance](https://www.binance.com)
 
 - Official KDA exchange
-- Accessible to non-US residents 
+- Accessible to non-US residents
 - KYC required
-- Supports deposits of KDA in all 20 chains (chain 0 to chain 19). 
+- Supports deposits of KDA in all 20 chains (chain 0 to chain 19).
 - When withdrawing KDA, Binance will transfer your KDA to your Chain 2 address.
-- Withdrawal Fee: 0.1 KDA 
+- Withdrawal Fee: 0.1 KDA
 
 ### [Gate](https://www.gate.io)
 
 - Official KDA exchange
-- Accessible globally 
+- Accessible globally
 - KYC required
-- Supports deposits of KDA in all 20 chains (chain 0 to chain 19). 
+- Supports deposits of KDA in all 20 chains (chain 0 to chain 19).
 - When withdrawing KDA, Gate will transfer your KDA to your Chain 1 address.
-- Withdrawal Fee: 1 KDA 
-
+- Withdrawal Fee: 1 KDA
 
 ### [OKX](https://www.okx.com/)
 
@@ -80,8 +78,6 @@ Here is a summary of notable features regarding the exchanges that support KDA, 
 - Supports transfers on Chain ID 0 only
 - Withdrawal Fee: 0.1 KDA
 
-### [HotBit](https://www.hotbit.io)
-
 - Unofficial KDA exchange
 - Accessible globally
 - KYC not required
@@ -89,6 +85,7 @@ Here is a summary of notable features regarding the exchanges that support KDA, 
 - Withdrawal Fee: 2 KDA
 
 ### [Coinex](https://www.coinex.com)
+
 - Unofficial KDA exchange
 - Accessible globally
 - KYC not required
