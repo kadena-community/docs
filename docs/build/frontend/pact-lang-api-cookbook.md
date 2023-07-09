@@ -82,7 +82,7 @@ async function createAccount(newAccount) {
     },
     meta: {
       creationTime: creationTime(),
-      ttl: 28000,
+      ttl: 600,
       gasLimit: 600,
       chainId: CHAIN_ID,
       gasPrice: 0.0000001,
@@ -165,7 +165,7 @@ async function transferCreate(sender, newAccount, amount) {
     },
     meta: {
       creationTime: creationTime(),
-      ttl: 28000,
+      ttl: 600,
       gasLimit: 600,
       chainId: CHAIN_ID,
       gasPrice: 0.0000001,
@@ -245,7 +245,7 @@ async function rotate(account, newKey) {
     },
     meta: {
       creationTime: creationTime(),
-      ttl: 28000,
+      ttl: 600,
       gasLimit: 600,
       chainId: CHAIN_ID,
       gasPrice: 0.0000001,
@@ -307,7 +307,7 @@ async function getBalance(account) {
     envData: {},
     meta: {
       creationTime: creationTime(),
-      ttl: 28000,
+      ttl: 600,
       gasLimit: 600,
       chainId: CHAIN_ID,
       gasPrice: 0.0000001,
@@ -382,7 +382,7 @@ async function deployContract() {
     envData: {},
     meta: {
       creationTime: creationTime(),
-      ttl: 28000,
+      ttl: 600,
       gasLimit: 65000,
       chainId: CHAIN_ID,
       gasPrice: 0.000001,
@@ -427,7 +427,7 @@ async function getState() {
     pactCode: `(coin.details "${account}")`,
     meta: {
       creationTime: creationTime(),
-      ttl: 28000,
+      ttl: 600,
       gasLimit: 20,
       gasPrice: 0,
       chainId: CHAIN_ID,
