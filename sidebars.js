@@ -51,6 +51,16 @@ const sidebars = {
               id: "basics/chainweaver/terms-of-service",
             },
           ],
+        },{
+          type: "category",
+          label: "Ledger",
+          items: [
+            {
+              type: "doc",
+              label: "User Guide",
+              id: "basics/ledger/ledger-user-guide",
+            },
+          ],
         },
       ],
     },
