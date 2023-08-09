@@ -12,6 +12,7 @@ import TabItem from '@theme/TabItem';
 KDA custody tools for desktop and mobile, with support guides to get you started.
 
 ---
+## Software Wallets
 
 ### Chainweaver
 
@@ -62,3 +63,12 @@ Within eckoWallet you are able to send and receive assets, execute cross-chain t
 [Android](https://play.google.com/store/apps/details?id=com.xwallet.mobile)
 
 [iOS](https://apps.apple.com/us/app/x-wallet-by-kaddex/id1632056372)
+
+## hardware Wallets
+
+### Ledger
+
+In the ever-evolving landscape of digital assets, safeguarding your investments has never been more crucial. 
+Designed with cutting-edge technology and fortified with multi-layered security features, 
+the Ledger Hardwallet stands as a formidable fortress for your cryptocurrencies. With its sleek and compact design, 
+this hardware wallet offers a seamless user experience, empowering you with complete control over your digital wealth while keeping it safe from online threats. 
