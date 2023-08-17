@@ -21,10 +21,10 @@ Before You Start, Make Sure:
 - The latest version of the [Kadena Ledger app](https://github.com/ledgerhq/app-kadena) is installed.
 
 ### Installing the Kadena App
-- Open the Manager in Ledger Live.
+- Open the My Ledger in Ledger Live.
 - Connect and unlock your Ledger device.
-- If asked, follow the onscreen instructions and “Allow Ledger Manager”.
-- Find the Kadena app from the Manager catalog.
+- If asked, follow the onscreen instructions and “Allow My Ledger”.
+- Find the Kadena app from the My Ledger catalog.
 - Click the Install button.
     - An installation window will appear.
     - Your device will display Processing…
