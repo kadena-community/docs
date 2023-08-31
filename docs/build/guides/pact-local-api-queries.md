@@ -74,6 +74,5 @@ And voilá! You have your balance.
 The community has provided some wonderful scripts to automate this process, and more are always welcome. Especially if they are robust. Here are a few:
 
 - [@jwiegley](https://github.com/jwiegley)'s script can be seen [here](https://discordapp.com/channels/502858632178958377/638740469127446538/639926087090044960)
-- [@emilypi](https://github.com/emilypi)'s [`pact-local`](https://gist.github.com/emilypi/2afe3a1e60fe182a925caee916db46ba) bash script
 
 More are welcome. Make sure to ping us when you come up with something so we can add it to the Pact script hall of fame!
