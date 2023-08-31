@@ -18,6 +18,14 @@ Welcome to Kadena's documentation!
 
 Don't forget to follow us on [Twitter](https://twitter.com/kadena_io) for the latest updates.&#x20;
 
+## Get started
+
+<PageRef url="build/guides/a-step-by-step-guide-to-writing-pact-smart-contract" pageName="A Step-By-Step Guide to Writing Pact Smart Contract" />
+<PageRef url="build/guides/marmalade-tutorial" pageName="Marmalade Tutorial" />
+<PageRef url="build/guides/building-a-voting-dapp" pageName="Building a voting dApp" />
+<PageRef url="build/guides/safe-rotate-and-drain" pageName="Safe Rotate and Drain" />
+<PageRef url="build/guides/safe-transfer" pageName="Safe Transfer" />
+
 ## General
 
 <PageRef url="basics/overview" pageName="Overview of Kadena" />
