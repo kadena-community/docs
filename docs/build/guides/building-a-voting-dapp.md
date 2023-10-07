@@ -771,24 +771,31 @@ Next step is to fund your `testnet` account using this [faucet](http://faucet.te
 Here's a snippet that you can use to list all deployed modules by using the top-level `list-modules` built-in function:
 
 ```javascript
-const { PactCommand } = require('@kadena/client');
+const { Pact, getClient } = require('@kadena/client');
 const { createExp } = require('@kadena/pactjs');
 
 const NETWORK_ID = 'testnet04';
 const CHAIN_ID = '1';
 const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
 
-listModules();
-
 async function listModules() {
-  const pactCommand = new PactCommand();
-  const publicMeta = { chainId: CHAIN_ID, gasLimit: 6000, gasPrice: 0.001, ttl: 600 };
-  pactCommand.code = createExp('list-modules');
-  pactCommand.setMeta(publicMeta, NETWORK_ID);
+  const transaction = Pact.builder
+    .execution(createExp('list-modules'))
+    .setMeta({
+      chainId: CHAIN_ID,
+      gasLimit: 6000,
+      gasPrice: 0.001,
+      ttl: 600,
+    })
+    .setNetworkId(NETWORK_ID)
+    .createTransaction();
 
-  const response = await pactCommand.local(API_HOST);
+  const client = getClient(API_HOST);
+  const response = await client.local(transaction, { preflight: false });
   console.log(response.result.data);
 }
+
+listModules();
 ```
 
 :::
@@ -803,12 +810,17 @@ Now we can install the dependencies and deploy the contract:
 
 ```bash
 npm init -y
-npm install @kadena/client @kadena/chainweb-node-client --save
+npm install @kadena/client --save
 ```
 
 ```js
-const { PactCommand, signWithChainweaver } = require('@kadena/client');
 const fs = require('fs');
+const {
+  Pact,
+  getClient,
+  signWithChainweaver,
+  isSignedCommand,
+} = require('@kadena/client');
 
 const NETWORK_ID = 'testnet04';
 const CHAIN_ID = '1';
@@ -819,30 +831,35 @@ const PUBLIC_KEY = 'some-public-key';
 
 const pactCode = fs.readFileSync(CONTRACT_PATH, 'utf8');
 
-deployContract(pactCode);
-
 async function deployContract(pactCode) {
-  const publicMeta = {
-    ttl: 28000,
-    gasLimit: 100000,
-    chainId: CHAIN_ID,
-    gasPrice: 0.000001,
-    sender: ACCOUNT_NAME, // the account paying for gas
-  };
-  const pactCommand = new PactCommand()
-    .setMeta(publicMeta, NETWORK_ID)
-    .addCap('coin.GAS', PUBLIC_KEY)
-    .addData({
-      'election-admin-keyset': [PUBLIC_KEY],
-      upgrade: false,
-    });
-  pactCommand.code = pactCode;
+  const transaction = Pact.builder
+    .execution(pactCode)
+    .addData('election-admin-keyset', [PUBLIC_KEY])
+    .addData('upgrade', false)
+    .setMeta({
+      chainId: CHAIN_ID,
+      gasLimit: 100000,
+      gasPrice: 0.000001,
+      ttl: 28000,
+      sender: ACCOUNT_NAME, // the account paying for gas
+    })
+    .addSigner(PUBLIC_KEY, (withCapability) => [withCapability('coin.GAS')])
+    .setNetworkId(NETWORK_ID)
+    .createTransaction();
 
-  const signedTransaction = await signWithChainweaver(pactCommand);
+  const signedTransaction = await signWithChainweaver(transaction);
 
-  const response = await signedTransaction[0].send(API_HOST);
-  console.log(response);
+  if (!isSignedCommand(signedTransaction)) {
+    throw Error('Failed to sign');
+  }
+
+  const client = getClient(API_HOST);
+
+  const [requestKey] = await client.submit(signedTransaction);
+  console.log(`Sumibtted: ${requestKey}`);
 }
+
+deployContract(pactCode);
 ```
 
 Make sure to replace `ACCOUNT_NAME` and the `PUBLIC_KEY` with the ones in your local chainweaver. Also ensure the
@@ -850,7 +867,7 @@ Make sure to replace `ACCOUNT_NAME` and the `PUBLIC_KEY` with the ones in your l
 
 ```shell
 $ node ./deploy-testnet.js
-{ requestKeys: [ 'SufG_mxEf3GZcbgxtjLbfMPgBuShuk3MMK_T5uoB0QM' ] }
+Sumibtted: SufG_mxEf3GZcbgxtjLbfMPgBuShuk3MMK_T5uoB0QM
 ```
 
 ### Frontend
@@ -862,7 +879,7 @@ Start by adding the required libraries from [Kadena.js](https://github.com/kaden
 
 ```bash
 npm init -y
-npm install @kadena/client @kadena/chainweb-node-client --save
+npm install @kadena/client --save
 ```
 
 #### Typescript
@@ -870,8 +887,7 @@ npm install @kadena/client @kadena/chainweb-node-client --save
 The Kadena.js team has created libraries that allow Javascript/Typescript users to easily interact with the Kadena Blockchain. Also there's a commandline tool `pactjs-cli` that allows generation of types from pact contracts, which we're going to make use of in this tutorial. Let's first add the required libraries to your project.
 
 ```bash
-npm install typescript @kadena/types --save-dev
-npm install @kadena/pactjs-cli -g
+npm install @kadena/pactjs-cli --save-dev
 ```
 
 Create a `tsconfig.json` file in the root of the frontend folder and paste in the following JSON:
@@ -891,14 +907,18 @@ Create a `tsconfig.json` file in the root of the frontend folder and paste in th
 }
 ```
 
-From the root of the frontend folder, use the following commands to generate types for our `election`,
-`election-gas-station` and `coin` contracts. Generating types for the `coin` contract is necessary, because when paying
-for gas we use the `coin.GAS` capability from the coin contract.
+From the root of the frontend folder, use the following commands to generate types for our `election`. The easiest way is to add it as a script in your `package.json`.
+
+```js
+"scripts": {
+  "generate-pact": "pactjs contract-generate --contract free.election --chain 1 --network testnet --api https://api.testnet.chainweb.com/chainweb/0.0/testnet04/chain/1/pact"
+}
+```
+
+And then run the script.
 
 ```bash
-npx pactjs contract-generate --file ../pact/election.pact;
-npx pactjs contract-generate --file ../pact/election-gas-station.pact;
-npx pactjs contract-generate --file ../pact/root/coin-v5.pact
+npm run generate-pact
 ```
 
 The log shows what has happened. Inside the `node_modules` directory, a new package has been created: `.kadena/pactjs-generated`. This package is extending the @kadena/client types to give you type information. Make sure to add `"types": [".kadena/pactjs-generated"]` to your tsconfig.json.
@@ -921,19 +941,21 @@ have been deployed to **_testnet chain 0_** and **_testnet chain 1_**.
 
 #### Read Data
 
-For this demo application we would like to display the number of votes that each candidate received. To do that we have to call the `get-votes` function from our `election` module. Here's what that looks like:
+For this demo application we would like to display the number of votes that each candidate received. To do that we have to call the `getVotes` function from our `election` module. Here's what that looks like:
 
 ```js
 // ./api.ts
 
-import { Pact, signWithChainweaver } from '@kadena/client'
-import { pollTransactions } from './utils'
+import {
+  Pact,
+  getClient,
+  isSignedCommand,
+  signWithChainweaver,
+} from "@kadena/client";
 
 const NETWORK_ID = 'testnet04'
 const CHAIN_ID = '1'
 const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`
-
-const accountKey = (account: string): string => account.split(':')[1]
 
 /**
  * Return the amount of votes a candidate has received
@@ -941,15 +963,21 @@ const accountKey = (account: string): string => account.split(':')[1]
  * @param candidateId - The candidate's id
  * @return the number of votes
  */
-export const getVotes = async (candidateId: string): Promise<number> => {
-  const transactionBuilder = Pact.modules['free.election']['get-votes'](candidateId)
-  const { result } = await transactionBuilder.local(API_HOST)
+const getVotes = async (candidateId: string): Promise<number> => {
+  const transaction = Pact.builder
+    .execution(Pact.modules["free.election"]["getVotes"](candidateId))
+    .setMeta({ chainId: CHAIN_ID })
+    .setNetworkId(NETWORK_ID)
+    .createTransaction();
 
-  if (result.status === 'success') {
-    return result.data.valueOf() as number
+  const client = getClient(API_HOST);
+  const { result } = await client.local(transaction, { preflight: false });
+
+  if (result.status === "success") {
+    return result.data.valueOf() as number;
   } else {
-    console.log(result.error)
-    return 0
+    console.log(result.error);
+    return 0;
   }
 }
 ```
@@ -991,34 +1019,47 @@ In the snippet below we are constructing a transaction that calls the `free.elec
  * @param candidateId - The candidateId that is being voted for
  * @return
  */
-export const vote = async (account: string, candidateId: string): Promise<void> => {
-  const transactionBuilder = Pact.modules['free.election']
-    .vote(account, candidateId)
-    .addCap('coin.GAS', accountKey(account))
-    .addCap('free.election.ACCOUNT-OWNER', accountKey(account), account)
-    .setMeta(
-      {
-        ttl: 28000,
-        gasLimit: 100000,
-        chainId: CHAIN_ID,
-        gasPrice: 0.000001,
-        sender: account,
-      },
-      NETWORK_ID
-    );
+export const vote = async (
+  account: string,
+  candidateId: string
+): Promise<void> => {
+  const transaction = Pact.builder
+    // ['get-votes'] on chain 0, getVotes on chain 1
+    .execution(Pact.modules['free.election'].vote(account, candidateId))
+    .addSigner(accountKey(account), (withCapability) => [
+      withCapability('coin.GAS'),
+      withCapability('free.election.ACCOUNT-OWNER', account),
+    ])
+    .setMeta({
+      ttl: 28000,
+      gasLimit: 100000,
+      chainId: CHAIN_ID,
+      gasPrice: 0.000001,
+      sender: account,
+    })
+    .setNetworkId(NETWORK_ID)
+    .createTransaction();
 
-  const signedTransaction = await signWithChainweaver(transactionBuilder);
+  const signed = await signWithChainweaver(transaction);
 
-  console.log(`Sending transaction: ${signedTransaction[0].code}`);
-  const response = await signedTransaction[0].send(API_HOST);
+  if (!isSignedCommand(signed)) {
+    return console.log('Failed to sign transaction');
+  }
+
+  console.log(`Sending transaction: ${signed.cmd}`);
+  const client = getClient(API_HOST);
+  const response = await client.submit(signed);
 
   console.log('Send response: ', response);
-  const requestKey = response.requestKeys[0];
-  await pollTransactions([requestKey], API_HOST);
+  const requestKey = response[0];
+
+  console.log('Polling status...');
+  const status = await client.pollStatus(requestKey);
+  console.log(`Polled ${requestKey}.\nStatus: ${JSON.stringify(status)}`);
 };
 ```
 
-Notice the `addCap` function where we define the capabilities that the user's keyset will have to sign. In this case we have two:
+Notice the `addSigner` function where we define the capabilities that the user's keyset will have to sign. In this case we have two:
 
 - `coin.GAS` -> enables the payment of gas fees
 - `free.election.ACCOUNT-OWNER` -> checks if the user is the owner of the KDA account
@@ -1036,7 +1077,7 @@ Lastly, to get the result of a transaction we are using the `pollTransactions` h
 To run the frontend dApp, go to the frontend folder and run:
 
 ```shell
-npm run start
+npm run dev
 ```
 
 Going back to the UI, we implemented this signing flow using a modal window where users have to enter their KDA account. Once the account is entered and the user hasn't voted yet the **Vote Now** button will become available. Clicking on the **Vote Now** button will automatically open the Chainweaver signing wizard.
