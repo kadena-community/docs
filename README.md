@@ -1,3 +1,6 @@
+This documentation has been superceeded; please see docs.kadena.io for latest docs and link to the repository.
+https://github.com/kadena-community/kadena.js/tree/main/packages/apps/docs is the current (Oct 17th 2023) home of the new docs.
+
 # Kadena Documentation
 
 Welcome to the technical documentation site for the Kadena!
